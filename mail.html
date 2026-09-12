@@ -29,7 +29,7 @@
     .detail-head { background: var(--surface2, #f8f9fa); padding: 12px 16px; border-bottom: 1px solid var(--border, #dfe4ea); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .detail-back { height: 30px; padding: 0 12px; background: none; border: 1px solid var(--border, #dfe4ea); border-radius: 5px; font-size: 12px; color: var(--text2, #555); cursor: pointer; transition: background 0.15s; flex-shrink: 0; }
     .detail-back:hover { background: var(--bg, #f1f2f6); }
-    .detail-cat-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: #eef0ff; color: #3742fa; flex-shrink: 0; }
+    .detail-cat-badge { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: #eef0ff; color: var(--accent); flex-shrink: 0; }
     .detail-title { font-size: 15px; font-weight: 700; min-width: 0; color: var(--text, #2f3542); }
     .detail-title-wrap { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; overflow: hidden; }
     .detail-note { font-size: 11px; color: var(--text3, #888); flex-shrink: 0; white-space: nowrap; background: var(--surface, #fff); border: 1px solid var(--border, #dfe4ea); border-radius: 20px; padding: 2px 9px; }
@@ -39,6 +39,13 @@
     .subject-text { font-size: 14px; font-weight: 600; color: var(--text, #2f3542); flex: 1; word-break: break-all; }
     .body-wrap { background: var(--surface2, #f8f9fa); border: 1px solid var(--border, #dfe4ea); border-radius: 7px; padding: 14px 16px; }
     .body-text { font-size: 13px; line-height: 1.85; color: var(--text, #2f3542); white-space: pre-wrap; word-break: break-all; }
+    /* 管理画面で付けた書式をそのまま表示する */
+    .body-text s { text-decoration: line-through; }
+    .body-text u { text-decoration: underline; }
+    .body-text img { max-width: 100%; height: auto; }
+    .body-text table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 12px; white-space: normal; }
+    .body-text th, .body-text td { border: 1px solid var(--text3); padding: 5px 8px; vertical-align: top; }
+    .body-text th { background: var(--surface2); font-weight: 700; text-align: left; }
 
     /* コピーボタン付きフィールド */
     .field-copy-row { display: flex; align-items: flex-start; gap: 8px; }
@@ -50,7 +57,7 @@
       font-size: 11px; font-family: inherit; cursor: pointer; white-space: nowrap;
       transition: background .12s, border-color .12s;
     }
-    .copy-btn:hover { background: var(--accent-lt, #eef0ff); border-color: var(--accent, #3742fa); color: var(--accent, #3742fa); }
+    .copy-btn:hover { background: var(--accent-lt, #eef0ff); border-color: var(--accent, var(--accent)); color: var(--accent, var(--accent)); }
     .copy-btn.copied { background: #e8f5e9; border-color: #4caf50; color: #388e3c; }
     .copy-toast-inline { font-size: 10px; color: #4caf50; text-align: center; opacity: 0; transition: opacity .2s; }
     .copy-toast-inline.show { opacity: 1; }
@@ -95,15 +102,16 @@
     .mail-extra-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--border, #dfe4ea); }
     .form-row { display: flex; flex-direction: column; gap: 6px; }
     .form-row select { height: 34px; padding: 0 10px; border: 1px solid var(--border, #dfe4ea); border-radius: 6px; font-size: 12px; font-family: inherit; color: var(--text, #2f3542); background: var(--surface, white); cursor: pointer; transition: border-color 0.15s; }
-    .form-row select:focus { outline: none; border-color: #3742fa; }
+    /* 他ページと同じアクセント色にそろえる（ダークモードでも見える） */
+.form-row select:focus { outline: none; border-color: var(--accent); }
     .form-row input[type="text"] { height: 34px; padding: 0 10px; border: 1px solid var(--border, #dfe4ea); border-radius: 6px; font-size: 12px; font-family: inherit; color: var(--text, #2f3542); width: 100%; background: var(--surface, white); transition: border-color 0.15s; }
-    .form-row input[type="text"]:focus { outline: none; border-color: #3742fa; }
+    .form-row input[type="text"]:focus { outline: none; border-color: var(--accent); }
     .extra-check-label { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text, #2f3542); cursor: pointer; padding: 4px 0; }
-    .extra-check-label input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; accent-color: #3742fa; flex-shrink: 0; }
+    .extra-check-label input[type="checkbox"] { width: 15px; height: 15px; cursor: pointer; accent-color: var(--accent); flex-shrink: 0; }
     .mail-extra-summary { background: var(--accent-lt, #f0f4ff); border: 1px solid #c5cee8; border-radius: 6px; padding: 10px 12px; }
     .extra-summary-inner { display: flex; flex-wrap: wrap; gap: 6px; }
     .extra-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-    .extra-tag-domain { background: #dfe6ff; color: #3742fa; }
+    .extra-tag-domain { background: #dfe6ff; color: var(--accent); }
     .extra-tag-check  { background: #fff3cd; color: #856404; }
 
     @media (prefers-color-scheme: dark) {
@@ -139,11 +147,12 @@
 <header>
   <div class="hd-left">
     <button id="menuBtn" onclick="toggleSideMenu()">☰</button>
-    <button class="hd-title hd-title-btn" onclick="goHome()" title="ホームへ戻る">✉️ メールテンプレート</button>
+    <button class="header-title hd-title-btn" onclick="goHome()" title="ホームへ戻る">✉️ メールテンプレート</button>
     <button class="help-circle-btn" onclick="openHelpModal()" title="使い方マニュアル">?</button>
   </div>
   <div class="hd-center"></div>
   <div class="hd-right">
+    <button class="nav-btn" onclick="openNamedTab('FAQ.html','faqTab')">❓ FAQ</button>
     <button class="hd-btn" onclick="openNamedTab('script.html','scriptTab')">📋 スクリプト</button>
     <!-- メール：自ページのため非表示 -->
     <button class="hd-btn" onclick="openNamedTab('screen.html','screenFlowTab')">🖥️ 画面遷移</button>
@@ -167,7 +176,7 @@
     <div class="sidebar-top" id="mailSidebarTop">📂 コンテンツ一覧</div>
     <div class="sidebar-scroll" id="sidebarEl"></div>
   </div>
-  <div class="main-area" id="mainArea"></div>
+  <div class="main-area" id="mainArea" data-linkify="1"></div>
 </div>
 
 <div id="toast"></div>
@@ -241,7 +250,7 @@ function getCats() {
   templates.forEach(t => {
     if (!seen.has(t.catKey)) {
       seen.add(t.catKey);
-      out.push({ key: t.catKey, name: t.category || '', color: t.catColor || '#3742fa' });
+      out.push({ key: t.catKey, name: t.category || '', color: t.catColor || 'var(--accent)' });
     }
   });
   return out;
@@ -417,7 +426,9 @@ function showDetail(id) {
         <div>
           <div class="field-label">本文</div>
           <div class="body-wrap">
-            <div class="body-text">${esc(t.body||'')}</div>
+            <div class="body-text" data-linkify="${t.linkify === false ? '0' : '1'}">${
+              t.bodyHtml ? sanitizeMail(t.bodyHtml) : esc(t.body||'')
+            }</div>
           </div>
         </div>
       </div>
@@ -573,6 +584,42 @@ document.addEventListener('click', (e) => {
 });
 
 // ===== UTILS =====
+/**
+ * 管理画面で付けた書式をそのまま表示する。
+ * 許可したタグ・属性だけを残し、それ以外は取り除く。
+ */
+var MAIL_ALLOW = /^(b|strong|i|em|u|s|strike|br|span|div|p|ul|ol|li|font|img|table|thead|tbody|tr|th|td)$/i;
+
+function sanitizeMail(html) {
+  var box = document.createElement('div');
+  box.innerHTML = String(html == null ? '' : html);
+  (function walk(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+      if (c.nodeType !== 1) return;
+      if (!MAIL_ALLOW.test(c.tagName)) {
+        while (c.firstChild) node.insertBefore(c.firstChild, c);
+        node.removeChild(c);
+        return;
+      }
+      var isImg = c.tagName.toLowerCase() === 'img';
+      Array.prototype.slice.call(c.attributes).forEach(function (a) {
+        if (isImg) {
+          if (a.name === 'alt') return;
+          if (a.name === 'src' && /^data:image\//i.test(a.value)) return;
+          c.removeAttribute(a.name);
+          return;
+        }
+        if (a.name === 'colspan' || a.name === 'rowspan') return;
+        if (a.name === 'style' && /color\s*:/i.test(a.value)) return;
+        c.removeAttribute(a.name);
+      });
+      if (isImg && !c.getAttribute('src')) { node.removeChild(c); return; }
+      walk(c);
+    });
+  })(box);
+  return box.innerHTML;
+}
+
 function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }

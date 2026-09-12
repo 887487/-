@@ -20,6 +20,7 @@
   <div class="hd-center"></div>
   <div class="hd-right">
     <!-- スクリプト：自ページのため非表示 -->
+    <button class="nav-btn" onclick="openNamedTab('FAQ.html','faqTab')">❓ FAQ</button>
     <button class="nav-btn" onclick="openNamedTab('mail.html','mailTab')">✉️ メール</button>
     <button class="nav-btn" onclick="openNamedTab('screen.html','screenFlowTab')">🖥️ 画面遷移</button>
     <div class="quick-copy-area">
@@ -27,7 +28,7 @@
       <div class="quick-menu" id="quickMenu"></div>
       <div class="quick-copy-toast" id="quickCopyToast"></div>
     </div>
-    <div class="search-area">
+    <div class="search-wrap">
       <input type="text" id="searchBox" placeholder="スクリプト検索（タイトル・本文）" autocomplete="off">
       <button id="clearBtn">×</button>
       <div id="suggestBox"></div>
@@ -52,28 +53,14 @@
     <!-- オープニングトーク（常時表示） -->
     <div class="opening">
       <div class="opening-title">オープニングトーク</div>
-      <div class="opening-text">お電話 ありがとうございます。NHKONE窓口 担当●●でございます。</div>
+      <!-- 文言は admin.html の「固定テキスト」で編集する（JS が流し込む） -->
+      <div class="opening-text" id="openingText"></div>
     </div>
 
     <!-- スクリプト表示エリア（JSが描画。クロージングも対応完了時にここに含まれる） -->
-    <div id="contentArea"></div>
+    <div id="contentArea" data-linkify="1"></div>
   </main>
 
-  <!-- 右サイドパネル：ヒアリングチェックシート -->
-  <div id="hearingPanel" class="hearing-panel">
-    <button id="hearingToggleBtn" class="hearing-toggle-btn" onclick="toggleHearingPanel()" title="ヒアリングチェックシート">＜</button>
-    <div class="hearing-panel-body">
-      <div class="hearing-header">
-        <span class="hearing-title">ヒアリングチェックシート</span>
-        <div class="hearing-header-btns">
-          <button class="hearing-copy-btn" onclick="copyHearingText()" title="ヒアリング内容をコピー">📋 コピー</button>
-          <button class="hearing-reset-btn" onclick="resetHearing()">リセット</button>
-        </div>
-      </div>
-      <div id="hearingCopyToast" class="hearing-copy-toast"></div>
-      <div class="hearing-content" id="hearingContent"></div>
-    </div>
-  </div>
 </div>
 
 <!-- サイドバーホバー時のコンテンツプレビュー用フローティングTooltip -->
@@ -159,6 +146,31 @@
 </div>
 
 <script src="app.js"></script>
+
+<!-- 固定文言（オープニング）を反映。データ読み込み後にも更新する -->
+<script>
+  (function () {
+    function apply() {
+      var el = document.getElementById('openingText');
+      if (el && window.fixedTextHtml) el.innerHTML = window.fixedTextHtml('opening');
+    }
+    apply();
+    // data.js / IndexedDB の読み込み完了後にもう一度反映する
+    if (window.initAppData) window.initAppData().then(apply).catch(apply);
+    // 管理画面で保存された変更を受け取る
+    try {
+      var bc = new BroadcastChannel('tool_data_update');
+      bc.onmessage = function (e) {
+        if (!e.data) return;
+        if (e.data.type === 'fixedTextsUpdated') {
+          window._appCache.fixedTexts = e.data.data;
+          apply();
+          if (typeof renderClosingText === 'function') renderClosingText();
+        }
+      };
+    } catch (e) {}
+  })();
+</script>
 
 <!-- 使い方マニュアル モーダル開閉 -->
 <script>

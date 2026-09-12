@@ -136,12 +136,54 @@ header {
 .hd-center { display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap; }
 .hd-right, .header-right { display:flex;align-items:center;gap:8px;justify-content:flex-end;flex-shrink:0; }
 
-.hd-title-btn {
-  background:none;border:none;color:white;font-size:15px;font-weight:700;
+/* ページタイトル。全ページで同じ見た目にそろえる。
+   併記されがちな .header-title / .hd-title も同じ値にして、
+   どのクラスが後から効いてもズレないようにする。 */
+.hd-title-btn,
+.hd-title-btn.header-title,
+.hd-title-btn.hd-title {
+  background:none;border:none;color:var(--header-text,#fff);
+  font-size:15px;font-weight:700;letter-spacing:.02em;
   font-family:inherit;cursor:pointer;padding:4px 8px;border-radius:6px;
   transition:background 0.15s;white-space:nowrap;
+  display:inline-flex;align-items:center;height:32px;
 }
+span.hd-title-btn { cursor:default; }
 .hd-title-btn:hover { background:rgba(255,255,255,0.12); }
+
+/* ヘッダー内の並びを全ページで統一する（screen/admin は独自指定で揺れていた） */
+header .hd-left,
+header .hd-center,
+header .hd-right { display:flex;align-items:center;gap:8px;min-width:0; }
+/* header は grid（auto 1fr auto）。3つ目の列が右端になるので
+   margin-left:auto は不要。中央列だけ余白を占める。 */
+/* 幅が足りないとき、要素同士が重なるのを防ぐ。
+   grid の列は既定で min-content 未満に縮まないため minmax(0,auto) を指定し、
+   各列は横スクロールで逃がす。 */
+header { grid-template-columns: minmax(0,auto) minmax(0,1fr) minmax(0,auto); }
+header .hd-left,
+header .hd-center,
+header .hd-right { min-width:0; overflow-x:auto; overflow-y:hidden; }
+header .hd-left::-webkit-scrollbar,
+header .hd-center::-webkit-scrollbar,
+header .hd-right::-webkit-scrollbar { height:0; }
+header .hd-left  { justify-content:flex-start; }
+header .hd-center{ justify-content:center; }
+header .hd-right { justify-content:flex-end; }
+/* ボタン類は潰れず、はみ出す分はスクロールで見せる */
+header .nav-btn,
+header .home-nav-btn,
+header .tab-btn,
+header .hd-title-btn,
+header .search-wrap { flex-shrink:0; }
+header #menuBtn {
+  height:32px;width:32px;padding:0;font-size:18px;line-height:1;
+  background:none;border:none;color:var(--header-text,#fff);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:6px;
+  font-family:inherit;flex-shrink:0;
+}
+header #menuBtn:hover { background:rgba(255,255,255,.14); }
+header .help-circle-btn { flex-shrink:0; }
 
 .nav-btn {
   height:36px;padding:0 14px;border:none;border-radius:6px;cursor:pointer;
@@ -161,7 +203,15 @@ header {
 }
 #menuBtn:hover { background:rgba(255,255,255,0.1); }
 
-.header-title { font-size:16px;font-weight:600; }
+/* クリックしただけで白い枠（既定のフォーカスリング）が残るのを防ぐ。
+   キーボード操作のときは分かるように出す。 */
+header button:focus { outline:none; }
+header button:focus-visible {
+  outline:2px solid rgba(255,255,255,.85);
+  outline-offset:1px;
+}
+
+.header-title { font-size:15px;font-weight:700;letter-spacing:.02em; }
 .nav-buttons { display:flex;gap:10px; }
 .nav-buttons button {
   height:36px;padding:0 14px;border:none;border-radius:6px;cursor:pointer;
@@ -190,8 +240,10 @@ header {
   width:18px;height:18px;border-radius:50%;border:none;background:var(--text3);
   color:white;display:none;cursor:pointer;font-size:11px;line-height:18px;text-align:center;padding:0;
 }
+/* 定型文メニューと同じ理由（ヘッダーの列が overflow-y:hidden）で切り取られるため
+   position:fixed にする。座標は common-utils.js が入力欄に合わせて与える。 */
 #suggestBox {
-  position:absolute;top:calc(100% + 4px);left:0;width:320px;
+  position:fixed;width:320px;
   background:var(--surface);border:1px solid var(--border);border-radius:8px;
   display:none;z-index:1200;box-shadow:var(--shadow-md);max-height:280px;overflow-y:auto;
 }
@@ -335,16 +387,21 @@ th, td { border:1px solid #ddd;padding:6px;text-align:center; }
 th { background:var(--bg); }
 
 /* ===== QUICK COPY ===== */
+/* ヘッダーの列は overflow-y:hidden のため、position:absolute のドロップダウンは
+   ヘッダーの外側で切り取られて見えない。定型文メニューとトーストは
+   position:fixed にし、座標は common-utils.js の _positionQuickMenu() で与える。 */
 .quick-copy-area { position:relative; }
 .quick-copy-btn { height:36px;padding:0 14px;border:none;border-radius:6px;background:#2ed573;color:#1a1a2e;font-size:12px;font-weight:700;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;cursor:pointer;transition:background 0.15s; }
 .quick-copy-btn:hover { background:#26c065; }
-.quick-menu { display:none;position:absolute;top:100%;right:0;left:auto;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.15);z-index:1100;min-width:180px;overflow:hidden; }
-.quick-copy-area:hover .quick-menu, .quick-menu.open { display:block;animation:menuFadeIn 0.15s ease; }
+.quick-menu { display:none;position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,0.15);z-index:1100;min-width:180px;overflow:hidden; }
+/* ホバーで開く指定は CSS から外し、common-utils.js の
+   開閉タイマーに任せる（マウスが少し外れただけで閉じるのを防ぐため）。 */
+.quick-menu.open { display:block;animation:menuFadeIn 0.15s ease; }
 @keyframes menuFadeIn { from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);} }
 .quick-menu-item { padding:11px 16px;font-size:13px;color:var(--text);cursor:pointer;border-bottom:1px solid #f1f2f6;transition:background 0.12s;display:flex;align-items:center;gap:6px; }
 .quick-menu-item:last-child { border-bottom:none; }
 .quick-menu-item:hover { background:#f0f4ff;color:var(--accent-text); }
-.quick-copy-toast { position:absolute;top:44px;right:0;background:#2f3542;color:white;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(-4px);transition:opacity 0.2s,transform 0.2s;z-index:1200; }
+.quick-copy-toast { position:fixed;background:#2f3542;color:white;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(-4px);transition:opacity 0.2s,transform 0.2s;z-index:1200; }
 .quick-copy-toast.show { opacity:1;transform:translateY(0); }
 
 /* ===== サイドバーアコーディオン ===== */
@@ -374,6 +431,114 @@ th { background:var(--bg); }
 .hearing-panel-body { flex:1;display:flex;flex-direction:column;overflow:hidden;width:100%; }
 .hearing-header { display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:#f8f9fa; }
 .hearing-title { font-size:12px;font-weight:700;color:var(--text); }
+/* ヘッダーの［🏠 ホーム］ボタン（全ページ共通・common-utils.js が差し込む） */
+/* 自動リンク（URL をクリックできるようにしたもの） */
+/* ショートカットキー一覧（サイドメニュー内のアコーディオン） */
+.sc-sec{
+  margin:12px 0 4px;font-size:11px;font-weight:700;color:var(--accent-text);
+  padding-bottom:3px;border-bottom:1px solid var(--border);
+}
+.sc-sec:first-child{margin-top:0;}
+.sc-table{width:100%;border-collapse:collapse;margin-bottom:2px;}
+.sc-table th{
+  text-align:left;padding:5px 8px 5px 0;white-space:nowrap;
+  vertical-align:top;width:1%;font-weight:400;
+}
+.sc-table td{
+  padding:5px 0;font-size:11px;color:var(--text);line-height:1.6;
+  border-bottom:1px solid var(--border);
+}
+/* 最下段の罫線を消していたが「線が引かれていない」ように見えるため残す */
+.sc-table tr:last-child td{border-bottom:1px solid var(--border);}
+.sc-table kbd{
+  display:inline-block;margin:0 1px;padding:1px 6px;
+  font-size:10px;font-family:inherit;line-height:1.5;white-space:nowrap;
+  color:var(--text);background:var(--surface2);
+  border:1px solid var(--border2,var(--border));border-bottom-width:2px;border-radius:4px;
+}
+.sc-note{
+  margin-top:12px;padding:7px 9px;font-size:10px;line-height:1.7;
+  color:var(--text2);background:var(--surface2);border-radius:5px;
+}
+
+/* 画面が狭いときは検索欄を詰める */
+@media (max-width: 1400px) {
+  header #searchBox { width:200px; }
+}
+@media (max-width: 1100px) {
+  header #searchBox { width:140px; }
+  header .nav-btn { padding:0 8px;font-size:11px; }
+}
+
+/* 入力を持たない見出し（対応履歴の区切りにも使う）。
+   見出しから次の見出しまでが1グループで、クリックで開閉する。 */
+.hr-group{margin:14px 0 6px;}
+.hr-heading{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 10px;cursor:pointer;user-select:none;
+  font-size:12px;font-weight:700;color:var(--accent-text);
+  background:var(--accent-lt);border-left:3px solid var(--accent);border-radius:4px;
+}
+.hr-heading:hover{filter:brightness(.97);}
+.hr-group-arrow{font-size:9px;transition:transform .15s;display:inline-block;}
+.hr-group:not(.open) .hr-group-arrow{transform:rotate(-90deg);}
+.hr-group-body{padding-top:6px;}
+.hr-group:not(.open) .hr-group-body{display:none;}
+
+/* ラジオ／チェックの並び */
+.hr-radio-group{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;}
+.hr-radio{display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;color:var(--text);}
+.hr-radio input{width:15px;height:15px;cursor:pointer;accent-color:var(--accent);}
+
+/* ヒアリングのテンプレート選択 */
+.hr-tpl-bar{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:8px 10px;margin-bottom:10px;
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+}
+.hr-tpl-btn{
+  height:28px;padding:0 14px;font-size:12px;font-weight:600;font-family:inherit;
+  color:var(--text);background:var(--surface);
+  border:1px solid var(--border);border-radius:6px;cursor:pointer;
+  transition:background .12s,border-color .12s,color .12s;
+}
+.hr-tpl-btn:hover{border-color:var(--accent);color:var(--accent-text);}
+/* 管理画面でテンプレートごとに出す削除ボタン */
+.hr-tpl-wrap{display:inline-flex;align-items:center;gap:2px;}
+.hr-tpl-del{
+  width:18px;height:18px;padding:0;line-height:1;
+  border:1px solid var(--border);border-radius:4px;
+  background:var(--surface);color:var(--text3);
+  font-size:10px;font-family:inherit;cursor:pointer;
+}
+.hr-tpl-del:hover{background:var(--red,#ff4757);border-color:var(--red,#ff4757);color:#fff;}
+.hr-tpl-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.hr-tpl-clear{
+  margin-left:auto;padding:0 12px;font-size:11px;
+  color:var(--text3);border-style:dashed;
+}
+.hr-tpl-clear:hover{color:var(--red,#e63946);border-color:var(--red,#e63946);}
+
+a.auto-link{ color:var(--accent-text);text-decoration:underline;word-break:break-all; }
+a.auto-link:hover{ opacity:.8; }
+
+/* 他のヘッダーボタン（.nav-btn）は font-weight:700 なのに、ここだけ既定の 400 だった。
+   同じ文字に見えないという指摘のため、太さ・大きさ・高さをそろえる。 */
+.home-nav-btn{
+  height:36px;padding:0 12px;font-size:12px;font-weight:700;font-family:inherit;
+  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.35);border-radius:6px;
+  background:rgba(255,255,255,.12);color:var(--header-text,#fff);
+  cursor:pointer;flex-shrink:0;transition:background .15s,border-color .15s;
+}
+.home-nav-btn:hover{background:rgba(255,255,255,.24);border-color:rgba(255,255,255,.6);}
+
+.hearing-open-btn { font-size:11px;padding:3px 9px;border:1px solid var(--border);border-radius:4px;background:var(--surface);cursor:pointer;color:var(--text2);font-family:inherit;white-space:nowrap;transition:border-color .15s,color .15s; }
+.hearing-open-btn:hover { border-color:var(--accent);color:var(--accent-text); }
+.hearing-header-btns { display:flex;align-items:center;gap:6px;flex-shrink:0; }
+/* index.html はヘッダーの高さが .home-header で決まるため、位置を合わせる */
+.home-header ~ .hearing-panel,
+body > .hearing-panel { top:var(--header-h); }
 .hearing-reset-btn { font-size:11px;padding:3px 10px;border:1px solid #f5a5aa;border-radius:4px;background:#fff0f0;cursor:pointer;color:var(--red);font-weight:700;font-family:inherit;transition:background 0.15s,border-color 0.15s; }
 .hearing-reset-btn:hover { background:var(--red);color:white;border-color:var(--red); }
 .hearing-content { flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px; }
@@ -443,6 +608,11 @@ th { background:var(--bg); }
 .hr-summary-row { display:flex;align-items:baseline;gap:0;font-size:11px;line-height:1.4;text-align:left; }
 .hr-sum-label { color:#888;white-space:nowrap;flex-shrink:0;text-align:left; }
 .hr-sum-label::after { content:'：';margin-right:2px; }
+/* 結果文の中の見出し（■〜）。質問グループの区切りとして表示する */
+.hr-summary-heading { font-size:10px;font-weight:700;color:var(--text2,#555);margin:6px 0 1px;text-align:left;letter-spacing:0.03em; }
+.hr-summary-heading:first-child { margin-top:0; }
+/* 「出力文」を設定した項目は、項目名を出さず文章そのものを1行で見せる */
+.hr-summary-sentence .hr-sum-val { white-space:pre-wrap;word-break:break-word; }
 .hr-sum-val { color:var(--text);font-weight:600;word-break:break-all;text-align:left; }
 .hr-sum-yes { color:#27ae60;background:#e8fdf5;border-radius:4px;padding:1px 7px;font-size:10px; }
 .hr-sum-no { color:var(--red);background:#fff0f0;border-radius:4px;padding:1px 7px;font-size:10px; }
@@ -458,7 +628,7 @@ th { background:var(--bg); }
 .hearing-copy-toast.error { background:var(--red); }
 
 /* ===== MAIL / HEADER ===== */
-.hd-title { font-size:16px;font-weight:700;white-space:nowrap; }
+.hd-title { font-size:15px;font-weight:700;letter-spacing:.02em;white-space:nowrap; }
 .hd-btn { height:36px;padding:0 14px;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;font-family:inherit;white-space:nowrap;background:#57606f;color:white;display:inline-flex;align-items:center;justify-content:center;transition:background 0.2s; }
 .hd-btn:hover { background:#747d8c; }
 .hd-btn-admin { background:var(--accent);color:white; }
@@ -596,7 +766,9 @@ html[data-theme="dark"] .sidebar-panel .sidebar-top { background:var(--surface2)
    screen.html 専用スタイル
    ============================================================ */
 .page-screen body, body.page-screen { height:100vh;display:flex;flex-direction:column;overflow:hidden;padding-top:var(--header-h); }
-.hd{border-bottom:1px solid var(--border);box-shadow:var(--shadow);}
+/* 以前は screen.html だけ .hd で枠線と影を付けており、他ページと見え方が違った。
+   header 全体に適用してそろえる。 */
+header, .hd{border-bottom:1px solid var(--border);box-shadow:var(--shadow);}
 .tab-btn{height:32px;padding:0 14px;border-radius:6px;border:1px solid transparent;background:transparent;font-size:12px;font-family:inherit;font-weight:500;color:var(--text3);cursor:pointer;transition:all .12s;white-space:nowrap;}
 .tab-btn:hover{background:var(--surface2);color:var(--text);}
 .tab-btn.active{background:var(--accent-lt);color:var(--accent-text);border-color:var(--accent);}
@@ -826,8 +998,20 @@ html[data-theme="dark"] .page-admin .tab-panel-history{background:var(--bg);}
 .cat-name-input{flex:1;border:none;background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--text);padding:4px 4px;border-radius:4px;cursor:pointer;}
 .cat-name-input:focus{outline:none;background:var(--accent-lt);cursor:text;}
 .cat-actions{display:flex;gap:6px;align-items:center;}
-.cat-del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;padding:3px 5px;border-radius:4px;transition:color .15s,background .15s;}
-.cat-del-btn:hover{color:var(--red);background:#fff0f0;}
+/* 削除ボタン。絵文字は環境によって潰れて見えるため「×」に統一し、
+   赤字＋赤枠で削除操作であることを明示する。 */
+.cat-del-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:20px;min-width:20px;padding:0 5px;
+  font-size:12px;font-weight:700;line-height:1;font-family:inherit;
+  color:var(--red,#e63946);background:var(--surface);
+  border:1px solid var(--red,#e63946);border-radius:4px;
+  cursor:pointer;flex-shrink:0;transition:background .12s,color .12s;
+}
+.cat-del-btn:hover{background:var(--red,#e63946);color:#fff;}
+/* ボタン内の絵文字を隠して「×」を出す（HTML を全箇所書き換えずに済ませる） */
+.cat-del-btn{font-size:0;}
+.cat-del-btn::before{content:'×';font-size:12px;}
 .sub-cat-block{border-left:3px solid #e0e4ff;margin-left:10px;}
 .memo-details{margin-top:10px;}
 .memo-summary{font-size:11px;font-weight:700;color:#888;cursor:pointer;user-select:none;padding:4px 0;list-style:none;}
