@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-12T05:12:29.066Z
+// 生成日時: 2026-09-13T11:31:05.161Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-12T05:12:29.066Z",
-  "savedAt": "2026-09-12T05:12:29.066Z",
+  "generatedAt": "2026-09-13T11:31:05.161Z",
+  "savedAt": "2026-09-13T11:31:05.161Z",
   "sideMenuData": [
     {
       "id": "sm_shortcut",
@@ -466,236 +466,11 @@ window.APP_STATIC_DATA = {
       "enabled": true,
       "builtin": true,
       "showIf": []
-    },
-    {
-      "id": "q_caoyii7",
-      "enabled": true,
-      "label": "記述　1行",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "text",
-      "common": true,
-      "tplId": "",
-      "field": "q_caoyii7",
-      "multiline": false
-    },
-    {
-      "id": "q_7dl0vq8",
-      "enabled": true,
-      "label": "記述　複数行",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "text",
-      "common": true,
-      "tplId": "",
-      "field": "q_7dl0vq8",
-      "multiline": true
-    },
-    {
-      "id": "q_tctv9hj",
-      "enabled": true,
-      "label": "プルダウン　セルフその他",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "select",
-      "common": true,
-      "tplId": "",
-      "field": "q_tctv9hj",
-      "options": [
-        {
-          "l": "あああ",
-          "v": "あああ"
-        },
-        {
-          "l": "その他",
-          "v": "その他"
-        }
-      ]
-    },
-    {
-      "id": "q_dxvokt7",
-      "enabled": true,
-      "label": "プルダウン　ボタンからその他",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "select",
-      "common": true,
-      "tplId": "",
-      "field": "q_dxvokt7",
-      "options": [
-        {
-          "l": "いいい",
-          "v": "いいい"
-        },
-        {
-          "l": "ううう",
-          "v": "ううう"
-        },
-        {
-          "l": "その他",
-          "v": "その他",
-          "manual": true
-        }
-      ]
-    },
-    {
-      "id": "q_7reum0l",
-      "enabled": true,
-      "label": "ラジオボタン",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "radio",
-      "common": true,
-      "tplId": "",
-      "field": "q_7reum0l",
-      "options": [
-        {
-          "l": "えええ",
-          "v": "えええ"
-        },
-        {
-          "l": "おおお",
-          "v": "おおお"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_k8pbqg9",
-      "enabled": true,
-      "label": "チェックボックス",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "checkbox",
-      "common": true,
-      "tplId": "",
-      "field": "q_k8pbqg9",
-      "options": [
-        {
-          "l": "aaa",
-          "v": "aaa"
-        },
-        {
-          "l": "iii",
-          "v": "iii"
-        }
-      ]
-    },
-    {
-      "id": "q_skvxs2d",
-      "enabled": true,
-      "label": "トグルボタン　複数選択オフ　詳細なし",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplId": "",
-      "field": "q_skvxs2d",
-      "options": [
-        {
-          "l": "スマホ",
-          "v": "スマホ"
-        },
-        {
-          "l": "PC",
-          "v": "PC"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_e1i7jbz",
-      "enabled": true,
-      "label": "トグルボタン　複数選択オン　詳細なし",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplId": "",
-      "field": "q_e1i7jbz",
-      "options": [
-        {
-          "l": "スマホ",
-          "v": "スマホ"
-        },
-        {
-          "l": "PC",
-          "v": "PC"
-        }
-      ],
-      "multi": true
-    },
-    {
-      "id": "q_pr22tv2",
-      "enabled": true,
-      "label": "トグルボタン　複数選択オフ　詳細あり",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplId": "",
-      "field": "q_pr22tv2",
-      "options": [
-        {
-          "l": "スマホ",
-          "v": "スマホ",
-          "details": [
-            "iPhone",
-            "Android"
-          ]
-        },
-        {
-          "l": "PC",
-          "v": "PC",
-          "details": [
-            "Win",
-            "Mac"
-          ]
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_g7dve4u",
-      "enabled": true,
-      "label": "トグルボタン　複数選択オン　詳細あり",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplId": "",
-      "field": "q_g7dve4u",
-      "options": [
-        {
-          "l": "スマホ",
-          "v": "スマホ",
-          "details": [
-            "iPhone",
-            "Android"
-          ]
-        },
-        {
-          "l": "PC",
-          "v": "PC",
-          "details": [
-            "Win",
-            "Mac"
-          ]
-        }
-      ],
-      "multi": true
     }
   ],
   "hearingPolicies": [],
   "hearingPatterns": [],
   "updateHistory": [
-    {
-      "id": "h_1789181668678",
-      "content": "Ver4.1 リリース",
-      "author": "菅原",
-      "approver": "",
-      "date": "2026/09/12"
-    },
     {
       "id": "h_1786088684546",
       "content": "Ver4 リリース",
@@ -747,7 +522,10 @@ window.APP_STATIC_DATA = {
     }
   ],
   "fixedTexts": {
-    "opening": "お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。"
+    "opening": "お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。",
+    "closingDefault": "ご案内は以上となりますが、そのほか確認されたいことなどはございませんでしょうか？",
+    "closingNone": "ありがとうございます。 それでは本日●●がご案内いたしました。それでは失礼いたします。",
+    "closingAsk": "○○○についてでございますね。（お問い合わせ内容に回答）"
   },
   "faqData": [],
   "hearingTemplates": [],

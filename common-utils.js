@@ -26,7 +26,7 @@ var HEARING_DATA_VERSION = 2;
 // admin.html で編集し data.js に保存される。
 // script.html でも同じ値を使うため、既定値と取得口を共通側に置く。
 window.FIXED_TEXT_DEFAULTS = {
-  opening:        'お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。',
+  opening:        'お電話 ありがとうございます。NHKONE窓口 担当●●でございます。',
   closingDefault: 'ご案内は以上となりますが、そのほか確認されたいことなどはございませんでしょうか？',
   closingNone:    'ありがとうございます。 それでは本日●●がご案内いたしました。それでは失礼いたします。',
   closingAsk:     '○○○についてでございますね。（お問い合わせ内容に回答）'
@@ -3041,13 +3041,20 @@ window.setHearing = function (field, value) {
   renderHearing();
 };
 
-window.toggleHearingOpt = function (field, value) {
+window.toggleHearingOpt = function (field, value, multi) {
   if (!hearingState[field] || typeof hearingState[field] !== 'object' || Array.isArray(hearingState[field])) {
     hearingState[field] = {};
   }
   var st = hearingState[field];
   var d = st[value] || (st[value] = { selected: false, detail: [] });
-  d.selected = !d.selected;
+  var next = !d.selected;
+  // 複数選択を許可していないときは、他の選択肢を外してから選ぶ
+  if (next && multi === false) {
+    Object.keys(st).forEach(function (k) {
+      if (k !== value && st[k]) { st[k].selected = false; st[k].detail = []; }
+    });
+  }
+  d.selected = next;
   if (!d.selected) d.detail = [];
   saveHearingState();
   renderHearing();
@@ -3055,7 +3062,7 @@ window.toggleHearingOpt = function (field, value) {
 /** 旧名（デバイス専用だった頃の呼び出し互換） */
 window.toggleHearingDevice = function (device) { window.toggleHearingOpt('devices', device); };
 
-window.setHearingOptDetail = function (field, value, detail) {
+window.setHearingOptDetail = function (field, value, detail, multi) {
   if (!hearingState[field] || typeof hearingState[field] !== 'object' || Array.isArray(hearingState[field])) {
     hearingState[field] = {};
   }
@@ -3063,6 +3070,13 @@ window.setHearingOptDetail = function (field, value, detail) {
   var d = st[value] || (st[value] = { selected: false, detail: [] });
   if (!Array.isArray(d.detail)) d.detail = [];
   var idx = d.detail.indexOf(detail);
+  // 複数選択を許可していないときは選び直しとして扱う（他は外す）
+  if (idx < 0 && multi === false) {
+    d.detail = [];
+    Object.keys(st).forEach(function (k) {
+      if (k !== value && st[k]) { st[k].selected = false; st[k].detail = []; }
+    });
+  }
   if (idx >= 0) {
     // すでに選択中のボタンをもう一度押すと、その項目だけOFF（複数選択可）
     d.detail.splice(idx, 1);
@@ -3129,11 +3143,18 @@ function _boolBtns(field, value, labelTrue, labelFalse) {
 }
 
 function _strBtns(field, value, items) {
+  // 選択中のボタンをもう一度押したら解除できるようにする。
+  // 以前は選び直しはできても「何も選んでいない」に戻せなかった。
   return items.map(function (item) {
     var active = value === item.v ? ' active' : '';
-    return '<button class="hr-btn' + active + '" onclick="setHearing(\'' + field + '\',\'' + item.v + '\')">' + item.l + '</button>';
+    return '<button class="hr-btn' + active + '" onclick="window.toggleHearingSingle(\'' + field + '\',\'' + item.v + '\')">' + item.l + '</button>';
   }).join('');
 }
+
+/** 単一選択のトグル。同じ値をもう一度選んだら解除する */
+window.toggleHearingSingle = function (field, value) {
+  window.setHearing(field, hearingState[field] === value ? '' : value);
+};
 
 // ── 項目名の先頭に付ける記号 ────────────────────────────
 // 以前は「■」を決め打ちで付けていたが、付けるかどうか・どの記号にするかを
@@ -3472,15 +3493,17 @@ function _hrDetailToggleHTML(s, q) {
     var details = Array.isArray(o.details) ? o.details : [];
     var content = '';
     if (details.length) {
-      // 詳細は複数選択可。選択中をもう一度押すとその項目だけOFF
+      // 複数選択を許可していないときは1つだけ選べる。
+      // どちらの場合も、選択中をもう一度押せば解除できる。
       details.forEach(function (opt) {
         var active = (dDetail.indexOf(opt) >= 0) ? ' active' : '';
-        content += '<button class="hr-device-btn' + active + '" onclick="setHearingOptDetail(\'' + fld + '\',\'' + val + '\',\'' + opt + '\')">' + _hEsc(opt) + '</button>';
+        content += '<button class="hr-device-btn' + active + '" onclick="setHearingOptDetail(\'' + fld + '\',\'' + val + '\',\'' + opt + '\',' + (q.multi ? 'true' : 'false') + ')">' + _hEsc(opt) + '</button>';
       });
     } else {
-      content = '<button class="hr-device-btn' + (d.selected ? ' active' : '') + '" onclick="toggleHearingOpt(\'' + fld + '\',\'' + val + '\')">' + (d.selected ? 'ON' : 'OFF') + '</button>';
+      content = '<button class="hr-device-btn' + (d.selected ? ' active' : '') + '" onclick="toggleHearingOpt(\'' + fld + '\',\'' + val + '\',' + (q.multi ? 'true' : 'false') + ')">' + (d.selected ? 'ON' : 'OFF') + '</button>';
     }
-    h += _hrRow(o.l || val, content, 'hr-device-row');
+    // 中項目（選択肢の行）には先頭記号を付けない。付くのは項目名だけ
+    h += _hrRow(o.l || val, content, 'hr-device-row', '');
   });
   return h + '</div>';
 }
@@ -3514,7 +3537,9 @@ function _hrSelectManualHTML(q, s) {
   var h = '<select class="hr-select" onchange="window.setHearingSelect(\'' + fld + '\',this.value)">' +
     '<option value="">選択してください</option>' +
     opts.map(function (o) { return _mkOpt(o.v, v, o.l); }).join('') +
-    (q.allowManual === false ? ''
+    // 選択肢に手入力のものがあれば、自動の「その他（手入力）」は足さない
+    // （両方出ると「その他」が2つ並んでしまう）
+    ((q.allowManual === false || opts.some(function (o) { return o.manual; })) ? ''
       : '<option value="__manual__"' + (v === '__manual__' ? ' selected' : '') + '>その他（手入力）</option>') +
     '</select>';
   h += '<div style="display:' + (showManual ? 'block' : 'none') + ';margin-top:6px;">' +
@@ -3569,9 +3594,12 @@ window.hearingItemHTML = function (q, s) {
   }
   if (q.type === 'text') {
     var ph = _hEsc(q.placeholder || '');
-    return _hrRow(q.label, q.multiline
+    var clearBtn = (fld === 'memo' || q.id === 'q_memo')
+      ? '<button type="button" class="hr-memo-clear" onclick="window.clearHearingMemo(\'' + fld + '\')" title="メモの内容だけを消します">消去</button>'
+      : '';
+    return _hrRow(q.label, (q.multiline
       ? '<textarea class="hr-text-input hr-autogrow" data-hr-field="' + _hEsc(fld) + '" rows="1" placeholder="' + ph + '" style="font-family:inherit;" oninput="setHearingInput(\'' + fld + '\',this.value);window.hrAutoGrow(this)">' + _hEsc(s[fld] || '') + '</textarea>'
-      : '<input type="text" class="hr-text-input" data-hr-field="' + _hEsc(fld) + '" placeholder="' + ph + '" value="' + _hEsc(s[fld] || '') + '" oninput="setHearingInput(\'' + fld + '\',this.value)">', '', pf);
+      : '<input type="text" class="hr-text-input" data-hr-field="' + _hEsc(fld) + '" placeholder="' + ph + '" value="' + _hEsc(s[fld] || '') + '" oninput="setHearingInput(\'' + fld + '\',this.value)">') + clearBtn, '', pf);
   }
   return '';
 };
@@ -4037,6 +4065,15 @@ function renderHearing() {
  * 複数行入力の高さを内容に合わせる。
  * 既定は1行分で、改行が増えたぶんだけ伸ばす（縮むときも追従させる）。
  */
+/** メモの内容だけを消す（他の入力はそのまま） */
+window.clearHearingMemo = function (field) {
+  var f = field || 'memo';
+  if (!hearingState[f]) return;
+  hearingState[f] = '';
+  saveHearingState();
+  renderHearing();
+};
+
 window.hrAutoGrow = function (el) {
   if (!el) return;
   el.style.height = 'auto';
@@ -4205,7 +4242,15 @@ function buildHearingLines(s) {
     } else if (q.type === 'text') {
       disp = String(val);
     } else {
-      // str / select / radio / toggle。複数選択のときは配列で入る
+      // str / select / radio / toggle。複数選択のときは配列で入る。
+      // 押した順ではなく、選択肢に並べた順で出力する
+      if (Array.isArray(val)) {
+        var order = window.getHearingOptions(q).map(function (o) { return o.v; });
+        val = val.slice().sort(function (a, b) {
+          var ia = order.indexOf(a), ib = order.indexOf(b);
+          return (ia < 0 ? 9999 : ia) - (ib < 0 ? 9999 : ib);
+        });
+      }
       disp = Array.isArray(val)
         ? val.map(function (v) { return _hrOptText(q, v); }).join('、')
         : _hrOptText(q, val);
@@ -4400,6 +4445,17 @@ document.addEventListener('keydown', function (e) {
     '.hr-autogrow { min-height:32px; height:32px; overflow-y:hidden; resize:none; line-height:1.6; padding:6px 9px; }' +
     // メモは他の入力欄と同じ幅にそろえる（1行始まりだと細く見えるため）
     '.hr-memo-row .hr-btns { flex:1; min-width:0; }' +
+    // メモ・記述・プルダウン・手入力欄の幅をそろえる
+    '.hr-row .hr-btns { flex:1; min-width:0; }' +
+    '.hr-row .hr-text-input, .hr-row .hr-select { width:100%; box-sizing:border-box; }' +
+    '.hr-memo-clear { margin-top:4px; height:22px; padding:0 10px; align-self:flex-start;' +
+      'border:1px solid var(--border); border-radius:4px; background:var(--surface);' +
+      'color:var(--text3); font-size:10px; font-family:inherit; cursor:pointer; }' +
+    '.hr-memo-clear:hover { border-color:var(--red,#e63946); color:var(--red,#e63946); }' +
+    // 見出しでまとめた項目の縦間隔を少し広げる
+    '.hr-group .hr-row { padding-top:7px; padding-bottom:7px; }' +
+    // トグルの中項目は名前が長くても省略せずに折り返す
+    '.hr-device-row .hr-label { white-space:normal; word-break:break-word; min-width:7em; }' +
     '.hr-memo-row .hr-autogrow, .hr-row .hr-btns > .hr-autogrow { width:100%; box-sizing:border-box; }' +
     '.hr-sum-multiline { white-space:pre-wrap; word-break:break-word; }' +
     // 複数選択は縦並び（横に並ぶと選択済みが分かりにくいため）

@@ -4922,6 +4922,9 @@ function calSelect(d){
 // =============================================================================
 var _smData = null; // 編集中データ
 
+// 中身を編集しない参照用のセクション（内容が決まっている表）
+var SM_READONLY_TABLES = ['sm_phonetic', 'sm_domain'];
+
 function smLoad() {
   // data.js（APP_STATIC_DATA.sideMenuData）を常に正として読む。
   // IDB / _appCache は他ページ配信用キャッシュのため編集画面の表示元には使わない。
@@ -6858,7 +6861,9 @@ function smRender() {
             '<option value="links"' + (sec.type === 'links' ? ' selected' : '') + '>リンク一覧</option>' +
             '<option value="links_with_sub"' + (sec.type === 'links_with_sub' ? ' selected' : '') + '>サブカテゴリ付き</option>' +
             '</select>') +
-      '<button class="sm-del-btn" onclick="smDelCat(' + si + ')" title="カテゴリ削除" style="flex-shrink:0;">🗑 削除</button>' +
+      // 内容が決まっている参照用の一覧は、うっかり消せないよう削除ボタンを出さない
+      (SM_READONLY_TABLES.indexOf(sec.id) >= 0 ? '' :
+        '<button class="sm-del-btn" onclick="smDelCat(' + si + ')" title="カテゴリ削除" style="flex-shrink:0;">🗑 削除</button>') +
       '</div>' +
       // 項目数が多いと縦に長くなるので、カテゴリごとに折りたためるようにする
       '<div class="sm-cat-body" style="padding:10px 12px;' + (open ? '' : 'display:none;') + '">' + itemsHtml + '</div>' +
@@ -7160,9 +7165,6 @@ function smScDelGroup(si, gi) {
 }
 
 /** 表セクションの編集画面を組み立てる */
-// 中身を編集しないセクション（内容が決まっている参照用の表）
-var SM_READONLY_TABLES = ['sm_phonetic', 'sm_domain'];
-
 function smRenderTable(sec, si) {
   var inp = 'width:100%;box-sizing:border-box;height:26px;padding:0 6px;font-size:11px;' +
             'border:1px solid var(--border);border-radius:4px;background:var(--surface);color:var(--text);';
@@ -13965,6 +13967,7 @@ window.addEventListener('resize',function(){
     container.appendChild(extra);
 
     var multiline = null, multi = null, optsArea = null;
+    var _syncOtherBtn = null;   // 「その他（手入力）」ボタンの出し分け
 
     var addOptRow = function(val, details) {
       var withDetail = (typeSel.value === 'toggle');
@@ -13996,12 +13999,16 @@ window.addEventListener('resize',function(){
       var del = document.createElement('button');
       del.type = 'button'; del.className = 'btn-del'; del.textContent = '×';
       del.title = 'この選択肢を削除';
-      del.addEventListener('click', function() { r.parentNode.removeChild(r); });
+      del.addEventListener('click', function() {
+        r.parentNode.removeChild(r);
+        if (_syncOtherBtn) _syncOtherBtn();
+      });
       r.appendChild(inp);
       if (det) r.appendChild(det);
       if (man) r.appendChild(man);
       r.appendChild(del);
-      optsArea.insertBefore(r, optsArea.lastChild);
+      // 「＋ 項目を追加」は見出しの方へ移したので、末尾に足せばよい
+      optsArea.appendChild(r);
       return inp;
     };
 
@@ -14022,9 +14029,13 @@ window.addEventListener('resize',function(){
       }
 
       // プルダウン / ラジオ / チェックボックス / トグル は選択肢が必要
+      // 見出しの右に「＋ 項目を追加」「＋『その他（手入力）』を追加」を並べる
       var hd = document.createElement('div');
-      hd.style.cssText = 'font-size:11px;font-weight:700;color:var(--text2);margin-top:6px;margin-bottom:4px;';
-      hd.textContent = (t === 'toggle') ? '各項目名と詳細' : '各項目名';
+      hd.style.cssText = 'display:flex;align-items:center;gap:8px;flex-wrap:wrap;'
+        + 'font-size:11px;font-weight:700;color:var(--text2);margin-top:6px;margin-bottom:4px;';
+      var hdTxt = document.createElement('span');
+      hdTxt.textContent = (t === 'toggle') ? '各項目名と詳細' : '各項目名';
+      hd.appendChild(hdTxt);
       extra.appendChild(hd);
       if (t === 'toggle') {
         var note = document.createElement('div');
@@ -14038,10 +14049,10 @@ window.addEventListener('resize',function(){
       optsArea.style.cssText = 'display:flex;flex-direction:column;gap:5px;';
       var addBtn2 = document.createElement('button');
       addBtn2.type = 'button'; addBtn2.className = 'hr-add-btn';
-      addBtn2.style.cssText = 'align-self:flex-start;height:24px;font-size:11px;';
+      addBtn2.style.cssText = 'height:22px;font-size:10px;';
       addBtn2.textContent = '＋ 項目を追加';
       addBtn2.addEventListener('click', function() { addOptRow('').focus(); });
-      optsArea.appendChild(addBtn2);
+      hd.appendChild(addBtn2);
       // 編集時は、いまの選択肢を並べておく
       if (isEdit && Array.isArray(editQ.options) && editQ.options.length) {
         optsArea.querySelectorAll('[data-role="opt"]').forEach(function(i) {
@@ -14052,22 +14063,32 @@ window.addEventListener('resize',function(){
           var mk = inp.parentNode.querySelector('[data-role="optmanual"]');
           if (mk && o.manual) mk.checked = true;
         });
+        if (_syncOtherBtn) _syncOtherBtn();   // 既に「その他」があればボタンを隠す
       }
 
       // プルダウンは「その他（手入力）」をワンタッチで足せるようにする。
       // 各行の「手入力」チェックだけだと見つけにくいという指摘があったため。
       if (t === 'select') {
+        // 手入力の選択肢は1つで足りるので、既にあるときはボタンを出さない
+        var hasManual = function() {
+          return Array.prototype.some.call(
+            optsArea.querySelectorAll('[data-role="optmanual"]'),
+            function(x) { return x.checked; });
+        };
         var otherBtn2 = document.createElement('button');
         otherBtn2.type = 'button'; otherBtn2.className = 'hr-add-btn';
-        otherBtn2.style.cssText = 'align-self:flex-start;height:24px;font-size:11px;margin-left:6px;';
+        otherBtn2.style.cssText = 'height:22px;font-size:10px;';
         otherBtn2.textContent = '＋「その他（手入力）」を追加';
         otherBtn2.title = '選ぶとテキストボックスが出る選択肢を追加します';
+        _syncOtherBtn = function() { otherBtn2.style.display = hasManual() ? 'none' : ''; };
         otherBtn2.addEventListener('click', function() {
+          if (hasManual()) return;                 // 二重追加を防ぐ
           var inp = addOptRow('その他');
           var mk = inp.parentNode.querySelector('[data-role="optmanual"]');
           if (mk) mk.checked = true;
+          _syncOtherBtn();
         });
-        optsArea.appendChild(otherBtn2);
+        hd.appendChild(otherBtn2);
       }
       extra.appendChild(optsArea);
       if (!(isEdit && Array.isArray(editQ.options) && editQ.options.length)) {
