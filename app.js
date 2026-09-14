@@ -182,8 +182,8 @@ function buildAllSteps(type, subKey, itemIndex, currentStepIndex) {
           <div class="opening-title">クロージングトーク</div>
           <div id="inlineClosingText" class="opening-text">${closingText}</div>
           <div class="closing-buttons">
-            <button onclick="closingNone()">不明点なし</button>
-            <button onclick="closingAsk()">不明点あり</button>
+            <button onclick="closingNone()">${_fixedLabel('closingNoneLabel','不明点なし')}</button>
+            <button onclick="closingAsk()">${_fixedLabel('closingAskLabel','不明点あり')}</button>
           </div>
         </div>`;
       }
@@ -317,6 +317,12 @@ function hideClosingSection()  { /* contentArea再描画時に自動消去され
 function _fixed(key, fallback) {
   return window.fixedTextHtml ? window.fixedTextHtml(key) : fallback;
 }
+/** クロージング切り替えボタンの表示名（管理画面で変更できる） */
+function _fixedLabel(key, fallback) {
+  var v = (window.getFixedText ? window.getFixedText(key) : '');
+  return (v || fallback).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 function closingNone() {
   const el = document.getElementById('inlineClosingText');
   if (el) el.innerHTML = _fixed('closingNone',

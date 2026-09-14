@@ -29,7 +29,10 @@ window.FIXED_TEXT_DEFAULTS = {
   opening:        'お電話 ありがとうございます。NHKONE窓口 担当●●でございます。',
   closingDefault: 'ご案内は以上となりますが、そのほか確認されたいことなどはございませんでしょうか？',
   closingNone:    'ありがとうございます。 それでは本日●●がご案内いたしました。それでは失礼いたします。',
-  closingAsk:     '○○○についてでございますね。（お問い合わせ内容に回答）'
+  closingAsk:     '○○○についてでございますね。（お問い合わせ内容に回答）',
+  // クロージングの切り替えボタンの表示名。管理画面から変えられる
+  closingNoneLabel: '不明点なし',
+  closingAskLabel:  '不明点あり'
 };
 
 /** 固定文言を1つ取り出す（未設定なら既定値） */
@@ -864,6 +867,9 @@ window._appCache = {
   hearingTemplates: [],
   hearingLabelPrefix: '■',  // 項目名の先頭に付ける記号（'' なら付けない）
   hearingFixedReady: false, // 組み込み項目を取り込み済みか（true なら足し直さない）
+  maintenance: {},          // メンテナンス中のページ（{'script.html': true} の形）
+  notice: '',               // お知らせ本文（管理画面で編集し data.js に載せる）
+  noticeDate: '',           // 更新日の手動指定（空なら本文中の日付から拾う）
   hearingDevices:   [],     // デバイス候補（[{name, details:[]}]）
   hearingCarriers:  []      // キャリア候補（文字列の配列）
 };
@@ -890,6 +896,9 @@ window._appCache = {
   if (sd.hearingTemplates != null) window._appCache.hearingTemplates = sd.hearingTemplates;
   if (sd.hearingLabelPrefix != null) window._appCache.hearingLabelPrefix = sd.hearingLabelPrefix;
   if (sd.hearingFixedReady != null) window._appCache.hearingFixedReady = sd.hearingFixedReady;
+  if (sd.notice      != null) window._appCache.notice      = sd.notice;
+  if (sd.noticeDate  != null) window._appCache.noticeDate  = sd.noticeDate;
+  if (sd.maintenance != null) window._appCache.maintenance = sd.maintenance;
   if (sd.hearingDevices   != null) window._appCache.hearingDevices  = sd.hearingDevices;
   if (sd.hearingCarriers  != null) window._appCache.hearingCarriers = sd.hearingCarriers;
 })();
@@ -945,6 +954,9 @@ window.initAppData = function() {
     if (sd.hearingTemplates != null) window._appCache.hearingTemplates = sd.hearingTemplates;
     if (sd.hearingLabelPrefix != null) window._appCache.hearingLabelPrefix = sd.hearingLabelPrefix;
     if (sd.hearingFixedReady != null) window._appCache.hearingFixedReady = sd.hearingFixedReady;
+    if (sd.notice      != null) window._appCache.notice      = sd.notice;
+    if (sd.noticeDate  != null) window._appCache.noticeDate  = sd.noticeDate;
+    if (sd.maintenance != null) window._appCache.maintenance = sd.maintenance;
     if (sd.hearingDevices   != null) window._appCache.hearingDevices  = sd.hearingDevices;
     if (sd.hearingCarriers  != null) window._appCache.hearingCarriers = sd.hearingCarriers;
   if (sd.hearingTemplates != null) window._appCache.hearingTemplates = sd.hearingTemplates;
@@ -1223,6 +1235,42 @@ function _injectNavBtns() {
     frag.appendChild(b);
   });
   right.insertBefore(frag, right.firstChild);
+}
+
+// 各ページと、管理画面で開くタブの対応
+window.ADMIN_TAB_FOR_PAGE = {
+  'script.html':  'script',
+  'mail.html':    'mail',
+  'screen.html':  'screen',
+  'faq.html':     'faq',
+  'hearing.html': 'hearing'
+};
+
+/**
+ * ヘッダーに［⚙］を差し込む。
+ * 押すと管理画面を開き、そのページに対応するタブを選んだ状態にする。
+ * 管理画面とホームには出さない。
+ */
+function _injectAdminBtn() {
+  if (document.getElementById('adminJumpBtn')) return;
+  if (document.body.classList.contains('page-admin')) return;
+  var right = document.querySelector('header .hd-right');
+  if (!right) return;                       // ホームはカードから開く
+
+  var here = _currentPageFile();
+  var tab  = window.ADMIN_TAB_FOR_PAGE[here];
+  if (!tab) return;
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.id = 'adminJumpBtn';
+  b.className = 'nav-btn';
+  b.textContent = '⚙';
+  b.title = 'このページの設定を管理画面で開く';
+  b.addEventListener('click', function () {
+    window.openNamedTab('admin.html#' + tab, 'adminTab');
+  });
+  right.appendChild(b);
 }
 
 /**
@@ -1761,10 +1809,74 @@ function _mergeHistory(incoming) {
 // ④ タブ管理・サイドメニュー
 // =============================================================================
 var _namedTabs = {};
+/**
+ * 名前付きタブで開く。同じ名前のタブが既にあればそこへ移動する。
+ *
+ * _namedTabs はページごとの変数なので、別のページから開いたタブは
+ * 覚えていない。ただし window.open の第2引数（タブ名）はブラウザが
+ * 共有するため、名前さえ揃っていれば既存のタブが再利用される。
+ * ヘッダーのボタンとホームのカードで同じ名前を使うのはそのため。
+ */
 window.openNamedTab = function (url, name) {
   var tab = _namedTabs[name];
-  if (tab && !tab.closed) { tab.focus(); }
-  else { _namedTabs[name] = window.open(url, name); }
+  if (tab && !tab.closed) { tab.focus(); return tab; }
+
+  // 別のページから開いたタブは _namedTabs に無い。
+  // まず空 URL で開いて既存タブを取りに行き、中身があればそのまま前面に出す。
+  // いきなり window.open(url, name) にすると、既存タブでも読み込み直しになり
+  // 入力中の内容が消えてしまう。
+  var t = null;
+  try { t = window.open('', name); } catch (e) { t = null; }
+  if (t) {
+    var isBlank = true;
+    try {
+      var h = t.location && t.location.href;
+      isBlank = !h || h === 'about:blank';
+    } catch (e) { isBlank = false; }   // 読めない＝既に何か開いている
+    if (!isBlank) { _namedTabs[name] = t; try { t.focus(); } catch (e) {} return t; }
+    try { t.location.href = url; } catch (e) { t = window.open(url, name); }
+  } else {
+    t = window.open(url, name);
+  }
+  _namedTabs[name] = t;
+  if (t && t.focus) { try { t.focus(); } catch (e) {} }
+  return t;
+};
+
+/**
+ * ヘッダー右端に日時を出す。
+ * これまでホームだけだったので、全ページで同じ位置に出す。
+ */
+function _injectClock() {
+  if (document.getElementById('homeClock')) return;      // ホームは元からある
+  var right = document.querySelector('header .hd-right');
+  if (!right) return;
+
+  var el = document.createElement('span');
+  el.id = 'headerClock';
+  el.style.cssText = 'margin-left:10px;font-size:12px;font-variant-numeric:tabular-nums;'
+    + 'color:var(--header-text,#fff);opacity:.85;letter-spacing:.03em;white-space:nowrap;flex-shrink:0;';
+  right.appendChild(el);
+
+  var DAYS = ['日', '月', '火', '水', '木', '金', '土'];
+  var p = function (n) { return String(n).padStart(2, '0'); };
+  var tick = function () {
+    var d = new Date();
+    el.textContent = d.getFullYear() + '/' + p(d.getMonth() + 1) + '/' + p(d.getDate())
+      + '(' + DAYS[d.getDay()] + ') ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  };
+  tick();
+  setInterval(tick, 1000);
+}
+
+/** ページ名（file）から、そのページのタブ名を決める */
+window.tabNameForFile = function (file) {
+  var f = String(file || '').toLowerCase();
+  var hit = (window.NAV_PAGES || []).find(function (p) { return p.file.toLowerCase() === f; });
+  if (hit) return hit.tab;
+  if (f.indexOf('admin') >= 0) return 'adminTab';
+  if (f.indexOf('index') >= 0 || f === '') return 'homeTab';
+  return f.replace(/[^a-z0-9]/g, '') + 'Tab';
 };
 
 window.toggleSideMenu = function () {
@@ -2564,8 +2676,6 @@ var DEFAULT_STATE = {
   sjLink: null, jAccGuide: null,
   transferA: null, transferB: null, transferC: null, transferD: null,
   devices: {}, carrier: '', carrierManual: '', mailDomain: '', mailDomainManual: '',
-  cbSMistake: false, cbSSpam: false, cbSPermission: false,
-  cbJMistake: false, cbJSpam: false, cbJPermission: false,
   memo: ''
 };
 
@@ -2875,13 +2985,8 @@ function _unlinkifyEl(el) {
  * ページ独自の戻し方（goHome）があればそれを使い、無ければ読み込み直す。
  */
 window.resetPageView = function () {
-  if (typeof window.goHome === 'function') {
-    try {
-      window.goHome();
-      window.scrollTo(0, 0);
-      return;
-    } catch (e) {}
-  }
+  // ページによって挙動が違うと分かりにくいので、どのページでも読み込み直す。
+  // goHome() があるページ（スクリプト・メール）も同じ扱いにそろえる。
   location.reload();
 };
 
@@ -2924,7 +3029,10 @@ function _injectHomeBtn() {
   else left.insertBefore(b, left.firstChild);
 }
 
-function _initHeaderBtns() { _injectHomeBtn(); _bindTitleBtn(); _injectNavBtns(); }
+function _initHeaderBtns() {
+  _injectHomeBtn(); _bindTitleBtn(); _injectNavBtns(); _injectAdminBtn(); _injectClock();
+  if (!document.body.classList.contains('page-admin')) _applyMaintenance();
+}
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', _initHeaderBtns);
 } else {
@@ -3577,6 +3685,15 @@ window.hearingItemHTML = function (q, s) {
     // ラジオは1つだけ選ぶので横並びで足りる
     return _hrRow(q.label, _radioBtns(fld, s[fld], window.getHearingOptions(q), false), '', pf);
   }
+  if (q.type === 'log') {
+    // ログ作成補助。押すと決まった複数行テキストがメモに差し込まれる
+    var btns = (window.getHearingOptions(q) || []).map(function (o, i) {
+      return '<button class="hr-log-btn" title="押すとメモに差し込みます"'
+        + ' onclick="window.insertHearingLog(\'' + _hEsc(q.id) + '\',' + i + ')">'
+        + _hEsc(o.l || o.v) + '</button>';
+    }).join('');
+    return _hrRow(q.label, '<div class="hr-log-group">' + btns + '</div>', '', pf);
+  }
   if (q.type === 'checkbox') {
     // チェックボックスは常に複数選択。選んだものが「、」でつながって出力される。
     // 複数を見比べながら選ぶため縦に並べる。
@@ -3605,14 +3722,8 @@ window.hearingItemHTML = function (q, s) {
 };
 
 // opts: {title, mistakeField, spamField, permField, permLabel}
-function _hrMailCheckGroupHTML(s, opts) {
-  var h = '<div class="hr-divider">' + opts.title + '</div>';
-  var content = _mkChk(opts.mistakeField, s[opts.mistakeField], 'メールアドレスの入力ミス') +
-    _mkChk(opts.spamField, s[opts.spamField], '迷惑メールフィルター') +
-    _mkChk(opts.permField, s[opts.permField], opts.permLabel);
-  h += _hrRow('確認項目', content);
-  return h;
-}
+// メール受信なしの確認項目は管理画面の質問で作れるため、専用の描画は廃止した。
+
 
 // ── ヒアリング項目のグループ ──
 // 見出しから次の見出しまでを1グループとして扱い、まとめて開閉できるようにする。
@@ -3726,6 +3837,118 @@ function _defaultMailDomains() {
   var t = window.SIDEMENU_DEFAULT_TABLES.find(function(x) { return x.id === 'sm_domain'; });
   return (t ? t.rows : []).map(function(r) { return r[0]; });
 }
+
+// ── メンテナンス中 ───────────────────────────────────
+// 管理画面のスイッチで、ページごとに「メンテナンス中」にできる。
+// ページは開けるが、操作できないよう覆いをかぶせる。
+
+/** そのページがメンテナンス中か */
+window.isMaintenance = function (file) {
+  var f = String(file || _currentPageFile()).toLowerCase();
+  var m = (window._appCache && window._appCache.maintenance) || {};
+  return !!m[f];
+};
+
+/** メンテナンス状態を設定する（管理画面から呼ぶ） */
+window.setMaintenance = function (file, on) {
+  var m = Object.assign({}, (window._appCache && window._appCache.maintenance) || {});
+  var f = String(file || '').toLowerCase();
+  if (on) m[f] = true; else delete m[f];
+  window._appCache.maintenance = m;
+  if (window.idbSetAppData) window.idbSetAppData('maintenance', m);
+  try {
+    var bc = new BroadcastChannel('tool_data_update');
+    bc.postMessage({ type: 'maintenanceUpdated', data: m });
+    bc.close();
+  } catch (e) {}
+};
+
+/** メンテナンス中なら画面全体に覆いを出す */
+function _applyMaintenance() {
+  var on = window.isMaintenance();
+  var el = document.getElementById('maintenanceOverlay');
+  if (!on) { if (el) el.parentNode.removeChild(el); return; }
+  if (el) return;
+
+  el = document.createElement('div');
+  el.id = 'maintenanceOverlay';
+  el.style.cssText =
+    'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;' +
+    'background:rgba(20,22,28,.78);backdrop-filter:blur(2px);cursor:not-allowed;';
+  el.innerHTML =
+    '<div style="text-align:center;color:#fff;padding:28px 36px;border-radius:14px;' +
+      'background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.25);max-width:80vw;">' +
+      '<div style="font-size:44px;margin-bottom:12px;">🚧</div>' +
+      '<div style="font-size:18px;font-weight:700;margin-bottom:8px;">メンテナンス中です</div>' +
+      '<div style="font-size:12px;line-height:1.8;opacity:.85;">' +
+        'このページは現在編集中のため、一時的にご利用いただけません。<br>' +
+        'しばらく経ってから開き直してください。</div>' +
+    '</div>';
+  // 覆いの上での操作をすべて止める
+  ['click', 'mousedown', 'keydown', 'wheel', 'touchstart'].forEach(function (ev) {
+    el.addEventListener(ev, function (e) { e.stopPropagation(); e.preventDefault(); }, true);
+  });
+  document.body.appendChild(el);
+}
+window._applyMaintenance = _applyMaintenance;
+
+// 他のタブで切り替えられたら即座に反映する
+try {
+  var _mbc = new BroadcastChannel('tool_data_update');
+  _mbc.addEventListener('message', function (ev) {
+    if (!ev || !ev.data || ev.data.type !== 'maintenanceUpdated') return;
+    window._appCache.maintenance = ev.data.data || {};
+    _applyMaintenance();
+  });
+} catch (e) {}
+
+/** 固定テキストの値を取り出す（未設定なら既定値） */
+window.getFixedText = function (key) {
+  var ft = (window._appCache && window._appCache.fixedTexts) || {};
+  var v = ft[key];
+  if (v !== undefined && v !== null && String(v) !== '') return String(v);
+  var d = window.FIXED_TEXT_DEFAULTS || {};
+  return d[key] !== undefined ? String(d[key]) : '';
+};
+
+// ── お知らせ ────────────────────────────────────────
+// 以前は ★お知らせ★.js / .txt を別ファイルで置いていたが、
+// ファイル名に記号が入るため環境によって読めないことがあり、
+// 管理画面からも編集できなかった。いまは data.js に載せる。
+// 旧ファイルが残っていればそちらを優先して読む（移行のため）。
+
+/** お知らせ本文。無ければ空文字 */
+window.getNotice = function () {
+  if (typeof window.APP_NOTICE === 'string' && window.APP_NOTICE.trim()) {
+    return window.APP_NOTICE;                      // 旧ファイルがあれば優先
+  }
+  var v = window._appCache && window._appCache.notice;
+  if (typeof v === 'string' && v.trim()) return v;
+  var sd = window.APP_STATIC_DATA;
+  return (sd && typeof sd.notice === 'string') ? sd.notice : '';
+};
+
+/** お知らせの更新日（手動指定）。無ければ空文字 */
+window.getNoticeDate = function () {
+  if (window.APP_NOTICE_DATE) return String(window.APP_NOTICE_DATE);
+  var v = window._appCache && window._appCache.noticeDate;
+  return v ? String(v) : '';
+};
+
+/** お知らせを保存する（管理画面から呼ぶ） */
+window.setNotice = function (text, dateStr) {
+  window._appCache.notice = String(text == null ? '' : text);
+  window._appCache.noticeDate = String(dateStr == null ? '' : dateStr);
+  if (window.idbSetAppData) {
+    window.idbSetAppData('notice', window._appCache.notice);
+    window.idbSetAppData('noticeDate', window._appCache.noticeDate);
+  }
+  try {
+    var bc = new BroadcastChannel('tool_data_update');
+    bc.postMessage({ type: 'noticeUpdated', data: window._appCache.notice });
+    bc.close();
+  } catch (e) {}
+};
 
 /**
  * サイドメニューの「メールドメイン一覧」の中身を返す（参照用）。
@@ -4028,24 +4251,8 @@ function renderHearing() {
     h += window.hearingItemHTML(q, s);
   });
 
-  // 【Sアカ】メール受信なし（固定セクション）
-  if (s.migSAccGuide === '失敗（メール受信なし）' || s.newSAccGuide === '失敗（メール受信なし）') {
-    h += _hrMailCheckGroupHTML(s, {
-      title: '【Sアカ】メール受信なし',
-      mistakeField: 'cbSMistake', spamField: 'cbSSpam', permField: 'cbSPermission',
-      permLabel: '受信許可設定（mail.nhk）'
-    });
-  }
-
-  // 【Jアカ】メール受信なし（固定セクション）
-  if (s.jAccGuide === '失敗（メール受信なし）') {
-    h += _hrMailCheckGroupHTML(s, {
-      title: '【Jアカ】メール受信なし',
-      mistakeField: 'cbJMistake', spamField: 'cbJSpam', permField: 'cbJPermission',
-      permLabel: '受信許可設定（mail.service.nhk-cs.jp）'
-    });
-  }
-
+  // メール受信なしの確認項目はコードに直接書いていたが、
+  // 同じことは管理画面の質問（チェックボックス＋表示条件）で作れるため廃止した。
   if (_hrGroupOpen) { h += '</div></div>'; _hrGroupOpen = false; }
   // メモは結果文のすぐ上に固定する（並び順に関係なくここへ出す）
   if (_hrMemoHTML) { h += _hrMemoHTML; _hrMemoHTML = ''; }
@@ -4065,6 +4272,36 @@ function renderHearing() {
  * 複数行入力の高さを内容に合わせる。
  * 既定は1行分で、改行が増えたぶんだけ伸ばす（縮むときも追従させる）。
  */
+/**
+ * ログ作成補助のボタンを押したときの処理。
+ * 決まった複数行テキストをメモの末尾に差し込む。
+ * メモはそのままコピー結果にも入るので、通話ログの下書きに使える。
+ */
+window.insertHearingLog = function (qid, index) {
+  var qs = _hrGetQuestions();
+  var q = qs.find(function (x) { return x.id === qid; });
+  if (!q) return;
+  var opt = (window.getHearingOptions(q) || [])[index];
+  if (!opt) return;
+
+  var text = String(opt.text || opt.l || '');
+  if (!text) return;
+
+  var cur = String(hearingState.memo || '');
+  // すでに何か書いてあれば改行してから足す
+  hearingState.memo = cur ? (cur.replace(/\s+$/, '') + '\n' + text) : text;
+  saveHearingState();
+  renderHearing();
+
+  // 差し込んだ先が見えるようにメモ欄へ移動する
+  setTimeout(function () {
+    var el = document.querySelector('[data-hr-field="memo"]');
+    if (!el) return;
+    if (el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    try { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } catch (e) {}
+  }, 30);
+};
+
 /** メモの内容だけを消す（他の入力はそのまま） */
 window.clearHearingMemo = function (field) {
   var f = field || 'memo';
@@ -4193,6 +4430,9 @@ function buildHearingLines(s) {
     if (q.id in over) { if (!over[q.id]) return; }
     else if (!_hrEvalShowIf(q.showIf, s)) return;
 
+    // ログ作成補助はメモへ差し込むためのボタンなので、それ自体は出力しない
+    if (q.type === 'log') return;
+
     // 見出しは入力を持たないが、区切りとして出力する
     if (q.type === 'heading') {
       out.push({ kind: 'heading', text: (q.outLabel || q.label), prefix: window.getHearingPrefix(q) });
@@ -4263,22 +4503,6 @@ function buildHearingLines(s) {
       multiline: !!q.multiline
     });
   });
-
-  // ── メール受信なし確認項目（Sアカ／Jアカ） ──
-  if (s.migSAccGuide === '失敗（メール受信なし）' || s.newSAccGuide === '失敗（メール受信なし）') {
-    var checksS = [];
-    if (s.cbSMistake)    checksS.push('入力ミス');
-    if (s.cbSSpam)       checksS.push('迷惑メールフィルター');
-    if (s.cbSPermission) checksS.push('受信許可設定（mail.nhk）');
-    if (checksS.length) push('確認項目（Sアカ）', checksS.join('、'));
-  }
-  if (s.jAccGuide === '失敗（メール受信なし）') {
-    var checksJ = [];
-    if (s.cbJMistake)    checksJ.push('入力ミス');
-    if (s.cbJSpam)       checksJ.push('迷惑メールフィルター');
-    if (s.cbJPermission) checksJ.push('受信許可設定（mail.service.nhk-cs.jp）');
-    if (checksJ.length) push('確認項目（Jアカ）', checksJ.join('、'));
-  }
 
   // ── 対応方針 ──
   calcPolicies(s).forEach(function (p) { out.push({ kind: 'policy', value: p }); });
@@ -4448,6 +4672,11 @@ document.addEventListener('keydown', function (e) {
     // メモ・記述・プルダウン・手入力欄の幅をそろえる
     '.hr-row .hr-btns { flex:1; min-width:0; }' +
     '.hr-row .hr-text-input, .hr-row .hr-select { width:100%; box-sizing:border-box; }' +
+    '.hr-log-group { display:flex; flex-wrap:wrap; gap:6px; }' +
+    '.hr-log-btn { height:28px; padding:0 12px; border:1px solid var(--accent,#3742fa);' +
+      'border-radius:6px; background:var(--accent-lt,#eef0ff); color:var(--accent-text,#3742fa);' +
+      'font-size:12px; font-family:inherit; cursor:pointer; white-space:nowrap; }' +
+    '.hr-log-btn:hover { background:var(--accent,#3742fa); color:#fff; }' +
     '.hr-memo-clear { margin-top:4px; height:22px; padding:0 10px; align-self:flex-start;' +
       'border:1px solid var(--border); border-radius:4px; background:var(--surface);' +
       'color:var(--text3); font-size:10px; font-family:inherit; cursor:pointer; }' +
@@ -4516,56 +4745,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// =============================================================================
-// ⑦ 画面へのJSON D&Dインポート
-//    JSON ファイルをページ上にドロップするとインポートを実行する
-// =============================================================================
-(function () {
-  function _handleDrop(e) {
-    // 添付ファイルドロップゾーン上へのドロップは無視
-    var dz = document.getElementById('smFilesDropZone');
-    if (dz && (e.target === dz || dz.contains(e.target))) return;
-    e.preventDefault();
-    e.stopPropagation();
-    document.body.classList.remove('dnd-json-hover');
-    var files = Array.from(e.dataTransfer.files).filter(function(f) {
-      return f.name.endsWith('.json');
-    });
-    if (!files.length) return;
-    var file = files[0];
-    var reader = new FileReader();
-    reader.onload = function(ev) {
-      _processImportText(ev.target.result, true);
-    };
-    reader.readAsText(file);
-  }
-  function _handleDragOver(e) {
-    var dz = document.getElementById('smFilesDropZone');
-    if (dz && (e.target === dz || dz.contains(e.target))) return;
-    var types = Array.from(e.dataTransfer.types || []);
-    if (!types.includes('Files')) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-    document.body.classList.add('dnd-json-hover');
-  }
-  function _handleDragLeave(e) {
-    // bodyの外にカーソルが出た場合のみ解除
-    if (e.relatedTarget && document.body.contains(e.relatedTarget)) return;
-    document.body.classList.remove('dnd-json-hover');
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      document.body.addEventListener('dragover',  _handleDragOver);
-      document.body.addEventListener('dragleave', _handleDragLeave);
-      document.body.addEventListener('drop',      _handleDrop);
-    });
-  } else {
-    document.body.addEventListener('dragover',  _handleDragOver);
-    document.body.addEventListener('dragleave', _handleDragLeave);
-    document.body.addEventListener('drop',      _handleDrop);
-  }
-})();
+// JSON の D&D インポートは廃止した。
+// 管理画面が data.js を直接書き出すようになり、受け渡しが不要になったため。
 
 // =============================================================================
 // ⑧ サイドバー JS制御フォーカスマネージャー

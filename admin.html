@@ -1653,18 +1653,15 @@ html[data-theme="dark"] .nav-arrow-btn { background: rgba(40,42,54,.9); }
     <span class="header-title hd-title-btn">⚙️ 管理画面</span>
     <button class="help-circle-btn" onclick="openAdminHelp()" title="使い方マニュアル">?</button>
   </div>
-  <div class="hd-center">
-    <button class="tab-btn active" id="tabBtnScript"  onclick="switchTab('script')">📋 スクリプト</button>
-    <button class="tab-btn" id="tabBtnMail"    onclick="switchTab('mail')">✉️ メール</button>
-    <button class="tab-btn" id="tabBtnScreen"  onclick="switchTab('screen')">🖥 画面遷移</button>
-    <button class="tab-btn" id="tabBtnFaq"     onclick="switchTab('faq')">❓ FAQ</button>
-    <button class="tab-btn" id="tabBtnHearing" onclick="switchTab('hearing')">📋 ヒアリング</button>
+  <div class="hd-center" id="adminTabBar">
+    <button class="tab-btn active" id="tabBtnScript"  onclick="switchTab('script')" data-page="script.html">📋 スクリプト</button>
+    <button class="tab-btn" id="tabBtnMail"    onclick="switchTab('mail')" data-page="mail.html">✉️ メール</button>
+    <button class="tab-btn" id="tabBtnScreen"  onclick="switchTab('screen')" data-page="screen.html">🖥 画面遷移</button>
+    <button class="tab-btn" id="tabBtnFaq"     onclick="switchTab('faq')" data-page="FAQ.html">❓ FAQ</button>
+    <button class="tab-btn" id="tabBtnHearing" onclick="switchTab('hearing')" data-page="hearing.html">📋 ヒアリング</button>
     <button class="tab-btn" id="tabBtnSideMenu" onclick="switchTab('sidemenu')">☰ サイドメニュー</button>
   </div>
   <div class="hd-right">
-    <button class="nav-btn" onclick="openNamedTab('script.html','scriptTab')">📋 スクリプト</button>
-    <button class="nav-btn" onclick="openNamedTab('mail.html','mailTab')">✉️ メール</button>
-    <button class="nav-btn" onclick="openNamedTab('screen.html','screenFlowTab')">🖥️ 画面遷移</button>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(this)">
     <span id="dirtyIndicator" style="visibility:hidden;display:inline-flex;align-items:center;gap:4px;background:#e07a00;color:white;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;">⚠️ 未保存</span>
     <button class="btn btn-primary" onclick="openSaveModal()">💾 保存して反映</button>
@@ -2301,6 +2298,31 @@ html[data-theme="dark"] .nav-arrow-btn { background: rgba(40,42,54,.9); }
         </div>
       </div>
 
+      <!-- お知らせ（旧 ★お知らせ★.js / .txt から移設） -->
+      <div style="margin-top:32px;padding-top:20px;border-top:2px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span style="font-size:14px;font-weight:700;color:var(--text);">📢 お知らせ</span>
+          <span style="font-size:10px;color:var(--text3);">ホーム画面の上部に出ます。空にすると枠ごと表示されません。</span>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;">
+          <textarea id="noticeText" rows="8" placeholder="お知らせの本文を入力してください。&#10;本文に 2026/08/07 のような日付を書くと、いちばん新しい日付が更新日として表示されます。"
+            style="width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--border);border-radius:6px;
+                   font-size:12px;font-family:inherit;line-height:1.7;background:var(--bg);color:var(--text);resize:vertical;"></textarea>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;">
+            <label style="font-size:11px;color:var(--text2);white-space:nowrap;">更新日（任意）</label>
+            <input type="date" id="noticeDate"
+              style="height:28px;padding:0 8px;border:1px solid var(--border);border-radius:4px;
+                     font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);">
+            <span style="font-size:10px;color:var(--text3);">空欄なら本文中の日付を使います</span>
+            <span style="flex:1;"></span>
+            <button class="btn btn-secondary" style="font-size:11px;height:28px;padding:0 12px;"
+                    onclick="noticeClear()">本文を消す</button>
+            <button class="btn btn-primary" style="font-size:11px;height:28px;padding:0 14px;"
+                    onclick="noticeSave()">お知らせを保存</button>
+          </div>
+        </div>
+      </div>
+
       <!-- 更新履歴（旧・更新履歴タブから集約） -->
       <div style="margin-top:32px;padding-top:20px;border-top:2px solid var(--border);">
         <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px;">📝 更新履歴</div>
@@ -2645,12 +2667,6 @@ var HR_FIELDS_EXTRA = [
   {l:'【新規Sアカ】PW再設定', v:'newSAccPwReset', opts:['成功','失敗（ログインID設定あり）','失敗（ログインID以外の任意情報設定あり）','失敗（任意情報設定なし）']},
   {l:'【S-J連携】', v:'sjLink', opts:['連携済（Jアカ作成済）','未連携（Jアカ作成済）','未連携（Jアカ作成済）※Jアカログイン不可','未連携（Jアカ未作成）','未確認（照合NG）','未確認（他S）']},
   {l:'【Jアカ】作成案内', v:'jAccGuide', opts:['成功','失敗（エラーメール受信）','失敗（メール受信なし）']},
-  {l:'確認項目（Sアカ）メアド入力ミス', v:'cbSMistake', opts:['true','false']},
-  {l:'確認項目（Sアカ）迷惑メールフィルター', v:'cbSSpam', opts:['true','false']},
-  {l:'確認項目（Sアカ）受信許可設定', v:'cbSPermission', opts:['true','false']},
-  {l:'確認項目（Jアカ）メアド入力ミス', v:'cbJMistake', opts:['true','false']},
-  {l:'確認項目（Jアカ）迷惑メールフィルター', v:'cbJSpam', opts:['true','false']},
-  {l:'確認項目（Jアカ）受信許可設定', v:'cbJPermission', opts:['true','false']}
 ];
 window.HR_FIELDS_EXTRA = HR_FIELDS_EXTRA;
 
@@ -3115,7 +3131,7 @@ function switchTab(tab){
   // 更新履歴はサイドメニュータブに集約した
   if(tab==='sidemenu')renderAdminHistoryPanel();
   if(tab==='screen')initScreenEditor();
-  if(tab==='sidemenu'){ _smData = null; smLoad(); smRender(); }
+  if(tab==='sidemenu'){ _smData = null; smLoad(); smRender(); noticeRender(); }
 }
 
 // ===================================================================
@@ -3251,12 +3267,16 @@ function renderFixedItemEditor(key){
       '</div>'+
       '<div class="fixed-item-field-block">'+
         '<div class="fixed-item-field-label">クロージング（不明点なし）</div>'+
-        '<div class="fixed-item-field-desc">「不明点なし」選択時に表示されます。</div>'+
+        '<div class="fixed-item-field-desc">ボタン名も変えられます。空欄なら「不明点なし」になります。</div>'+
+        '<div style="margin-bottom:6px;"><input type="text" id="fixedClosingNoneLabel" placeholder="不明点なし"'+
+          ' value="'+esc(val('closingNoneLabel'))+'" oninput="saveFixedTexts()" style="height:28px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);width:200px;"></div>'+
         '<div class="fixed-text-rich rt-edit" id="fixedClosingNone" contenteditable="true" data-placeholder="不明点なし時のテキスト…" oninput="saveFixedTexts()" style="'+richStyle+'">'+toHtml(val('closingNone'))+'</div>'+
       '</div>'+
       '<div class="fixed-item-field-block">'+
         '<div class="fixed-item-field-label">クロージング（不明点あり）</div>'+
-        '<div class="fixed-item-field-desc">「不明点あり」選択時に表示されます。</div>'+
+        '<div class="fixed-item-field-desc">ボタン名も変えられます。空欄なら「不明点あり」になります。</div>'+
+        '<div style="margin-bottom:6px;"><input type="text" id="fixedClosingAskLabel" placeholder="不明点あり"'+
+          ' value="'+esc(val('closingAskLabel'))+'" oninput="saveFixedTexts()" style="height:28px;padding:0 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;font-family:inherit;background:var(--bg);color:var(--text);width:200px;"></div>'+
         '<div class="fixed-text-rich rt-edit" id="fixedClosingAsk" contenteditable="true" data-placeholder="不明点あり時のテキスト…" oninput="saveFixedTexts()" style="'+richStyle+'">'+toHtml(val('closingAsk'))+'</div>'+
       '</div>'+
     '</div>';
@@ -3609,6 +3629,11 @@ function saveFixedTexts(showToast){
     var id='fixed'+k.charAt(0).toUpperCase()+k.slice(1);
     var el=document.getElementById(id);
     if(el) ft[k]=serializeRichHtml(el.innerHTML);
+  });
+  // ボタン名は書式なしの文字列なので、そのまま保存する
+  ['closingNoneLabel','closingAskLabel'].forEach(function(k){
+    var el=document.getElementById('fixed'+k.charAt(0).toUpperCase()+k.slice(1));
+    if(el) ft[k]=el.value.trim();
   });
   window._appCache.fixedTexts=ft;
   window.idbSetAppData('fixedTexts',ft).then(function(){
@@ -4924,6 +4949,158 @@ var _smData = null; // 編集中データ
 
 // 中身を編集しない参照用のセクション（内容が決まっている表）
 var SM_READONLY_TABLES = ['sm_phonetic', 'sm_domain'];
+
+// ── お知らせ（data.js に保存。旧 ★お知らせ★.js / .txt は廃止） ──
+// URL の #スクリプト名 でタブを指定して開けるようにする
+// （各ページのヘッダーの ⚙ から admin.html#hearing のように呼ばれる）
+// ── タブのホバーメニュー＋メンテナンス中スイッチ ──────────
+// 各タブにカーソルを合わせると、そのページを開くボタンと
+// 「メンテナンス中」の切り替えを出す。
+function _initTabMenus() {
+  var bar = document.getElementById('adminTabBar');
+  if (!bar) return;
+
+  var menu = document.createElement('div');
+  menu.id = 'adminTabMenu';
+  menu.style.cssText =
+    'position:fixed;display:none;z-index:1300;min-width:190px;padding:8px;' +
+    'background:var(--surface);border:1px solid var(--border);border-radius:8px;' +
+    'box-shadow:0 8px 24px rgba(0,0,0,.18);font-size:12px;color:var(--text);';
+  document.body.appendChild(menu);
+
+  var hideTimer = null;
+  var cancelHide = function () { if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; } };
+  var scheduleHide = function () {
+    cancelHide();
+    hideTimer = setTimeout(function () { menu.style.display = 'none'; }, 280);
+  };
+
+  var build = function (btn) {
+    var page = btn.getAttribute('data-page');
+    if (!page) return false;                       // サイドメニュータブには出さない
+    var label = btn.textContent.trim();
+    var on = window.isMaintenance ? window.isMaintenance(page) : false;
+
+    menu.innerHTML = '';
+    var open = document.createElement('button');
+    open.type = 'button'; open.className = 'btn btn-secondary';
+    open.style.cssText = 'width:100%;height:28px;font-size:11px;margin-bottom:6px;';
+    open.textContent = '↗ ' + label + ' を開く';
+    open.addEventListener('click', function () {
+      menu.style.display = 'none';
+      window.openNamedTab(page, window.tabNameForFile(page));
+    });
+    menu.appendChild(open);
+
+    var lab = document.createElement('label');
+    lab.style.cssText = 'display:flex;align-items:center;gap:6px;cursor:pointer;'
+      + 'padding:4px 2px;font-size:11px;color:var(--text2);';
+    var chk = document.createElement('input');
+    chk.type = 'checkbox'; chk.checked = on;
+    chk.addEventListener('change', function () {
+      window.setMaintenance(page, chk.checked);
+      exportDataJS(true).catch(function () {});
+      _paintTabMaintenance();
+      toast(chk.checked ? '🚧 ' + label + ' をメンテナンス中にしました'
+                        : '✅ ' + label + ' のメンテナンスを解除しました');
+    });
+    lab.appendChild(chk);
+    lab.appendChild(document.createTextNode('メンテナンス中にする'));
+    menu.appendChild(lab);
+
+    var note = document.createElement('div');
+    note.style.cssText = 'font-size:10px;color:var(--text3);line-height:1.6;margin-top:2px;';
+    note.textContent = 'ページは開けますが、操作できないよう覆いが出ます。';
+    menu.appendChild(note);
+    return true;
+  };
+
+  bar.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('mouseenter', function () {
+      cancelHide();
+      if (!build(btn)) { menu.style.display = 'none'; return; }
+      var r = btn.getBoundingClientRect();
+      menu.style.display = 'block';
+      menu.style.top  = (r.bottom + 4) + 'px';
+      menu.style.left = Math.max(4, Math.min(r.left, window.innerWidth - 200)) + 'px';
+    });
+    btn.addEventListener('mouseleave', scheduleHide);
+  });
+  menu.addEventListener('mouseenter', cancelHide);
+  menu.addEventListener('mouseleave', scheduleHide);
+
+  _paintTabMaintenance();
+}
+
+/** メンテナンス中のタブに印を付ける */
+function _paintTabMaintenance() {
+  var bar = document.getElementById('adminTabBar');
+  if (!bar) return;
+  bar.querySelectorAll('.tab-btn').forEach(function (btn) {
+    var page = btn.getAttribute('data-page');
+    var on = page && window.isMaintenance && window.isMaintenance(page);
+    var mark = btn.querySelector('.tab-maint-mark');
+    if (on && !mark) {
+      var sp = document.createElement('span');
+      sp.className = 'tab-maint-mark';
+      sp.textContent = ' 🚧';
+      sp.title = 'メンテナンス中';
+      btn.appendChild(sp);
+    } else if (!on && mark) {
+      mark.parentNode.removeChild(mark);
+    }
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _initTabMenus);
+} else {
+  _initTabMenus();
+}
+
+function _openTabFromHash() {
+  var h = (location.hash || '').replace('#', '').trim();
+  if (!h) return;
+  var known = ['script', 'mail', 'screen', 'faq', 'hearing', 'sidemenu'];
+  if (known.indexOf(h) < 0) return;
+  try { switchTab(h); } catch (e) {}
+}
+window.addEventListener('hashchange', _openTabFromHash);
+// 読み込み直後にも反映する（admin.html#hearing で開かれた場合）
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function () { setTimeout(_openTabFromHash, 0); });
+} else {
+  setTimeout(_openTabFromHash, 0);
+}
+
+function noticeRender() {
+  var t = document.getElementById('noticeText');
+  var d = document.getElementById('noticeDate');
+  if (t) t.value = (window.getNotice ? window.getNotice() : '');
+  if (d) {
+    var v = (window.getNoticeDate ? window.getNoticeDate() : '');
+    // input[type=date] は YYYY-MM-DD 形式しか受け付けない
+    var m = String(v).match(/(\d{4})\D(\d{1,2})\D(\d{1,2})/);
+    d.value = m ? (m[1] + '-' + ('0'+m[2]).slice(-2) + '-' + ('0'+m[3]).slice(-2)) : '';
+  }
+}
+
+function noticeSave() {
+  var t = document.getElementById('noticeText');
+  var d = document.getElementById('noticeDate');
+  window.setNotice(t ? t.value : '', d ? d.value : '');
+  exportDataJS(true).catch(function() {});
+  toast('✅ お知らせを保存しました');
+}
+
+function noticeClear() {
+  var t = document.getElementById('noticeText');
+  if (t && t.value.trim() && !confirm('お知らせの本文を消しますか？\nホーム画面から枠ごと消えます。')) return;
+  if (t) t.value = '';
+  var d = document.getElementById('noticeDate');
+  if (d) d.value = '';
+  noticeSave();
+}
 
 function smLoad() {
   // data.js（APP_STATIC_DATA.sideMenuData）を常に正として読む。
@@ -6648,6 +6825,9 @@ function exportDataJS(silent) {
       hearingTemplates: window._appCache.hearingTemplates || [],
       hearingLabelPrefix: window.getHearingDefaultPrefix(),   // 項目名の先頭記号
       hearingFixedReady: true,   // 組み込み項目は取り込み済み（足し直さない）
+      notice:     (window.getNotice     ? window.getNotice()     : ''),   // お知らせ本文
+      noticeDate: (window.getNoticeDate ? window.getNoticeDate() : ''),   // 更新日の手動指定
+      maintenance: (window._appCache.maintenance || {}),                  // メンテナンス中のページ
       // スクリプト・メールも構成ファイルに含める
       talkScripts:      window._appCache.scripts          || (typeof data     !== 'undefined' ? data     : {}),
       mailTemplates:    window._appCache.mailTemplates    || (typeof mailData !== 'undefined' ? mailData : []),
@@ -6869,6 +7049,8 @@ function smRender() {
       '<div class="sm-cat-body" style="padding:10px 12px;' + (open ? '' : 'display:none;') + '">' + itemsHtml + '</div>' +
       '</div>';
   }).join('');
+  // キー欄の表記を判定して印を付ける
+  if (typeof smScCheckAllKeys === 'function') smScCheckAllKeys();
 }
 
 // 1行レイアウトの列見出し（リンク名／URL／マニュアル／動画／ローカルファイル）
@@ -7094,7 +7276,10 @@ function smRenderShortcut(sec, si) {
     (g.rows || []).forEach(function(r, ri) {
       h += '<tr>'
         + '<td style="padding:2px;"><input type="text" value="' + esc(r[0] || '') + '"'
-        +   ' placeholder="Ctrl + C" oninput="smScSet(' + si + ',' + gi + ',' + ri + ',0,this.value)"'
+        +   ' data-sc-key="1"'
+        +   ' placeholder="Ctrl + C"'
+        +   ' oninput="smScSet(' + si + ',' + gi + ',' + ri + ',0,this.value);smScCheckKey(this)"'
+        +   ' onchange="smScNormalizeInput(this,' + si + ',' + gi + ',' + ri + ')"'
         +   ' style="' + inp + '"></td>'
         + '<td style="padding:2px;"><input type="text" value="' + esc(r[1] || '') + '"'
         +   ' placeholder="コピー" oninput="smScSet(' + si + ',' + gi + ',' + ri + ',1,this.value)"'
@@ -7122,12 +7307,125 @@ function smRenderShortcut(sec, si) {
 
 function _smSec(si) { return (_smData || [])[si]; }
 
+// ── ショートカットの「キー」欄の判定 ─────────────────────
+// 表記ゆれ（ctrl+c / CTRL-C など）を直し、知らないキー名は印を付けて知らせる。
+
+// 修飾キー。左が正しい表記、右が受け付ける書き方
+var SC_MODIFIERS = {
+  'Ctrl': ['ctrl', 'control', 'ctl', 'コントロール'],
+  'Shift': ['shift', 'シフト'],
+  'Alt': ['alt', 'option', 'opt', 'オルト'],
+  'Win': ['win', 'windows', 'meta', 'cmd', 'command', '⌘'],
+  'Fn': ['fn']
+};
+// 修飾キー以外で認める単独キー
+var SC_KEYS = (function () {
+  var a = ['Esc', 'Tab', 'Enter', 'Space', 'Backspace', 'Delete', 'Insert', 'Home', 'End',
+           'PageUp', 'PageDown', '↑', '↓', '←', '→', 'PrintScreen', 'CapsLock', 'NumLock',
+           'ScrollLock', 'Pause', 'Menu', '半角/全角', '無変換', '変換', 'かな',
+           // 実際の一覧で使っている表記
+           'マウスホイール', 'ホイール', 'クリック', '右クリック', 'ドラッグ'];
+  for (var i = 1; i <= 24; i++) a.push('F' + i);
+  for (var c = 65; c <= 90; c++) a.push(String.fromCharCode(c));       // A-Z
+  for (var n = 0; n <= 9; n++) a.push(String(n));
+  ['-', '^', '¥', '@', '[', ']', ';', ':', ',', '.', '/', '\\', '_', '+', '*', '='].forEach(function (x) { a.push(x); });
+  return a;
+})();
+
+/** 1つのキー名を正しい表記に直す。分からなければ null */
+function _scFixOne(tok) {
+  var t = String(tok || '').trim();
+  if (!t) return null;
+  var low = t.toLowerCase();
+  for (var m in SC_MODIFIERS) {
+    if (m.toLowerCase() === low || SC_MODIFIERS[m].indexOf(low) >= 0) return m;
+  }
+  var hit = SC_KEYS.find(function (k) { return k.toLowerCase() === low; });
+  if (hit) return hit;
+  // 矢印の言い換え
+  var arrows = { up: '↑', down: '↓', left: '←', right: '→',
+                 '上': '↑', '下': '↓', '左': '←', '右': '→' };
+  if (arrows[low]) return arrows[low];
+  return null;
+}
+
+/**
+ * キーの並びを判定する。
+ *   ok      … 正しい表記に直せたか
+ *   text    … 直したあとの表記
+ *   unknown … 分からなかったキー名
+ */
+function smScParseKey(text) {
+  var raw = String(text || '').trim();
+  if (!raw) return { ok: true, text: '', unknown: [], empty: true };
+
+  // 「半角/全角」のように名前に「/」を含むキーは、そのまま1つとして扱う
+  var whole = _scFixOne(raw);
+  if (whole) return { ok: true, text: whole, unknown: [], empty: false };
+
+  // 「Win + ← / →」のように、最後が「A / B」の選択肢になっている書き方を許す
+  var alt = '';
+  var mAlt = raw.match(/^(.*?)([^+＋]*?\s*\/\s*[^+＋]*)$/);
+  var head = raw;
+  if (mAlt && mAlt[2].indexOf('/') >= 0 && !_scFixOne(mAlt[2])) {
+    var opts = mAlt[2].split('/').map(function (x) { return x.trim(); }).filter(Boolean);
+    var fixedOpts = opts.map(_scFixOne);
+    if (fixedOpts.every(function (x) { return !!x; })) {
+      alt = fixedOpts.join(' / ');
+      head = mAlt[1];
+    }
+  }
+
+  // 「+」「＋」「-」「 」区切りを受け付ける
+  // 区切りは「+」「＋」と空白、および前後に空白のある「-」。
+  // 「ー」を区切りに含めると「マウスホイール」のような語が割れてしまう。
+  var parts = String(head).split(/\s*[+＋]\s*|\s+-\s+|\s+/).filter(function (x) { return x !== ''; });
+  var out = [], unknown = [];
+  parts.forEach(function (t) {
+    var f = _scFixOne(t);
+    if (f) out.push(f); else { unknown.push(t); out.push(t); }
+  });
+  if (alt) out.push(alt);
+  return { ok: unknown.length === 0, text: out.join(' + '), unknown: unknown, empty: false };
+}
+
+/** 入力欄に判定結果を反映する（色と説明） */
+function smScCheckKey(el) {
+  if (!el) return;
+  var r = smScParseKey(el.value);
+  if (r.empty) { el.style.borderColor = ''; el.title = ''; return; }
+  if (r.ok) {
+    el.style.borderColor = '';
+    el.title = (r.text !== el.value.trim()) ? '「' + r.text + '」として保存されます' : '';
+  } else {
+    el.style.borderColor = 'var(--red, #e63946)';
+    el.title = '見慣れないキー名です：' + r.unknown.join(', ')
+             + '\n（例：Ctrl + Shift + V、F5、Esc）';
+  }
+}
+
+/** 入力を終えたら表記を整えて保存する */
+function smScNormalizeInput(el, si, gi, ri) {
+  if (!el) return;
+  var r = smScParseKey(el.value);
+  if (!r.empty && r.ok && r.text !== el.value.trim()) {
+    el.value = r.text;
+    smScSet(si, gi, ri, 0, r.text);
+  }
+  smScCheckKey(el);
+}
+
 function smScSet(si, gi, ri, ci, val) {
   var g = (_smSec(si) || {}).groups;
   if (!g || !g[gi] || !g[gi].rows || !g[gi].rows[ri]) return;
   g[gi].rows[ri][ci] = val;
   smPersist();   // 再描画しない＝入力中もフォーカスが外れない
 }
+/** 画面内のキー欄をまとめて判定し直す */
+function smScCheckAllKeys() {
+  document.querySelectorAll('[data-sc-key]').forEach(smScCheckKey);
+}
+
 function smScSetGroup(si, gi, val) {
   var g = (_smSec(si) || {}).groups;
   if (!g || !g[gi]) return;
@@ -13912,6 +14210,7 @@ window.addEventListener('resize',function(){
       '<option value="select">プルダウン</option>' +
       '<option value="radio">ラジオボタン</option>' +
       '<option value="checkbox">チェックボックス</option>' +
+      '<option value="log">ログ作成補助（押すとメモに差し込む）</option>' +
       '<option value="toggle">トグルボタン</option>';
     var typeRow = row('回答方法', typeSel);
 
@@ -13969,8 +14268,9 @@ window.addEventListener('resize',function(){
     var multiline = null, multi = null, optsArea = null;
     var _syncOtherBtn = null;   // 「その他（手入力）」ボタンの出し分け
 
-    var addOptRow = function(val, details) {
+    var addOptRow = function(val, details, logText) {
       var withDetail = (typeSel.value === 'toggle');
+      var withLog    = (typeSel.value === 'log');
       var r = document.createElement('div');
       r.style.cssText = 'display:flex;align-items:center;gap:6px;';
       var inp = document.createElement('input');
@@ -13996,6 +14296,17 @@ window.addEventListener('resize',function(){
         det.placeholder = '詳細（カンマ区切り／空欄可）';
         det.style.cssText = INP + 'height:26px;flex:1;';
       }
+      // ログ作成補助は、ボタンごとに差し込む複数行テキストを持つ
+      var logTa = null;
+      if (withLog) {
+        logTa = document.createElement('textarea');
+        logTa.dataset.role = 'optlog';
+        logTa.rows = 3;
+        logTa.value = logText || '';
+        logTa.placeholder = '押したときにメモへ差し込む文章（改行できます）';
+        logTa.style.cssText = INP + 'height:auto;padding:6px 8px;line-height:1.6;resize:vertical;flex:1;';
+      }
+
       var del = document.createElement('button');
       del.type = 'button'; del.className = 'btn-del'; del.textContent = '×';
       del.title = 'この選択肢を削除';
@@ -14003,10 +14314,22 @@ window.addEventListener('resize',function(){
         r.parentNode.removeChild(r);
         if (_syncOtherBtn) _syncOtherBtn();
       });
-      r.appendChild(inp);
-      if (det) r.appendChild(det);
-      if (man) r.appendChild(man);
-      r.appendChild(del);
+      if (withLog) {
+        // ボタン名と本文は縦に並べる（本文が長いため）
+        r.style.cssText = 'display:flex;flex-direction:column;gap:4px;'
+          + 'padding:8px;border:1px dashed var(--border);border-radius:6px;';
+        var top = document.createElement('div');
+        top.style.cssText = 'display:flex;align-items:center;gap:6px;';
+        inp.placeholder = 'ボタン名（例：返却対応ログ）';
+        top.appendChild(inp); top.appendChild(del);
+        r.appendChild(top);
+        r.appendChild(logTa);
+      } else {
+        r.appendChild(inp);
+        if (det) r.appendChild(det);
+        if (man) r.appendChild(man);
+        r.appendChild(del);
+      }
       // 「＋ 項目を追加」は見出しの方へ移したので、末尾に足せばよい
       optsArea.appendChild(r);
       return inp;
@@ -14034,7 +14357,9 @@ window.addEventListener('resize',function(){
       hd.style.cssText = 'display:flex;align-items:center;gap:8px;flex-wrap:wrap;'
         + 'font-size:11px;font-weight:700;color:var(--text2);margin-top:6px;margin-bottom:4px;';
       var hdTxt = document.createElement('span');
-      hdTxt.textContent = (t === 'toggle') ? '各項目名と詳細' : '各項目名';
+      hdTxt.textContent = (t === 'toggle') ? '各項目名と詳細'
+                        : (t === 'log')    ? 'ボタンと差し込む文章'
+                        : '各項目名';
       hd.appendChild(hdTxt);
       extra.appendChild(hd);
       if (t === 'toggle') {
@@ -14059,7 +14384,7 @@ window.addEventListener('resize',function(){
           i.parentNode.parentNode.removeChild(i.parentNode);
         });
         editQ.options.forEach(function(o) {
-          var inp = addOptRow(o.l || o.v, (o.details || []).join(', '));
+          var inp = addOptRow(o.l || o.v, (o.details || []).join(', '), o.text || '');
           var mk = inp.parentNode.querySelector('[data-role="optmanual"]');
           if (mk && o.manual) mk.checked = true;
         });
@@ -14229,6 +14554,10 @@ window.addEventListener('resize',function(){
           var v = inp.value.trim();
           if (!v) return;
           var o = { l: v, v: v };
+          // ログ作成補助：押したときに差し込む文章
+          var lgRow = inp.closest ? inp.closest('div') : inp.parentNode;
+          var lg = (lgRow && lgRow.parentNode) ? lgRow.parentNode.querySelector('[data-role="optlog"]') : null;
+          if (lg && lg.value.trim()) o.text = lg.value;
           // 選ぶとテキストボックスが出る選択肢
           var mInp = inp.parentNode.querySelector('[data-role="optmanual"]');
           if (mInp && mInp.checked) o.manual = true;
@@ -14603,24 +14932,6 @@ window.addEventListener('resize',function(){
         if (q.field === 'memo' || q.id === 'q_memo') memoHtml = rowHtml;
         else h += rowHtml;
       });
-
-      // 【Sアカ】／【Jアカ】メール受信なし（固定・編集不要／common-utils.js の共通ヘルパーを使用）
-      if (typeof window._hrMailCheckGroupHTML === 'function') {
-        if (s.migSAccGuide === '失敗（メール受信なし）' || s.newSAccGuide === '失敗（メール受信なし）') {
-          h += window._hrMailCheckGroupHTML(s, {
-            title: '【Sアカ】メール受信なし',
-            mistakeField: 'cbSMistake', spamField: 'cbSSpam', permField: 'cbSPermission',
-            permLabel: '受信許可設定（mail.nhk）'
-          });
-        }
-        if (s.jAccGuide === '失敗（メール受信なし）') {
-          h += window._hrMailCheckGroupHTML(s, {
-            title: '【Jアカ】メール受信なし',
-            mistakeField: 'cbJMistake', spamField: 'cbJSpam', permField: 'cbJPermission',
-            permLabel: '受信許可設定（mail.service.nhk-cs.jp）'
-          });
-        }
-      }
 
       // メモは結果文のすぐ上に置く
       if (memoHtml) h += memoHtml;

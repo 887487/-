@@ -266,7 +266,7 @@
   <!-- リード文は非表示（お知らせ欄に集約）
   <div class="home-lead">
     <p class="home-lead-title">ようこそ！利用するツールを選んでください。</p>
-    <p class="home-lead-sub">お知らせ：データのインポート操作（jsonファイルのD&D）が不要になりました！</p>
+
   </div>
   -->
   <!-- <img src="img/ファイル名.拡張子" width="650" height="300"><br> -->
@@ -415,24 +415,21 @@
       return true;
     }
 
-    // ③ iframe による埋め込み表示（file:// 用の最終手段）
-    function embed() {
-      var fr = document.createElement('iframe');
-      fr.className = 'home-notice-embed';
-      fr.src = encodeURI(FILE_TXT);
-      body.textContent = '';
-      body.style.maxHeight = 'none';
-      body.appendChild(fr);
-      setDate('', null);   // 本文は読めないのでファイル日時のみ試す
-      box.classList.remove('is-empty');
-    }
+    // iframe による埋め込み表示はやめた。
+    // ファイルが無くても空の枠だけが残ってしまい、
+    // 「お知らせが無いのに枠が出ている」状態になるため。
 
-    // ① ★お知らせ★.js
-    if (typeof window.APP_NOTICE === 'string' && window.APP_NOTICE.trim()) {
+    // ① 管理画面で編集した内容（data.js）。旧 ★お知らせ★.js があればそちらが優先される
+    if (typeof window.getNotice === 'function') {
+      var manualDate = (typeof window.getNoticeDate === 'function') ? window.getNoticeDate() : '';
+      if (manualDate) window.APP_NOTICE_DATE = manualDate;
+      if (showText(window.getNotice())) return;
+    } else if (typeof window.APP_NOTICE === 'string' && window.APP_NOTICE.trim()) {
       if (showText(window.APP_NOTICE)) return;
     }
 
-    // ② fetch（http(s) 配信時のみ成功）
+    // ② 旧 ★お知らせ★.txt（http(s) 配信時のみ読める）。
+    //    読めない・中身が無い場合は枠ごと隠す
     try {
       fetch(FILE_TXT, { cache: 'no-store' })
         .then(function (r) {
@@ -440,8 +437,8 @@
           var lm = r.headers.get('last-modified');
           return r.text().then(function (t) { if (!showText(t, lm)) box.classList.add('is-empty'); });
         })
-        .catch(embed);
-    } catch (e) { embed(); }
+        .catch(function () { box.classList.add('is-empty'); });
+    } catch (e) { box.classList.add('is-empty'); }
   })();
 
   // ===== 存在しないページのカードを隠す =====

@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-13T11:31:05.161Z
+// 生成日時: 2026-09-14T01:32:35.298Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-13T11:31:05.161Z",
-  "savedAt": "2026-09-13T11:31:05.161Z",
+  "generatedAt": "2026-09-14T01:32:35.298Z",
+  "savedAt": "2026-09-14T01:32:35.298Z",
   "sideMenuData": [
     {
       "id": "sm_shortcut",
@@ -466,6 +466,112 @@ window.APP_STATIC_DATA = {
       "enabled": true,
       "builtin": true,
       "showIf": []
+    },
+    {
+      "id": "q_nwvhjc6",
+      "enabled": true,
+      "label": "ｇ",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "toggle",
+      "common": true,
+      "tplId": "",
+      "field": "q_nwvhjc6",
+      "options": [
+        {
+          "l": "あ",
+          "v": "あ"
+        },
+        {
+          "l": "ｓ",
+          "v": "ｓ"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_rp2nvqc",
+      "enabled": true,
+      "label": "ｋ",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "toggle",
+      "common": true,
+      "tplId": "",
+      "field": "q_rp2nvqc",
+      "options": [
+        {
+          "l": "ｌあああああああああああああああああああああああああああああああああああああああ",
+          "v": "ｌあああああああああああああああああああああああああああああああああああああああ",
+          "details": [
+            "ｄs",
+            "d"
+          ]
+        },
+        {
+          "l": "；",
+          "v": "；"
+        },
+        {
+          "l": "その他",
+          "v": "その他"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_xivm07w",
+      "enabled": true,
+      "label": "あｑ",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": true,
+      "tplId": "",
+      "field": "q_xivm07w"
+    },
+    {
+      "id": "q_9jyhmho",
+      "enabled": true,
+      "label": "ｄｓふぁ",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": true,
+      "tplId": "",
+      "field": "q_9jyhmho",
+      "options": [
+        {
+          "l": "ｄ",
+          "v": "ｄ"
+        },
+        {
+          "l": "ｓ",
+          "v": "ｓ"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_z39fqlu",
+      "enabled": true,
+      "label": "ｓ",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "checkbox",
+      "common": true,
+      "tplId": "",
+      "field": "q_z39fqlu",
+      "options": [
+        {
+          "l": "ｓ",
+          "v": "ｓ"
+        },
+        {
+          "l": "ｓ",
+          "v": "ｓ"
+        }
+      ]
     }
   ],
   "hearingPolicies": [],
@@ -531,6 +637,8 @@ window.APP_STATIC_DATA = {
   "hearingTemplates": [],
   "hearingLabelPrefix": "■",
   "hearingFixedReady": true,
+  "notice": "",
+  "noticeDate": "",
   "talkScripts": {},
   "mailTemplates": [],
   "mailCatMeta": {
