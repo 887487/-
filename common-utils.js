@@ -1306,9 +1306,12 @@ function _injectQuickCopy() {
     right.appendChild(area);
     return;
   }
-  // 検索欄がある場合はその手前に置き、他ページと並びをそろえる
-  var search = right.querySelector('.search-wrap');
-  if (search) right.insertBefore(area, search);
+  // 定型文は「検索欄（または同じ幅の空き）」と ⚙ の手前に置く。
+  // 差し込む時点で既にそれらが並んでいることがあるため、末尾に足すと順序が崩れる。
+  var before = right.querySelector('.search-wrap')
+            || document.getElementById('headerSearchSpacer')
+            || document.getElementById('adminJumpBtn');
+  if (before && before.parentNode === right) right.insertBefore(area, before);
   else right.appendChild(area);
 }
 
@@ -2671,40 +2674,18 @@ window.filterQuestionsByTemplate = function(list) {
   });
 };
 
+// 入力状態の初期値。
+// 以前は「用途」「【移行Sアカ】…」など業務固有の項目をここに並べていたが、
+// 質問は data.js で管理する運用になったため、汎用の入れ物だけにする。
+// 各項目の値は、回答が入った時点で追加される。
 var DEFAULT_STATE = {
-  usage: null,
-  oldPlusUsed: null, migMailStatus: null,
-  migSAccCreated: null, migSAccGuide: null, migSAccLogin: null, migSAccPwReset: null,
-  newSAccCreated: null, newSAccGuide: null, newSAccLogin: null, newSAccPwReset: null,
-  sjLink: null, jAccGuide: null,
-  transferA: null, transferB: null, transferC: null, transferD: null,
-  devices: {}, carrier: '', carrierManual: '', mailDomain: '', mailDomainManual: '',
+  devices: {},   // 詳細つきトグルの入れ物（質問ごとに作り直される）
   memo: ''
 };
 
-// ── デバイス／キャリアの候補 ──────────────────────────
-// 事業所ごとに変えられるよう、実データは data.js（hearingDevices /
-// hearingCarriers）で管理する。ここにあるのは data.js が無いときの既定値。
-// Web / アプリ は複数選択できるため「両方」の選択肢は不要（両方押せばよい）
-window.HEARING_DEFAULT_DEVICES = [
-  { name: 'iPhone',       details: ['Web', 'アプリ'] },
-  { name: 'Android',      details: ['Web', 'アプリ'] },
-  { name: 'タブレット', details: ['Web', 'アプリ'] },
-  { name: 'PC',           details: ['Win', 'Mac', 'ChromeBook'] },
-  { name: 'TV',           details: [] }
-];
-// ヒアリングシートのメールドメイン候補。
-// サイドメニューの「メールドメイン一覧」とは別管理（用途が違うため）。
-window.HEARING_DEFAULT_DOMAINS = [
-  '@docomo.ne.jp', '@softbank.ne.jp', '@i.softbank.jp',
-  '@ezweb.ne.jp', '@au.com', '@gmail.com',
-  '@yahoo.co.jp', '@icloud.com', '@outlook.com'
-];
-window.HEARING_DEFAULT_CARRIERS = [
-  'docomo', 'au', 'SoftBank', '楽天モバイル',
-  'ahamo', 'povo', 'LINEMO', 'Y!mobile', 'UQ mobile',
-  '格安SIM（MVNO）', 'Wi-Fiのみ'
-];
+// デバイス・キャリア・メールドメインの候補は data.js（質問の options）で持つ。
+// 以前はここに既定値を並べていたが、事業所ごとに違うものを
+// 共通スクリプトに書いておく意味がないため廃止した。
 
 /**
  * 質問の選択肢。候補は質問そのものが持つ。
@@ -2761,7 +2742,7 @@ window.getHearingDevices = function (q) {
     ? q.options.map(function (o) { return { name: o.v || o.l, details: o.details || [] }; })
     : (q && q.devices);
   if (!Array.isArray(list) || !list.length) list = window._appCache && window._appCache.hearingDevices;
-  if (!Array.isArray(list) || !list.length) list = window.HEARING_DEFAULT_DEVICES;
+  if (!Array.isArray(list)) list = [];
   var out = [];
   list.forEach(function (d) {
     if (!d) return;
@@ -2774,7 +2755,7 @@ window.getHearingDevices = function (q) {
                   .filter(function (v, i, a) { return v && a.indexOf(v) === i; })
     });
   });
-  return out.length ? out : JSON.parse(JSON.stringify(window.HEARING_DEFAULT_DEVICES));
+  return out;
 };
 
 /** デバイス名だけの配列 */
@@ -3032,9 +3013,69 @@ function _injectHomeBtn() {
   else left.insertBefore(b, left.firstChild);
 }
 
+/**
+ * ヘッダーの並びをページ間でそろえる。
+ *
+ *   ≡ / 🏠ホーム / 日時 / ページ名 / ? / 各ページ / 定型文 / 検索 / ⚙
+ *
+ * ページごとに HTML の書き方が違い、順番も入り交じっていたため、
+ * 差し込みが終わったあとにここで並べ替える。
+ * 検索欄が無いページ（ヒアリングなど）は、同じ幅の空きを置いて
+ * 他のページと見た目がずれないようにする。
+ */
+function _orderHeader() {
+  var head = document.querySelector('header');
+  if (!head) return;
+  var left  = head.querySelector('.hd-left');
+  var right = head.querySelector('.hd-right');
+  if (!left || !right) return;
+
+  // ページ名と ? は左側へ（日時のあと）
+  var title = head.querySelector('.hd-title-btn');
+  var help  = head.querySelector('.help-circle-btn');
+  var home  = head.querySelector('.home-nav-btn');
+  var clock = document.getElementById('headerClock');
+
+  if (home)  left.appendChild(home);
+  if (clock) left.appendChild(clock);
+  if (title) left.appendChild(title);
+  if (help)  left.appendChild(help);
+
+  // 右側は 各ページ → 定型文 → 検索 → ⚙ の順。
+  // 定型文ボタンも .nav-btn を持つページがあるので、ページ移動ボタンとは別に扱う。
+  var quick  = right.querySelector('.quick-copy-area');
+  var navs   = Array.prototype.slice.call(right.querySelectorAll('.nav-btn'))
+                 .filter(function (b) {
+                   if (b.id === 'adminJumpBtn' || b.id === 'quickCopyBtn') return false;
+                   return !(quick && quick.contains(b));
+                 });
+  var search = right.querySelector('.search-wrap');
+  var gear   = document.getElementById('adminJumpBtn');
+
+  navs.forEach(function (b) { right.appendChild(b); });
+  if (quick) right.appendChild(quick);
+
+  if (search) {
+    right.appendChild(search);
+  } else if (!document.body.classList.contains('page-home')) {
+    // 検索欄が無いページでも、同じ幅を空けて並びをそろえる。
+    // すでに作ってある場合は位置だけ直す（先に作られていると先頭に残るため）。
+    var sp = document.getElementById('headerSearchSpacer');
+    if (!sp) {
+      sp = document.createElement('span');
+      sp.id = 'headerSearchSpacer';
+      sp.setAttribute('aria-hidden', 'true');
+      sp.style.cssText = 'flex:0 0 auto;width:320px;max-width:32vw;';
+    }
+    right.appendChild(sp);
+  }
+  if (gear) right.appendChild(gear);
+}
+
 function _initHeaderBtns() {
   _injectHomeBtn(); _bindTitleBtn(); _injectNavBtns(); _injectAdminBtn(); _injectClock();
   if (!document.body.classList.contains('page-admin')) _applyMaintenance();
+  _orderHeader();     // 差し込みが済んでから並べ替える
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', _initHeaderBtns);
@@ -3459,7 +3500,7 @@ function _hrWithFixedItems(list) {
     if (q.type === 'device' || (q.id === 'q_devices' && !Array.isArray(q.options))) {
       var dv = (Array.isArray(q.devices) && q.devices.length) ? q.devices
              : (window._appCache && window._appCache.hearingDevices);
-      if (!Array.isArray(dv) || !dv.length) dv = window.HEARING_DEFAULT_DEVICES;
+      if (!Array.isArray(dv)) dv = [];
       q = Object.assign({}, q, {
         type: 'toggle', multi: true,
         options: dv.map(function (d) {
@@ -3468,16 +3509,15 @@ function _hrWithFixedItems(list) {
       });
       delete q.devices;
     }
-    if (q.optionsFrom === 'domains' || (q.id === 'q_domain' && !Array.isArray(q.options))) {
-      q = Object.assign({}, q, {
-        options: window.HEARING_DEFAULT_DOMAINS.map(function (v) { return { l: v, v: v }; })
-      });
+    // 旧形式（全体設定を参照していた頃）の読み替え
+    if (q.optionsFrom === 'carriers') {
+      var cv = (window._appCache && window._appCache.hearingCarriers);
+      var src = Array.isArray(cv) ? cv : [];
+      q = Object.assign({}, q, { options: src.map(function (v) { return { l: v, v: v }; }) });
       delete q.optionsFrom;
     }
-    if (q.optionsFrom === 'carriers' || (q.id === 'q_carrier' && !Array.isArray(q.options))) {
-      var cv = (window._appCache && window._appCache.hearingCarriers);
-      var src = (Array.isArray(cv) && cv.length) ? cv : window.HEARING_DEFAULT_CARRIERS;
-      q = Object.assign({}, q, { options: src.map(function (v) { return { l: v, v: v }; }) });
+    if (q.optionsFrom === 'domains') {
+      q = Object.assign({}, q, { options: q.options || [] });
       delete q.optionsFrom;
     }
     return q;
@@ -3543,32 +3583,10 @@ window.addEventListener('storage', function(e) {
 // 書き込まれていて並べ替えも非表示もできなかった。
 // これらを他と同じ「カスタム項目」として hearingQuestions に持たせ、
 // 並べ替え・非表示・記号・出力名などを同じ仕組みで扱えるようにする。
-window.HEARING_FIXED_ITEMS = [
-  {
-    id: 'q_devices', field: 'devices', label: 'デバイス', type: 'toggle', multi: true,
-    options: null,   // 実際の候補は _hrWithFixedItems で入れる（定義順の都合）
-    common: true, enabled: true, builtin: true, showIf: []
-  },
-  {
-    id: 'q_carrier', field: 'carrier', label: 'キャリア', type: 'select',
-    options: null,   // 実際の候補は _hrWithFixedItems で入れる
-    allowManual: true,
-    manualField: 'carrierManual', manualPlaceholder: '例）mineo',
-    common: true, enabled: true, builtin: true, showIf: []
-  },
-  {
-    id: 'q_domain', field: 'mailDomain', label: 'メールドメイン', type: 'select',
-    options: null,   // 実際の候補は _hrWithFixedItems で入れる
-    allowManual: true,
-    manualField: 'mailDomainManual', manualPlaceholder: '例）@example.com',
-    common: true, enabled: true, builtin: true, showIf: []
-  },
-  {
-    id: 'q_memo', field: 'memo', label: 'メモ', type: 'text', multiline: true,
-    placeholder: '自由記入欄…',
-    common: true, enabled: true, builtin: true, showIf: [], atEnd: true
-  }
-];
+// 質問は data.js（hearingQuestions）で管理する。
+// 以前はデバイス／キャリア／メールドメイン／メモをここから補っていたが、
+// 削除しても復活してしまうため廃止した。必要なら管理画面から追加する。
+window.HEARING_FIXED_ITEMS = [];
 
 /**
  * 組み込み項目を hearingQuestions に取り込む（1回だけ）。
@@ -4761,6 +4779,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   _injectQuickCopy();
   window.renderQuickMenu();   // 差し込みが無ければ何もしない
+  // 定型文はここで差し込まれるページがあるので、並べ直す
+  if (typeof _orderHeader === 'function') _orderHeader();
 
   if (document.getElementById('hearingContent')) renderHearing();
 
