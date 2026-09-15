@@ -51,7 +51,7 @@
 
 # admin.html 
 * ページ全体
-  * test
+  * CTRL + S → Enter で保存処理を開始した時、保存が完了しないまたは保存に時間がかかる。
 
 * スクリプトタブ
   * test
@@ -78,9 +78,8 @@
   * 改行単体の挿入に対応する
   * テキストボックスにフォーカスした状態だとCTRL+S 後の Enter が効かない（テキストエリアで改行される）
   * メモ 削除ボタン　見出し横に配置　（■メモ　　消去）
-  * 対応方針エディタ内の 対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。 の表示を点線で囲い、中央揃えで表示する。（🎯 表示/非表示パターン登録側とスタイルを統一する）
-<img width="941" height="358" alt="image" src="https://github.com/user-attachments/assets/ea06ea9c-ca62-4b11-affd-d47b1f1b9639" />
-
+  * el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　に変更する
+    
   * トグルボタン　複数選択のチェック無しのとき、全体として単一でしか選択できない。
   * トグルボタン　項目名が表示しきれない　→　テキストを折り返さず、全文が表示できる幅にする
 
