@@ -91,6 +91,7 @@
   * 表/見出し付きの表　が追加した時点で即時保存されてしまう
   * 項目を削除してもサイドメニュー内に残っている（更新のタイミングで消える）
   * お知らせ 保存で即反映される 保存して反映を通っていない
+  * お知らせ　入力欄は改行で枠を広げる
 ---
 プロファイル化
 * index.html／script.html／mail.html／screen.html／FAQ.html／hearing.html／admin.html／style.css／common-utils.js　は全プロファイルで共通利用のファイルとする
