@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-14T01:32:35.298Z
+// 生成日時: 2026-09-15T04:32:15.423Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-14T01:32:35.298Z",
-  "savedAt": "2026-09-14T01:32:35.298Z",
+  "generatedAt": "2026-09-15T04:32:15.423Z",
+  "savedAt": "2026-09-15T04:32:15.423Z",
   "sideMenuData": [
     {
       "id": "sm_shortcut",
@@ -572,6 +572,55 @@ window.APP_STATIC_DATA = {
           "v": "ｓ"
         }
       ]
+    },
+    {
+      "id": "q_gyf0bz7",
+      "enabled": true,
+      "label": "777",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": true,
+      "tplId": "",
+      "field": "q_gyf0bz7",
+      "options": [
+        {
+          "l": "6789",
+          "v": "6789",
+          "text": "6\n\n7\n8\n9"
+        },
+        {
+          "l": "12345",
+          "v": "12345",
+          "text": "1\n\n2\n3\n4\n5"
+        }
+      ]
+    },
+    {
+      "id": "q_k0tpk18",
+      "enabled": true,
+      "label": "pull",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "select",
+      "common": true,
+      "tplId": "",
+      "field": "q_k0tpk18",
+      "options": [
+        {
+          "l": "123",
+          "v": "123"
+        },
+        {
+          "l": "456",
+          "v": "456"
+        },
+        {
+          "l": "その他",
+          "v": "その他",
+          "manual": true
+        }
+      ]
     }
   ],
   "hearingPolicies": [],
@@ -639,6 +688,7 @@ window.APP_STATIC_DATA = {
   "hearingFixedReady": true,
   "notice": "",
   "noticeDate": "",
+  "maintenance": {},
   "talkScripts": {},
   "mailTemplates": [],
   "mailCatMeta": {

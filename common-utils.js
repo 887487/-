@@ -3693,11 +3693,15 @@ window.hearingItemHTML = function (q, s) {
     return _hrRow(q.label, _radioBtns(fld, s[fld], window.getHearingOptions(q), false, true), '', pf);
   }
   if (q.type === 'log') {
-    // ログ作成補助。押すと決まった複数行テキストがメモに差し込まれる
-    var btns = (window.getHearingOptions(q) || []).map(function (o, i) {
-      return '<button class="hr-log-btn" title="押すとメモに差し込みます"'
-        + ' onclick="window.insertHearingLog(\'' + _hEsc(q.id) + '\',' + i + ')">'
-        + _hEsc(o.l || o.v) + '</button>';
+    // ログ作成補助。選んだボタンの内容が、この項目の出力になる。
+    // もう一度押すと外れる。
+    var picked = Array.isArray(s[fld]) ? s[fld] : (s[fld] ? [s[fld]] : []);
+    var btns = (window.getHearingOptions(q) || []).map(function (o) {
+      var v = o.v || o.l;
+      var on = picked.indexOf(v) >= 0 ? ' active' : '';
+      return '<button class="hr-log-btn' + on + '" title="押すと出力に加えます（もう一度押すと外れます）"'
+        + ' onclick="toggleHearingMulti(\'' + fld + '\',\'' + _hEsc(v).replace(/'/g, "\\'") + '\')">'
+        + _hEsc(o.l || v) + '</button>';
     }).join('');
     return _hrRow(q.label, '<div class="hr-log-group">' + btns + '</div>', '', pf);
   }
@@ -3917,6 +3921,10 @@ window.getFixedText = function (key) {
   var d = window.FIXED_TEXT_DEFAULTS || {};
   return d[key] !== undefined ? String(d[key]) : '';
 };
+
+// ログ作成補助で、複数のボタンを選んだときの区切り線
+var LOG_SEPARATOR = '--------------------------------------------------';
+window.LOG_SEPARATOR = LOG_SEPARATOR;
 
 // ── お知らせ ────────────────────────────────────────
 // 以前は ★お知らせ★.js / .txt を別ファイルで置いていたが、
@@ -4263,8 +4271,8 @@ function renderHearing() {
       var gid = 'hrg_' + (q.id || fld);
       var opened = (_hrGroupState[gid] !== false);
       h += '<div class="hr-group' + (opened ? ' open' : '') + '">'
-        +   '<div class="hr-heading" onclick="toggleHearingGroup(\'' + gid + '\')">'
-        +     '<span class="hr-group-arrow">▼</span>'
+        // 見出しは折りたたまず、区切りとして出すだけにする
+        +   '<div class="hr-heading">'
         +     _hEsc(window.getHearingPrefix(q)) + _hEsc(q.label)
         +   '</div>'
         +   '<div class="hr-group-body">';
@@ -4300,43 +4308,6 @@ function renderHearing() {
  * 複数行入力の高さを内容に合わせる。
  * 既定は1行分で、改行が増えたぶんだけ伸ばす（縮むときも追従させる）。
  */
-/**
- * ログ作成補助のボタンを押したときの処理。
- * 決まった複数行テキストをメモの末尾に差し込む。
- * メモはそのままコピー結果にも入るので、通話ログの下書きに使える。
- */
-window.insertHearingLog = function (qid, index) {
-  var qs = _hrGetQuestions();
-  var q = qs.find(function (x) { return x.id === qid; });
-  if (!q) return;
-  var opt = (window.getHearingOptions(q) || [])[index];
-  if (!opt) return;
-
-  var text = String(opt.text || opt.l || '');
-  if (!text) return;
-
-  var cur = String(hearingState.memo || '');
-  // 同じ文章が既に入っていれば足さない（同じボタンを何度押しても1つ）
-  if (cur.indexOf(text) >= 0) {
-    if (typeof _showHearingToast === 'function') {
-      _showHearingToast('すでに差し込み済みです', false);
-    }
-    return;
-  }
-  // すでに何か書いてあれば改行してから足す
-  hearingState.memo = cur ? (cur.replace(/\s+$/, '') + '\n' + text) : text;
-  saveHearingState();
-  renderHearing();
-
-  // 差し込んだ先が見えるようにメモ欄へ移動する
-  setTimeout(function () {
-    var el = document.querySelector('[data-hr-field="memo"]');
-    if (!el) return;
-    if (el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    try { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } catch (e) {}
-  }, 30);
-};
-
 /** メモの内容だけを消す（他の入力はそのまま） */
 window.clearHearingMemo = function (field) {
   var f = field || 'memo';
@@ -4465,8 +4436,29 @@ function buildHearingLines(s) {
     if (q.id in over) { if (!over[q.id]) return; }
     else if (!_hrEvalShowIf(q.showIf, s)) return;
 
-    // ログ作成補助はメモへ差し込むためのボタンなので、それ自体は出力しない
-    if (q.type === 'log') return;
+    // ログ作成補助：選んだボタンを「ボタン名＋改行＋本文」で並べる。
+    // 複数選んだときは区切り線ではさむ。
+    if (q.type === 'log') {
+      var logFld = q.field || q.id;
+      var picked = s[logFld];
+      picked = Array.isArray(picked) ? picked : (picked ? [picked] : []);
+      if (!picked.length) return;
+      var opts = window.getHearingOptions(q);
+      var order = opts.map(function (o) { return o.v || o.l; });
+      var blocks = picked.slice().sort(function (a, b) {
+        return order.indexOf(a) - order.indexOf(b);      // 押した順ではなく並び順
+      }).map(function (v) {
+        var o = opts.find(function (x) { return (x.v || x.l) === v; }) || { l: v };
+        var body = (o.text == null) ? '' : String(o.text);
+        return (o.l || v) + '\n' + body;
+      });
+      out.push({
+        kind: 'row', label: q.label, outLabel: (q.outLabel || q.label),
+        value: blocks.join('\n' + LOG_SEPARATOR + '\n'),
+        type: '', outTpl: q.outTpl || '', multiline: true
+      });
+      return;
+    }
 
     // 見出しは入力を持たないが、区切りとして出力する
     if (q.type === 'heading') {
@@ -4707,11 +4699,15 @@ document.addEventListener('keydown', function (e) {
     // メモ・記述・プルダウン・手入力欄の幅をそろえる
     '.hr-row .hr-btns { flex:1; min-width:0; }' +
     '.hr-row .hr-text-input, .hr-row .hr-select { width:100%; box-sizing:border-box; }' +
+    // メモ・記述・プルダウン・手入力欄をすべて同じ幅にそろえる
+    '.hr-row .hr-btns > div { width:100%; }' +
+    '.hr-row .hr-btns > div > .hr-text-input { width:100%; box-sizing:border-box; }' +
     '.hr-log-group { display:flex; flex-wrap:wrap; gap:6px; }' +
     '.hr-log-btn { height:28px; padding:0 12px; border:1px solid var(--accent,#3742fa);' +
       'border-radius:6px; background:var(--accent-lt,#eef0ff); color:var(--accent-text,#3742fa);' +
       'font-size:12px; font-family:inherit; cursor:pointer; white-space:nowrap; }' +
     '.hr-log-btn:hover { background:var(--accent,#3742fa); color:#fff; }' +
+    '.hr-log-btn.active { background:var(--accent,#3742fa); color:#fff; font-weight:700; }' +
     '.hr-memo-clear { margin-top:4px; height:22px; padding:0 10px; align-self:flex-start;' +
       'border:1px solid var(--border); border-radius:4px; background:var(--surface);' +
       'color:var(--text3); font-size:10px; font-family:inherit; cursor:pointer; }' +

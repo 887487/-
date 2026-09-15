@@ -2420,7 +2420,7 @@ html[data-theme="dark"] .nav-arrow-btn { background: rgba(40,42,54,.9); }
           <input type="checkbox" id="chkExMail"   checked style="display:none;">
         </div>
 
-        <button class="btn btn-primary" style="font-size:12px;width:100%;" onclick="saveAndExportSelected()">💾 保存して反映</button>
+        <button class="btn btn-primary" id="saveModalRunBtn" style="font-size:12px;width:100%;" onclick="saveAndExportSelected()">💾 保存して反映</button>
       </div>
 
       <!-- 個別インポート（スクリプト・メール・画面遷移のみ） -->
@@ -3061,6 +3061,13 @@ document.addEventListener('keydown', function(e) {
     var m = document.getElementById('saveModal');
     if (m && m.style.display !== 'none') { _runSaveFromModal(); return; }  // 開いていれば実行
     openSaveModal();
+    // 文字を入力していた場合、そのままだと Enter が改行になってしまう。
+    // モーダルの保存ボタンへ移しておく。
+    setTimeout(function () {
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      var btn = document.getElementById('saveModalRunBtn');
+      if (btn && btn.focus) btn.focus();
+    }, 0);
     return;
   }
   // モーダルが開いている間の Enter は「保存して反映」
@@ -3069,6 +3076,7 @@ document.addEventListener('keydown', function(e) {
     if (!mm || mm.style.display === 'none') return;
     var t = e.target;
     // 文章の入力中や、ボタンを選んでいるときは邪魔しない
+    // （保存ボタンを選んでいる場合は、そのボタン自身の click に任せる）
     if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'BUTTON' || t.tagName === 'A')) return;
     e.preventDefault();
     _runSaveFromModal();
@@ -14210,7 +14218,7 @@ window.addEventListener('resize',function(){
       '<option value="select">プルダウン</option>' +
       '<option value="radio">ラジオボタン</option>' +
       '<option value="checkbox">チェックボックス</option>' +
-      '<option value="log">ログ作成補助（押すとメモに差し込む）</option>' +
+      '<option value="log">ログ作成補助（押した内容をまとめて出力）</option>' +
       '<option value="toggle">トグルボタン</option>';
     var typeRow = row('回答方法', typeSel);
 
@@ -14303,7 +14311,7 @@ window.addEventListener('resize',function(){
         logTa.dataset.role = 'optlog';
         logTa.rows = 3;
         logTa.value = logText || '';
-        logTa.placeholder = '押したときにメモへ差し込む文章（改行できます）';
+        logTa.placeholder = '出力する文章（改行できます。改行だけでも構いません）';
         logTa.style.cssText = INP + 'height:auto;padding:6px 8px;line-height:1.6;resize:vertical;flex:1;';
       }
 
@@ -14557,7 +14565,8 @@ window.addEventListener('resize',function(){
           // ログ作成補助：押したときに差し込む文章
           var lgRow = inp.closest ? inp.closest('div') : inp.parentNode;
           var lg = (lgRow && lgRow.parentNode) ? lgRow.parentNode.querySelector('[data-role="optlog"]') : null;
-          if (lg && lg.value.trim()) o.text = lg.value;
+          // 改行だけの本文も意味があるので、空白を削らずそのまま保存する
+          if (lg && lg.value !== '') o.text = lg.value;
           // 選ぶとテキストボックスが出る選択肢
           var mInp = inp.parentNode.querySelector('[data-role="optmanual"]');
           if (mInp && mInp.checked) o.manual = true;
