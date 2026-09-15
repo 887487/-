@@ -38,7 +38,7 @@ hearing.html
 * 
 
 admin.html 
-#ページ全体
+# ページ全体
 * 1
 
 admin.html スクリプトタブ
