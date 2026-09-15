@@ -83,7 +83,9 @@
 * 姓名 を 社員番号 に置換して表示する
 * 取り込むシートの配列　名前｜合計応答数｜平均応答数｜CPH｜AHT｜合計通話時間｜ATT｜合計後処理時間｜ACW｜合計保留時間｜	HOLD/acd｜HOLD/hold｜保留数｜保留率｜実質CPH｜平均稼働率｜平均有給稼働時間｜平均ユーザー対応時間｜平均離席休憩時間｜平均食事時間｜
 <img width="1601" height="22" alt="image" src="https://github.com/user-attachments/assets/c5adefae-9d2c-4ea8-abba-8f0ce405e433" />
+
 ---
+
 * 管理者用の定型文ボタン の表示を考える → admin.htmlにのみ表示？
 * HS登録 → HS部分に遷移先となる画像をライブラリからD&D
 * ［CTRL］+［；］で日付入力　／　［CTRL］+［：］で時間入力 に対応する
