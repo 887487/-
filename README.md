@@ -72,7 +72,6 @@
 
 * サイドメニュータブ
   * ショートカットキー一覧　キー の列に入力されているキーを判定する
-
 ---
 プロファイル化
 * index.html／script.html／mail.html／screen.html／FAQ.html／hearing.html／admin.html／style.css／common-utils.js　は全プロファイルで共通利用のファイルとする
@@ -82,7 +81,6 @@
 * CMリスト　社員番号：姓名　の形式で保存
 * Excelインポート時にそのデータがいつの分かを指定する
 * 姓名 を 社員番号 に置換して表示する
-
 * 取り込むシートの配列　名前｜合計応答数｜平均応答数｜CPH｜AHT｜合計通話時間｜ATT｜合計後処理時間｜ACW｜合計保留時間｜	HOLD/acd｜HOLD/hold｜保留数｜保留率｜実質CPH｜平均稼働率｜平均有給稼働時間｜平均ユーザー対応時間｜平均離席休憩時間｜平均食事時間｜
 <img width="1601" height="22" alt="image" src="https://github.com/user-attachments/assets/c5adefae-9d2c-4ea8-abba-8f0ce405e433" />
 ---
