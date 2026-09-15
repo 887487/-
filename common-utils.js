@@ -1215,6 +1215,9 @@ function _injectNavBtns() {
   var right = document.querySelector('header .hd-right');
   if (!right) return;                                   // ホームなど
   var here = _currentPageFile();
+  // 管理画面には各ページへのジャンプボタンを置かない。
+  // タブにカーソルを合わせたときのメニューから開ける。
+  if (document.body.classList.contains('page-admin')) return;
 
   // 既存の移動ボタン（HTMLに直接書かれているもの）を取り除く
   Array.prototype.slice.call(right.querySelectorAll('button')).forEach(function (b) {
@@ -3640,7 +3643,11 @@ function _hrSelectManualHTML(q, s) {
   var fld  = q.field || q.id;
   var mfld = q.manualField || (fld + 'Manual');
   var v    = s[fld];
-  var opts = window.getHearingOptions(q);
+  // 手入力の選択肢は常に一番下に置く。
+  // あとから項目を足すと「1, 2, その他, 3」の並びになってしまうため。
+  var opts = window.getHearingOptions(q).slice().sort(function (a, b) {
+    return (a.manual ? 1 : 0) - (b.manual ? 1 : 0);
+  });
   var showManual = _hrIsManualValue(q, v);
   var h = '<select class="hr-select" onchange="window.setHearingSelect(\'' + fld + '\',this.value)">' +
     '<option value="">選択してください</option>' +
@@ -3683,7 +3690,7 @@ window.hearingItemHTML = function (q, s) {
   }
   if (q.type === 'radio') {
     // ラジオは1つだけ選ぶので横並びで足りる
-    return _hrRow(q.label, _radioBtns(fld, s[fld], window.getHearingOptions(q), false), '', pf);
+    return _hrRow(q.label, _radioBtns(fld, s[fld], window.getHearingOptions(q), false, true), '', pf);
   }
   if (q.type === 'log') {
     // ログ作成補助。押すと決まった複数行テキストがメモに差し込まれる
@@ -3919,14 +3926,28 @@ window.getFixedText = function (key) {
 
 /** お知らせ本文。無ければ空文字 */
 window.getNotice = function () {
-  if (typeof window.APP_NOTICE === 'string' && window.APP_NOTICE.trim()) {
-    return window.APP_NOTICE;                      // 旧ファイルがあれば優先
-  }
+  // 空文字は「消した」という意思表示。
+  // 中身の有無で判定すると、空にしても data.js の内容が復活してしまう。
   var v = window._appCache && window._appCache.notice;
-  if (typeof v === 'string' && v.trim()) return v;
+  if (typeof v === 'string') return v;
+  if (typeof window.APP_NOTICE === 'string') return window.APP_NOTICE;  // 旧ファイル
   var sd = window.APP_STATIC_DATA;
   return (sd && typeof sd.notice === 'string') ? sd.notice : '';
 };
+
+// 旧 ★お知らせ★.js が置かれている場合は、そちらを最初に採り込む。
+// （管理画面に移行するまでの橋渡し。移行後は旧ファイルを削除してください）
+(function () {
+  if (!window._appCache) return;
+  if (typeof window.APP_NOTICE !== 'string' || !window.APP_NOTICE.trim()) return;
+  // 管理画面で一度でも設定していれば（空にした場合も含めて）そちらを尊重する。
+  // 中身の有無で判定すると、空にしたときに旧ファイルが復活してしまう。
+  var sd = window.APP_STATIC_DATA;
+  var configured = (typeof window._appCache.notice === 'string' && window._appCache.notice !== '')
+             || (sd && typeof sd.notice === 'string');
+  if (configured) return;
+  window._appCache.notice = window.APP_NOTICE;
+})();
 
 /** お知らせの更新日（手動指定）。無ければ空文字 */
 window.getNoticeDate = function () {
@@ -4103,15 +4124,22 @@ function _selectBox(field, val, options) {
 }
 
 /** ラジオボタン（複数選択を許可した場合はチェックボックスにする） */
-function _radioBtns(field, val, options, multi) {
+function _radioBtns(field, val, options, multi, canClear) {
   var arr = Array.isArray(val) ? val : (val ? [val] : []);
   return '<div class="hr-radio-group">' + options.map(function(o) {
     var on = multi ? (arr.indexOf(o.v) >= 0) : (val === o.v);
+    var v  = _hEsc(o.v).replace(/'/g, "\\'");
+    // ラジオは onchange だと、選択中のものを押しても何も起きず解除できない。
+    // onclick にして「同じものを押したら解除」を扱えるようにする。
+    var handler = multi
+      ? ' onchange="toggleHearingMulti(\'' + field + '\',\'' + v + '\')"'
+      : (canClear
+          ? ' onclick="window.toggleHearingSingle(\'' + field + '\',\'' + v + '\')"'
+          : ' onchange="setHearing(\'' + field + '\',\'' + v + '\')"');
     return '<label class="hr-radio">'
       + '<input type="' + (multi ? 'checkbox' : 'radio') + '"'
       + ' name="hr_' + field + '"' + (on ? ' checked' : '')
-      + ' onchange="' + (multi ? 'toggleHearingMulti' : 'setHearing')
-      + '(\'' + field + '\',\'' + _hEsc(o.v).replace(/'/g, "\\'") + '\')">'
+      + handler + '>'
       + '<span>' + _hEsc(o.l) + '</span></label>';
   }).join('') + '</div>';
 }
@@ -4288,6 +4316,13 @@ window.insertHearingLog = function (qid, index) {
   if (!text) return;
 
   var cur = String(hearingState.memo || '');
+  // 同じ文章が既に入っていれば足さない（同じボタンを何度押しても1つ）
+  if (cur.indexOf(text) >= 0) {
+    if (typeof _showHearingToast === 'function') {
+      _showHearingToast('すでに差し込み済みです', false);
+    }
+    return;
+  }
   // すでに何か書いてあれば改行してから足す
   hearingState.memo = cur ? (cur.replace(/\s+$/, '') + '\n' + text) : text;
   saveHearingState();

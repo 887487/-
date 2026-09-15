@@ -14696,12 +14696,17 @@ window.addEventListener('resize',function(){
       editQ.title = '項目名を編集';
       editQ.addEventListener('click', function(e) {
         e.stopPropagation();
-        // その行の編集画面を、追加フォームと同じ形で開く（現在の値が入った状態）
-        var area = document.getElementById('hrInlineAddArea');
+        // その行の編集画面を、追加フォームと同じ形で開く（現在の値が入った状態）。
+        // 画面末尾だとどの項目を編集中か分かりにくいので、その行の直下に出す。
         var cur = _hrQuestionsGet().find(function(x) { return x.id === qId; });
-        if (!area || !cur) return;
+        if (!cur) return;
+        var area = document.getElementById('hrRowEditArea');
+        if (area) area.parentNode.removeChild(area);
+        area = document.createElement('div');
+        area.id = 'hrRowEditArea';
+        rowEl.parentNode.insertBefore(area, rowEl.nextSibling);
         _openInlineAddForm(area, cur);
-        if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
       if (!undeletable) actions.appendChild(editQ);
 
