@@ -1860,8 +1860,11 @@ function _injectClock() {
 
   var el = document.createElement('span');
   el.id = 'headerClock';
+  // 幅を固定しておく。数字が変わるたびに右側がずれるのを防ぐ
   el.style.cssText = 'margin-left:10px;font-size:12px;font-variant-numeric:tabular-nums;'
-    + 'color:var(--header-text,#fff);opacity:.85;letter-spacing:.03em;white-space:nowrap;flex-shrink:0;';
+    + 'color:var(--header-text,#fff);opacity:.85;letter-spacing:.03em;white-space:nowrap;'
+    + 'flex:0 0 auto;min-width:11.5em;text-align:left;'
+    + 'display:inline-flex;align-items:center;height:32px;';
   right.appendChild(el);
 
   var DAYS = ['日', '月', '火', '水', '木', '金', '土'];
@@ -3014,6 +3017,67 @@ function _injectHomeBtn() {
 }
 
 /**
+ * ［?］使い方マニュアルのボタンを、無いページに差し込む。
+ *
+ * script / mail / screen / admin には最初から置かれているが、
+ * FAQ とヒアリングには無く、ヘッダーの並びがそろわなかった。
+ * 中身はこれから用意するので、いまは「準備中」と伝えるだけにする。
+ */
+function _injectHelpBtn() {
+  if (document.querySelector('header .help-circle-btn')) return;   // 既にある
+  if (document.querySelector('.home-header')) return;              // ホーム
+  var left = document.querySelector('header .hd-left');
+  if (!left) return;
+
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'help-circle-btn';
+  b.title = '使い方マニュアル';
+  b.textContent = '?';
+  b.addEventListener('click', function () {
+    if (typeof window.openHelpModal === 'function') { window.openHelpModal(); return; }
+    _openPlaceholderHelp();
+  });
+  left.appendChild(b);
+}
+
+/** マニュアルがまだ無いページ用の、簡単な案内 */
+function _openPlaceholderHelp() {
+  var id = 'helpModalPlaceholder';
+  var el = document.getElementById(id);
+  if (el) { el.style.display = 'flex'; return; }
+
+  var titleEl = document.querySelector('header .hd-title-btn');
+  var pageName = titleEl ? titleEl.textContent.trim() : 'このページ';
+
+  el = document.createElement('div');
+  el.id = id;
+  el.className = 'help-modal-overlay';
+  el.style.display = 'flex';
+  el.innerHTML =
+    '<div class="help-modal-box">' +
+      '<div class="help-modal-header">' +
+        '<span class="help-modal-title">📖 使い方マニュアル｜' + _hEsc(pageName) + '</span>' +
+        '<button class="help-modal-close" type="button">✕</button>' +
+      '</div>' +
+      '<div class="help-modal-body">' +
+        '<div style="padding:28px 4px;text-align:center;color:var(--text3);line-height:2;">' +
+          '<div style="font-size:32px;margin-bottom:10px;">📝</div>' +
+          'このページのマニュアルは準備中です。' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var close = function () { el.style.display = 'none'; };
+  el.querySelector('.help-modal-close').addEventListener('click', close);
+  el.addEventListener('click', function (e) { if (e.target === el) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && el.style.display !== 'none') close();
+  });
+  document.body.appendChild(el);
+}
+
+/**
  * ヘッダーの並びをページ間でそろえる。
  *
  *   ≡ / 🏠ホーム / 日時 / ページ名 / ? / 各ページ / 定型文 / 検索 / ⚙
@@ -3039,7 +3103,23 @@ function _orderHeader() {
   if (home)  left.appendChild(home);
   if (clock) left.appendChild(clock);
   if (title) left.appendChild(title);
-  if (help)  left.appendChild(help);
+
+  // ? は全ページに置く（無いページには _injectHelpBtn が差し込む）。
+  // 万一置けなかった場合に備えて、同じ大きさの空きで幅だけそろえる。
+  if (help) {
+    left.appendChild(help);
+    var oldSp = document.getElementById('headerHelpSpacer');
+    if (oldSp) oldSp.parentNode.removeChild(oldSp);
+  } else if (!document.body.classList.contains('page-home')) {
+    var hsp = document.getElementById('headerHelpSpacer');
+    if (!hsp) {
+      hsp = document.createElement('span');
+      hsp.id = 'headerHelpSpacer';
+      hsp.setAttribute('aria-hidden', 'true');
+      hsp.style.cssText = 'flex:0 0 auto;width:32px;height:32px;';
+    }
+    left.appendChild(hsp);
+  }
 
   // 右側は 各ページ → 定型文 → 検索 → ⚙ の順。
   // 定型文ボタンも .nav-btn を持つページがあるので、ページ移動ボタンとは別に扱う。
@@ -3074,6 +3154,7 @@ function _orderHeader() {
 
 function _initHeaderBtns() {
   _injectHomeBtn(); _bindTitleBtn(); _injectNavBtns(); _injectAdminBtn(); _injectClock();
+  _injectHelpBtn();
   if (!document.body.classList.contains('page-admin')) _applyMaintenance();
   _orderHeader();     // 差し込みが済んでから並べ替える
 }
