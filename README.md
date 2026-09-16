@@ -48,7 +48,7 @@
 
 # index.html
 * 各ページボタンにメンテナンス中の表示を反映する　※クリック無効化
-* home-footer を削除
+* <footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer> を削除
 
 # script.html
 * test
