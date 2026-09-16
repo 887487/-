@@ -28,6 +28,15 @@
 ここまで
 
 ---
+
+手動で編集する
+
+# admin.html ヒアリングタブ el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　に変更する
+
+# index.html <footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer> を削除
+
+---
+
 # 全ページ
 * 読み込み高速化
 * 使い方マニュアル を更新（FAQページにも追加）
@@ -48,7 +57,6 @@
 
 # index.html
 * 各ページボタンにメンテナンス中の表示を反映する　※クリック無効化
-* <footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer> を削除
 
 # script.html
 * test
@@ -82,7 +90,6 @@
   * test
 
 * ヒアリングタブ
-  * el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　に変更する
   * プレビュー　メモ/テキストボックス/プルダウン/手入力用テキストボックス の幅 を統一（hearing.htmlの表示幅に合わせる）
   * 改行単体の挿入に対応する    
   * トグルボタン　複数選択のチェック無しのとき、全体として単一でしか選択できない。
