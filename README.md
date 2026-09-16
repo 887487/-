@@ -32,7 +32,7 @@
 # 手動で編集する
 
 admin.html ヒアリングタブ
-  * el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　に変更する
+// el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　に変更する
 
 index.html
   * //<footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer> を削除
