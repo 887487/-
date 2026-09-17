@@ -4,11 +4,6 @@
 # ToDo
 * Claude Code の環境構築
 ---
-# 手動で編集
-* admin.html ヒアリングタブ：`el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';`　に変更
-* index.html：`<footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer>` を削除
-* common-utils.js：`opening:'お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。',`　に変更
----
 # 着手中 
 #### (ここから)
 * 全ページ
@@ -29,8 +24,12 @@
   * プルダウン　手入力用の”その他”は常にメニューの一番下に表示される仕様にしてください（後から編集で項目を追加した時に1,2,その他,3となってしまう）→編集画面側が1,2,その他,3　のままになっている
 #### (ここまで)
 ---
-
-全ページ
+# 手動で編集
+* admin.html ヒアリングタブ：`el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';`　に変更
+* index.html：`<footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer>` を削除
+* common-utils.js：`opening:'お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。',`　に変更
+---
+# 全ページ対象
 * 読み込み高速化
 * 使い方マニュアル を更新（FAQページにも追加）
 * ヘッダーのボタンに白い枠が表示されることがある
@@ -39,35 +38,35 @@
 * 別フォルダのindex.htmlから起動したとき、直下のdata.jsが読み込まれていない
 * 定型文 に 話中　を追加。話中 から分岐（無音／保留音・機械音／自分の声が聞こえていない様子／相手の声が聞こえにくい（ノイズ・遠い）／話し中、突然相手の声が聞こえなくなった／クロージングしたのに電話が切れていない）に対応
 
-screen-data.js
+# screen-data.js
 * data.js に内容を統合する
 
-app.js
+# app.js
 * 複数のHTMLファイルに影響するコードは common-utils.js に移植。個別のHTMLファイルに影響する場合は、全てインラインで記載し、app.js を削除する
 
-common-utils.js
+# common-utils.js
 * ショートカットキー/フォネティックコード/メールドメイン は common-utils.js で管理（data.jsから削除する）
 
-index.html
+# index.html
 * 各ページボタンにメンテナンス中の表示を反映する　※クリック無効化
 
-script.html
+# script.html
 * test
 
-mail.html
+# mail.html
 * テンプレート名は変わらず、件名と本文が更新される場合があります。件名が変更された場合、旧件名も表示されるようにしたい
 
-screen.html
+# screen.html
 * test
 
-FAQ.html
+# FAQ.html
 * test
 
-hearing.html
+# hearing.html
 * data.jsが消えてもヒアリング項目が表示されている → どこに情報が保存されている？
 * テンプレをラジオボタンで選択
 
-admin.html 
+# admin.html 
 * ページ全体：CTRL + S → Enter で保存処理を開始した時、保存が完了しないまたは保存に時間がかかる。
 * スクリプトタブ：
 * メールタブ：
