@@ -1,18 +1,16 @@
 テストデータを用いて検証し、不具合が発生していないことを確認してからファイルを出力してください
-
 最終的にはhta化
 
-# 手動で編集
-admin.html ヒアリングタブ
-* 変更　→　el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';　
-
-index.html
-* 削除　→　<footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer> を削除
-
-common-utils.js
-* opening:'お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。',
+# ToDo
+* Claude Code の環境構築
 ---
-# 着手中(ここから)
+# 手動で編集
+* admin.html ヒアリングタブ：`el.innerHTML = '<div style="font-size:12px;color:var(--text3);padding:12px;background:var(--surface);border:1px dashed var(--border);border-radius:8px;text-align:center;">対応方針が登録されていません。「＋ 対応方針を追加」で追加してください。</div>';`　に変更
+* index.html：`<footer class="home-footer">各ページはタブで開きます。複数ページを同時に使えます。</footer>` を削除
+* common-utils.js：`opening:'お電話 ありがとうございます。＿＿＿窓口 担当●●でございます。',`　に変更
+---
+# 着手中 
+#### (ここから)
 * 全ページ
   * 各ページの［🏠ホーム］ボタン　新規タブでindex.html が開かれてしまう
   * 各ページの［⚙］ボタン　admin.htmlにはジャンプするが、既にadmin.htmlが開かれている場合、該当のタブまでは到達できない（現在開かれているタブのままになる）
@@ -29,7 +27,7 @@ common-utils.js
   * メモ 削除ボタン　見出し横に配置　（■メモ　　消去）
   * 回答方法　見出し,記述,プルダウン,ラジオボタン,チェックボックス,トグルボタン,ログ作成補助　で並べる（見出し のチェックボックスを廃止）
   * プルダウン　手入力用の”その他”は常にメニューの一番下に表示される仕様にしてください（後から編集で項目を追加した時に1,2,その他,3となってしまう）→編集画面側が1,2,その他,3　のままになっている
-### (ここまで)
+#### (ここまで)
 ---
 
 全ページ
