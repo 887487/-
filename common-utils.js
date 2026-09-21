@@ -5790,8 +5790,16 @@ document.addEventListener('keydown', function (e) {
     '.hr-memo-clear:hover { border-color:var(--red,#e63946); color:var(--red,#e63946); }' +
     // 見出しでまとめた項目の縦間隔を少し広げる
     '.hr-group .hr-row { padding-top:7px; padding-bottom:7px; }' +
-    // トグルの中項目は名前が長くても省略せずに折り返す
-    '.hr-device-row .hr-label { white-space:normal; word-break:break-word; min-width:7em; }' +
+    // トグルの中項目：名前は折り返さず、なるべく1行で表示する。
+    //   名前の列は、いちばん長い名前に合わせた幅にする（全行でボタンの位置がそろう）。
+    //   ただし列が広がりすぎてボタンが窮屈にならないよう、グループの幅の 55% までとし、
+    //   それを超える長さのときだけ折り返す。
+    '.hr-device-row .hr-label { flex:0 0 auto; min-width:0; max-width:55%; overflow:visible; text-overflow:clip; white-space:normal; word-break:break-word; }' +
+    '@supports (grid-template-columns: subgrid) {' +
+      '.hr-device-group { display:grid; grid-template-columns:fit-content(55%) minmax(0,1fr); column-gap:8px; row-gap:2px; }' +
+      '.hr-device-group > .hr-device-row { grid-column:1 / -1; display:grid !important; grid-template-columns:subgrid; align-items:center; }' +
+      '.hr-device-row .hr-label { max-width:none; }' +
+    '}' +
     '.hr-memo-row .hr-autogrow, .hr-row .hr-btns > .hr-autogrow { width:100%; box-sizing:border-box; }' +
     '.hr-sum-multiline { white-space:pre-wrap; word-break:break-word; }' +
     // 複数選択は縦並び（横に並ぶと選択済みが分かりにくいため）

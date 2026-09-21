@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト・画面遷移
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-21T07:04:15.183Z
+// 生成日時: 2026-09-21T15:00:17.555Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-21T07:04:15.183Z",
-  "savedAt": "2026-09-21T07:04:15.183Z",
+  "generatedAt": "2026-09-21T15:00:17.555Z",
+  "savedAt": "2026-09-21T15:00:17.555Z",
   "sideMenuData": [
     {
       "id": "smCat_1789973152233",
@@ -296,198 +296,256 @@ window.APP_STATIC_DATA = {
   "sideMenuFiles": {},
   "hearingQuestions": [
     {
-      "id": "q_ds35ki2",
+      "id": "q_oc9swz2",
       "enabled": true,
-      "label": "見出し",
+      "label": "空GCを●本、不要になったため返却したい。",
       "outLabel": "",
-      "outTpl": "",
-      "type": "heading",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_ds35ki2"
-    },
-    {
-      "id": "q_baf1v1b",
-      "enabled": true,
-      "label": "記述",
-      "outLabel": "",
-      "outTpl": "",
+      "outTpl": "空GCを[入力]本、不要になったため返却したい。",
       "type": "text",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_baf1v1b",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_oc9swz2",
+      "prefix": "",
       "multiline": false
     },
     {
-      "id": "q_23fdt5g",
-      "enabled": true,
-      "label": "プルダウン",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "select",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_23fdt5g",
-      "options": [
-        {
-          "l": "プルダウン1",
-          "v": "プルダウン1"
-        },
-        {
-          "l": "プルダウン2",
-          "v": "プルダウン2"
-        },
-        {
-          "l": "その他",
-          "v": "その他",
-          "manual": true
-        }
-      ]
-    },
-    {
-      "id": "q_oiskoyl",
-      "enabled": true,
-      "label": "ラジオボタン",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "radio",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_oiskoyl",
-      "options": [
-        {
-          "l": "ラジオボタン1",
-          "v": "ラジオボタン1"
-        },
-        {
-          "l": "ラジオボタン2",
-          "v": "ラジオボタン2"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_bvauzij",
-      "enabled": true,
-      "label": "チェックボックス",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "checkbox",
-      "common": false,
-      "tplIds": [
-        "tpl_1j6kro",
-        "tpl_l74p4c"
-      ],
-      "tplId": "tpl_1j6kro",
-      "field": "q_bvauzij",
-      "options": [
-        {
-          "l": "チェックボックス1",
-          "v": "チェックボックス1"
-        },
-        {
-          "l": "チェックボックス2",
-          "v": "チェックボックス2"
-        }
-      ]
-    },
-    {
-      "id": "q_gj5pj6c",
-      "enabled": true,
-      "label": "トグルボタン1",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_gj5pj6c",
-      "options": [
-        {
-          "l": "トグルボタン2",
-          "v": "トグルボタン2"
-        },
-        {
-          "l": "トグルボタン3",
-          "v": "トグルボタン3"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_6wrwbh8",
-      "enabled": true,
-      "label": "トグルボタン4",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": false,
-      "tplIds": [
-        "tpl_1j6kro",
-        "tpl_l74p4c"
-      ],
-      "tplId": "tpl_1j6kro",
-      "field": "q_6wrwbh8",
-      "options": [
-        {
-          "l": "トグルボタン5",
-          "v": "トグルボタン5",
-          "details": [
-            "6",
-            "7"
-          ]
-        },
-        {
-          "l": "トグルボタン8",
-          "v": "トグルボタン8",
-          "details": [
-            "9",
-            "10"
-          ]
-        }
-      ],
-      "multi": true
-    },
-    {
-      "id": "q_rn136t2",
+      "id": "q_h9jmga7",
       "enabled": true,
       "label": "空白行",
       "outLabel": "",
       "outTpl": "",
       "type": "spacer",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_rn136t2"
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_h9jmga7"
     },
     {
-      "id": "q_chmudi2",
+      "id": "q_rvv5yea",
       "enabled": true,
-      "label": "ログ作成補助（111／222）",
+      "label": "聴取項目",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_rvv5yea"
+    },
+    {
+      "id": "q_xp519ie",
+      "enabled": true,
+      "label": "ガスシリンダー表面の「sodastream」ロゴ",
+      "outLabel": "",
+      "outTpl": "ガスシリンダー表面の「sodastream」ロゴ：[入力]",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_xp519ie",
+      "prefix": "　",
+      "options": [
+        {
+          "l": "無",
+          "v": "無"
+        },
+        {
+          "l": "有",
+          "v": "有"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_aan666c",
+      "enabled": true,
+      "label": "今後のソーダメーカーご使用予定（※有の場合は交換購入を勧めてください）",
+      "outLabel": "",
+      "outTpl": "今後のソーダメーカーご使用予定：[入力]",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_aan666c",
+      "prefix": "　",
+      "options": [
+        {
+          "l": "無",
+          "v": "無"
+        },
+        {
+          "l": "有",
+          "v": "有"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_ddt21l5",
+      "enabled": true,
+      "label": "空白行",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "spacer",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_ddt21l5"
+    },
+    {
+      "id": "q_smvc0sz",
+      "enabled": true,
+      "label": "ログ作成補助（◆ブランドサイトをご覧いただける場合◆／◆携帯電話よりお掛け…）",
       "outLabel": "",
       "outTpl": "",
       "type": "log",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_chmudi2",
+      "common": false,
+      "tplIds": [
+        "tpl_0qh5ht"
+      ],
+      "tplId": "tpl_0qh5ht",
+      "field": "q_smvc0sz",
       "options": [
         {
-          "l": "111",
-          "v": "111",
-          "text": "1\n\n1\n1"
+          "l": "◆ブランドサイトをご覧いただける場合◆",
+          "v": "◆ブランドサイトをご覧いただける場合◆",
+          "text": "ブランドサイトのよくある質問「使わなくなったガスシリンダーはどうしたら良いですか？」に誘導して説明済み。"
         },
         {
-          "l": "222",
-          "v": "222",
-          "text": "2\n\n2\n2"
+          "l": "◆携帯電話よりお掛け直しいただき、SMSをお受け取りいただける場合◆",
+          "v": "◆携帯電話よりお掛け直しいただき、SMSをお受け取りいただける場合◆",
+          "text": "ショートメッセージ（SMS）にて返却方法の説明資料を送信することができる旨を案内し、携帯より番号通知にてご連絡いただくよう案内。\n\nショートメッセージにてGCの返却方法の説明資料を送信することできます。\nご希望の場合は、固定電話や携帯による番号非通知ではショートメッセージが送信できないため、携帯で番号通知にて再度フリーダイヤルへご連絡いただきますようお願いいたします。\n最初のガイダンスは「2」、2つ目のガイダンスは「1」、3つ目のガイダンスは「1」、最後のガイダンスは「1」を押してください。"
+        },
+        {
+          "l": "◆口頭でご案内した場合◆",
+          "v": "◆口頭でご案内した場合◆",
+          "text": "下記案内済。\n・着払いで指定の住所へ返送いただくこと、推奨運送会社：佐川急便（陸便）\n・お振込みについて（良好な状態のGC1本につき300円、メモ記載内容、振込予定1～2ヵ月）\n・メモに記入不備あった際の連絡は省略させていただいている\n・「service@ac.rakuten-bank.co.jp」からのメールを受け取れるよう受信設定を依頼\n・ソーダメーカー本体の廃棄方法、弊社へ送られた場合は着払いでの返却"
         }
       ],
       "autoLabel": true
+    },
+    {
+      "id": "q_4wfsq2f",
+      "enabled": true,
+      "label": "●●を持っていたが、不具合起因で本体を買い換えたため規格が合わなくなったとお問合せ",
+      "outLabel": "",
+      "outTpl": "[入力]を持っていたが、不具合起因で本体を買い換えたため規格が合わなくなったとお問合せ",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_4xue01"
+      ],
+      "tplId": "tpl_4xue01",
+      "field": "q_4wfsq2f",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_0w6izje",
+      "enabled": true,
+      "label": "GCシュリンク",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_4xue01"
+      ],
+      "tplId": "tpl_4xue01",
+      "field": "q_0w6izje",
+      "prefix": ""
+    },
+    {
+      "id": "q_zggazrb",
+      "enabled": true,
+      "label": "未開封（交換可能）",
+      "outLabel": "",
+      "outTpl": "未開封（交換可能）：[入力]本",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_4xue01"
+      ],
+      "tplId": "tpl_4xue01",
+      "field": "q_zggazrb",
+      "prefix": "　",
+      "multiline": false
+    },
+    {
+      "id": "q_999sdxu",
+      "enabled": true,
+      "label": "開封済（900g以上、交換可能）",
+      "outLabel": "",
+      "outTpl": "開封済（900g以上、交換可能）：[入力]本",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_4xue01"
+      ],
+      "tplId": "tpl_4xue01",
+      "field": "q_999sdxu",
+      "prefix": "　",
+      "multiline": false
+    },
+    {
+      "id": "q_y0v1p09",
+      "enabled": true,
+      "label": "開封済（900ｇ未満、交換不可）",
+      "outLabel": "",
+      "outTpl": "開封済（900ｇ未満、交換不可）：[入力]本",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_4xue01"
+      ],
+      "tplId": "tpl_4xue01",
+      "field": "q_y0v1p09",
+      "prefix": "　",
+      "multiline": false
+    },
+    {
+      "id": "q_n4epc97",
+      "enabled": true,
+      "label": "聴取",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "toggle",
+      "common": true,
+      "tplIds": [],
+      "tplId": "",
+      "field": "q_n4epc97",
+      "options": [
+        {
+          "l": "今後のソーダメーカーご使用予定（※有の場合は交換購入を勧めてください）",
+          "v": "今後のソーダメーカーご使用予定（※有の場合は交換購入を勧めてください）",
+          "details": [
+            "あり",
+            "なし"
+          ]
+        },
+        {
+          "l": "今後のソーダメーカーご使用予定あ（※有の場合は交換購入を勧めてください）",
+          "v": "今後のソーダメーカーご使用予定あ（※有の場合は交換購入を勧めてください）",
+          "details": [
+            "あり",
+            "なし"
+          ]
+        }
+      ],
+      "multi": false
     }
   ],
   "hearingPolicies": [],
@@ -547,13 +605,13 @@ window.APP_STATIC_DATA = {
   "faqData": [],
   "hearingTemplates": [
     {
-      "id": "tpl_1j6kro",
-      "name": "あああ",
+      "id": "tpl_0qh5ht",
+      "name": "その他問合せ：空ガスの返送：不要なシリンダーの処分方法（ガス返却方法案内）",
       "order": 0
     },
     {
-      "id": "tpl_l74p4c",
-      "name": "ううう",
+      "id": "tpl_4xue01",
+      "name": "その他問合せ：シリンダー規格誤り：本体買換（不具合起因）：以前のシリンダー所持",
       "order": 1
     }
   ],
@@ -604,7 +662,7 @@ window.APP_STATIC_DATA = {
 // 画面遷移データ。画像は screen-images/ フォルダに実ファイルとして保存されています。
 // library は画像ライブラリの復元用です（別PCでも一覧が再現されます）。
 window.APP_SCREEN_DATA = {
-  "savedAt": "2026-09-21T07:04:15.182Z",
+  "savedAt": "2026-09-21T15:00:17.555Z",
   "images": {},
   "library": [],
   "patterns": [

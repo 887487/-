@@ -370,7 +370,8 @@
 
 /* 選択肢・デバイスのインライン編集パネル */
 /* 行の編集・削除はカードの右端にそろえる */
-.tab-panel-hearing .hr-row .hr-btns:has(> .hr-text-input){ flex:1 1 100%; width:100%; }   /* 記述・メモは同じ幅（行いっぱい） */
+.tab-panel-hearing .hr-row .hr-btns:has(> .hr-text-input),
+.tab-panel-hearing .hr-row .hr-btns:has(> .hr-device-group){ flex:1 1 100%; width:100%; }   /* 記述・メモ・トグルのグループは行いっぱい（名前を折り返さず1行にできる幅を確保） */   /* 記述・メモは同じ幅（行いっぱい） */
 .prev-subj-box{display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
 .prev-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);font-size:12px;color:var(--text2);max-width:100%;}
 .prev-chip>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
