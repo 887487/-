@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト・画面遷移
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-21T07:18:49.786Z
+// 生成日時: 2026-09-21T12:23:21.729Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-21T07:18:49.786Z",
-  "savedAt": "2026-09-21T07:18:49.786Z",
+  "generatedAt": "2026-09-21T12:23:21.729Z",
+  "savedAt": "2026-09-21T12:23:21.729Z",
   "sideMenuData": [
     {
       "id": "smCat_1789974391763",
@@ -234,202 +234,7 @@ window.APP_STATIC_DATA = {
     }
   ],
   "sideMenuFiles": {},
-  "hearingQuestions": [
-    {
-      "id": "q_ds35ki2",
-      "enabled": true,
-      "label": "見出し",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "heading",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_ds35ki2"
-    },
-    {
-      "id": "q_baf1v1b",
-      "enabled": true,
-      "label": "記述",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "text",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_baf1v1b",
-      "multiline": false
-    },
-    {
-      "id": "q_23fdt5g",
-      "enabled": true,
-      "label": "プルダウン",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "select",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_23fdt5g",
-      "options": [
-        {
-          "l": "プルダウン1",
-          "v": "プルダウン1"
-        },
-        {
-          "l": "プルダウン2",
-          "v": "プルダウン2"
-        },
-        {
-          "l": "その他",
-          "v": "その他",
-          "manual": true
-        }
-      ]
-    },
-    {
-      "id": "q_oiskoyl",
-      "enabled": true,
-      "label": "ラジオボタン",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "radio",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_oiskoyl",
-      "options": [
-        {
-          "l": "ラジオボタン1",
-          "v": "ラジオボタン1"
-        },
-        {
-          "l": "ラジオボタン2",
-          "v": "ラジオボタン2"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_bvauzij",
-      "enabled": true,
-      "label": "チェックボックス",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "checkbox",
-      "common": false,
-      "tplIds": [
-        "tpl_1j6kro",
-        "tpl_l74p4c"
-      ],
-      "tplId": "tpl_1j6kro",
-      "field": "q_bvauzij",
-      "options": [
-        {
-          "l": "チェックボックス1",
-          "v": "チェックボックス1"
-        },
-        {
-          "l": "チェックボックス2",
-          "v": "チェックボックス2"
-        }
-      ]
-    },
-    {
-      "id": "q_gj5pj6c",
-      "enabled": true,
-      "label": "トグルボタン1",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_gj5pj6c",
-      "options": [
-        {
-          "l": "トグルボタン2",
-          "v": "トグルボタン2"
-        },
-        {
-          "l": "トグルボタン3",
-          "v": "トグルボタン3"
-        }
-      ],
-      "multi": false
-    },
-    {
-      "id": "q_6wrwbh8",
-      "enabled": true,
-      "label": "トグルボタン4",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "toggle",
-      "common": false,
-      "tplIds": [
-        "tpl_1j6kro",
-        "tpl_l74p4c"
-      ],
-      "tplId": "tpl_1j6kro",
-      "field": "q_6wrwbh8",
-      "options": [
-        {
-          "l": "トグルボタン5",
-          "v": "トグルボタン5",
-          "details": [
-            "6",
-            "7"
-          ]
-        },
-        {
-          "l": "トグルボタン8",
-          "v": "トグルボタン8",
-          "details": [
-            "9",
-            "10"
-          ]
-        }
-      ],
-      "multi": true
-    },
-    {
-      "id": "q_rn136t2",
-      "enabled": true,
-      "label": "空白行",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "spacer",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_rn136t2"
-    },
-    {
-      "id": "q_chmudi2",
-      "enabled": true,
-      "label": "ログ作成補助（111／222）",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "log",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_chmudi2",
-      "options": [
-        {
-          "l": "111",
-          "v": "111",
-          "text": "1\n\n1\n1"
-        },
-        {
-          "l": "222",
-          "v": "222",
-          "text": "2\n\n2\n2"
-        }
-      ],
-      "autoLabel": true
-    }
-  ],
+  "hearingQuestions": [],
   "hearingPolicies": [],
   "hearingPatterns": [],
   "updateHistory": [
@@ -485,18 +290,7 @@ window.APP_STATIC_DATA = {
   ],
   "fixedTexts": {},
   "faqData": [],
-  "hearingTemplates": [
-    {
-      "id": "tpl_1j6kro",
-      "name": "あああ",
-      "order": 0
-    },
-    {
-      "id": "tpl_l74p4c",
-      "name": "ううう",
-      "order": 1
-    }
-  ],
+  "hearingTemplates": [],
   "hearingLabelPrefix": "■",
   "hearingFixedReady": true,
   "notice": "",
@@ -3565,6 +3359,19 @@ window.APP_STATIC_DATA = {
       "body": "",
       "note": "",
       "enabled": true
+    },
+    {
+      "id": "mail_1789975152744",
+      "catKey": "mcat_1772939402085",
+      "category": "Jアカウント　メール",
+      "catColor": "#2ec4b6",
+      "subCatKey": "msub_1773996960049",
+      "subCategory": "ID削除・補正関連",
+      "title": "新しいテンプレート",
+      "subject": "",
+      "body": "",
+      "note": "",
+      "enabled": true
     }
   ],
   "mailCatMeta": {
@@ -3614,7 +3421,7 @@ window.APP_STATIC_DATA = {
 // 画面遷移データ。画像は screen-images/ フォルダに実ファイルとして保存されています。
 // library は画像ライブラリの復元用です（別PCでも一覧が再現されます）。
 window.APP_SCREEN_DATA = {
-  "savedAt": "2026-09-21T07:18:49.786Z",
+  "savedAt": "2026-09-21T12:23:21.729Z",
   "images": {},
   "library": [],
   "patterns": [

@@ -87,6 +87,13 @@
       color: var(--text3, #888);
       text-align: right;
     }
+    /* 旧件名（サイドバー）：件名の下に小さく出す */
+    .sb-item-prev { grid-column: 1 / -1; font-size: 10px; color: var(--text3, #999); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    /* 旧件名（詳細） */
+    .prev-subjects { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .prev-subject-row { display: flex; align-items: center; gap: 8px; background: transparent; border-style: dashed; padding: 7px 14px; }
+    .prev-tag { flex: 0 0 auto; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 9px; background: var(--surface2, #eee); color: var(--text3, #888); border: 1px solid var(--border, #dfe4ea); }
+    .prev-subject-row .subject-text { font-size: 13px; font-weight: 500; color: var(--text2, #555); }
     .sb-item-note {
       font-size: 10px;
       color: var(--text3, #aaa);
@@ -371,15 +378,37 @@ function renderSidebar() {
   }
 }
 
+/** 旧件名（変更前の件名。新しい順）。無ければ空配列 */
+function mailPrevSubjects(t) {
+  return Array.isArray(t.prevSubjects) ? t.prevSubjects.filter(function(s) { return s && String(s).trim(); }) : [];
+}
+
+/** 検索語 ql（小文字）に一致する旧件名 */
+function mailPrevMatches(t, ql) {
+  return mailPrevSubjects(t).filter(function(s) { return String(s).toLowerCase().includes(ql); });
+}
+
+/** テンプレート名・件名・旧件名・本文・備考のどれかに一致するか */
+function mailMatches(t, ql) {
+  return (t.title||'').toLowerCase().includes(ql) ||
+         (t.subject||'').toLowerCase().includes(ql) ||
+         mailPrevMatches(t, ql).length > 0 ||
+         (t.body||'').toLowerCase().includes(ql) ||
+         (t.note||'').toLowerCase().includes(ql);
+}
+
 function buildMailSbItem(t) {
   const itemId  = 'mailItem_' + t.id;
-  const preview = ((t.subject ? '件名: ' + t.subject + '\n' : '') + (t.body || '')).slice(0, 120);
+  const prevList = mailPrevSubjects(t);
+  const preview = ((t.subject ? '件名: ' + t.subject + '\n' : '')
+    + (prevList.length ? '旧件名: ' + prevList.join(' / ') + '\n' : '') + (t.body || '')).slice(0, 120);
   const note    = t.note ? t.note.slice(0, 120) : '';
   return `<div class="sb-item" id="${itemId}"
     onclick="showDetail('${t.id}');sbFocusSet('${itemId}')" tabindex="0" role="button"
     data-preview="${escHtml(preview)}" data-note="${escHtml(note)}">
     <span class="sb-item-subject">${escHtml(t.subject || '（件名なし）')}</span>
     <span class="sb-item-title">${escHtml(t.title || '（タイトルなし）')}</span>
+    ${prevList.length ? `<span class="sb-item-prev">旧: ${escHtml(prevList[0])}${prevList.length > 1 ? ' ほか' + (prevList.length - 1) + '件' : ''}</span>` : ''}
   </div>`;
 }
 
@@ -426,6 +455,8 @@ function showDetail(id) {
           <div class="subject-row">
             <span class="subject-text">${escHtml(t.subject||'（件名なし）')}</span>
           </div>
+          ${mailPrevSubjects(t).length ? `<div class="prev-subjects">${mailPrevSubjects(t).map(s => `
+            <div class="subject-row prev-subject-row"><span class="prev-tag">旧件名</span><span class="subject-text">${escHtml(s)}</span></div>`).join('')}</div>` : ''}
         </div>
         <div>
           <div class="field-label">本文</div>
@@ -485,12 +516,7 @@ searchBox.addEventListener('input', () => {
   if (!q) { if(suggestBox){suggestBox.style.display='none';suggestBox.innerHTML='';} return; }
 
   const ql = q.toLowerCase();
-  _mailSuggestResults = templates.filter(t =>
-    (t.title||'').toLowerCase().includes(ql) ||
-    (t.subject||'').toLowerCase().includes(ql) ||
-    (t.body||'').toLowerCase().includes(ql) ||
-    (t.note||'').toLowerCase().includes(ql)
-  );
+  _mailSuggestResults = templates.filter(t => mailMatches(t, ql));
 
   if (!suggestBox) return;
   suggestBox.innerHTML = '';
@@ -503,8 +529,10 @@ searchBox.addEventListener('input', () => {
     const div = document.createElement('div');
     div.className = 'suggest-item';
     const snippet = excerptText(t.body||'', q);
+    const prevHit = mailPrevMatches(t, ql);
     div.innerHTML = `<div>${highlightText(escHtml(t.title||''), q)}</div>
       <div class="suggest-meta">${escHtml(t.category||'')}${t.subCategory?' › '+escHtml(t.subCategory):''}</div>
+      ${prevHit.length ? `<div class="suggest-meta" style="margin-top:2px">旧件名：${highlightText(escHtml(prevHit[0]), q)}${prevHit.length > 1 ? ' ほか' + (prevHit.length - 1) + '件' : ''}</div>` : ''}
       ${snippet ? `<div class="suggest-meta" style="margin-top:2px">${highlightText(escHtml(snippet), q)}</div>` : ''}`;
     div.onclick = () => {
       searchBox.value = t.title || '';
@@ -523,12 +551,7 @@ searchBox.addEventListener('keydown', e => {
     if (!q) return;
     if (suggestBox) suggestBox.style.display = 'none';
     const ql = q.toLowerCase();
-    const results = templates.filter(t =>
-      (t.title||'').toLowerCase().includes(ql) ||
-      (t.subject||'').toLowerCase().includes(ql) ||
-      (t.body||'').toLowerCase().includes(ql) ||
-      (t.note||'').toLowerCase().includes(ql)
-    );
+    const results = templates.filter(t => mailMatches(t, ql));
     showMailSearchResults(results, q);
   }
 });
@@ -553,6 +576,7 @@ function showMailSearchResults(results, keyword) {
       <div style="font-size:11px;color:#888;margin-bottom:6px">${escHtml(t.category||'')}${t.subCategory?' › '+escHtml(t.subCategory):''}</div>
       ${noteSnip ? `<div style="font-size:11px;color:#e67e22;margin-bottom:5px;padding:3px 8px;background:#fef9f0;border-radius:4px;border-left:3px solid #e67e22;">${highlightText(escHtml(noteSnip), keyword)}</div>` : ''}
       <div style="font-size:12px;color:#666;margin-bottom:4px">件名：${subj}</div>
+      ${mailPrevSubjects(t).length ? `<div style="font-size:12px;color:#888;margin-bottom:4px">旧件名：${mailPrevSubjects(t).map(s => highlightText(escHtml(s), keyword)).join(' ／ ')}</div>` : ''}
       ${bodySnip ? `<div style="font-size:12px;color:#888">${bodyH}</div>` : ''}
     </div>`;
   });

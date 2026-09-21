@@ -4757,6 +4757,10 @@ window.hearingItemHTML = function (q, s) {
     // ラジオは1つだけ選ぶので横並びで足りる
     return _hrRow(window.hrLabelHtml(q), _radioBtns(fld, s[fld], window.getHearingOptions(q), false, true), '', pf);
   }
+  if (q.type === 'spacer') {
+    // 空白行：入力欄を持たない、ただの空き（結果文・コピーにも空行として出る）
+    return '<div class="hr-row hr-spacer-row"><div class="hr-btns"><div class="hr-spacer"></div></div></div>';
+  }
   if (q.type === 'log') {
     // ログ作成補助。選んだボタンの内容が、この項目の出力になる。
     // もう一度押すと外れる。
@@ -5364,6 +5368,7 @@ function _hrRichParts(q) {
 
 /** 1行ぶんの HTML（書式つきでコピーするとき・画面に出すとき用） */
 function _hrLineHtml(item) {
+  if (item.kind === 'blank') return '';
   var esc = function (t) { return escHtml(t).replace(/\n/g, '<br>'); };
   if (item.kind === 'heading') {
     var pf = (typeof item.prefix === 'string') ? item.prefix : window.getHearingDefaultPrefix();
@@ -5386,6 +5391,7 @@ function _hrLineIsRich(item) {
 
 /** 1行ぶんの出力テキスト（コピー用） */
 function _hrLineText(item) {
+  if (item.kind === 'blank') return '';    // 空白行
   if (item.kind === 'heading') {
     var pf = (typeof item.prefix === 'string') ? item.prefix : window.getHearingDefaultPrefix();
     return pf ? pf + ' ' + item.text : item.text;
@@ -5472,6 +5478,9 @@ function buildHearingLines(s) {
       return;
     }
 
+    // 空白行：入力を持たず、結果文・コピーに空行として出す（前後に中身が無いときは _hrTrimBlanks で詰める）
+    if (q.type === 'spacer') { out.push({ kind: 'blank' }); return; }
+
     // 見出しは入力を持たないが、区切りとして出力する
     if (q.type === 'heading') {
       var hh = { kind: 'heading', text: (q.outLabel || q.label), prefix: window.getHearingPrefix(q) };
@@ -5554,15 +5563,31 @@ function buildHearingLines(s) {
   var memoIdx = out.findIndex(function (o) { return o.kind === 'row' && o.isMemo; });
   if (memoIdx >= 0) out.push(out.splice(memoIdx, 1)[0]);
 
-  // 中身が1つも無い見出しは出さない（結果文が見出しだらけになるのを防ぐ）
-  return out.filter(function (item, i) {
+  // 中身が1つも無い見出しは出さない（結果文が見出しだらけになるのを防ぐ）。空白行は中身に数えない。
+  var kept = out.filter(function (item, i) {
     if (item.kind !== 'heading') return true;
     for (var j = i + 1; j < out.length; j++) {
+      if (out[j].kind === 'blank') continue;
       if (out[j].kind === 'heading') return false;
       return true;
     }
     return false;
   });
+  return _hrTrimBlanks(kept);
+}
+
+/**
+ * 空白行の整理：先頭・末尾の空白行と、連続する空白行は1つにまとめて取り除く。
+ * （見出しや項目が表示されないとき、空行だけが残らないようにする）
+ */
+function _hrTrimBlanks(list) {
+  var res = [];
+  list.forEach(function (it) {
+    if (it.kind === 'blank' && (!res.length || res[res.length - 1].kind === 'blank')) return;
+    res.push(it);
+  });
+  while (res.length && res[res.length - 1].kind === 'blank') res.pop();
+  return res;
 }
 window.buildHearingLines = buildHearingLines;
 
@@ -5576,6 +5601,7 @@ function renderHearingSummary() {
   var h = '<div class="hr-summary"><div class="hr-summary-title">📋 ヒアリング内容</div><div class="hr-summary-rows">';
   items.forEach(function (it) {
     if (it.kind === 'policy') return;   // 対応方針は下にまとめて出す
+    if (it.kind === 'blank') { h += '<div class="hr-summary-blank"></div>'; return; }
     if (it.kind === 'heading') {
       var hpf = (typeof it.prefix === 'string') ? it.prefix : window.getHearingDefaultPrefix();
       h += '<div class="hr-summary-heading">' + escHtml(hpf ? hpf + ' ' : '') + (it.textHtml || escHtml(it.text)) + '</div>';
@@ -5748,6 +5774,10 @@ document.addEventListener('keydown', function (e) {
     '.hr-row .hr-btns > div { width:100%; }' +
     '.hr-row .hr-btns > div > .hr-text-input { width:100%; box-sizing:border-box; }' +
     '.hr-log-group { display:flex; flex-direction:column; align-items:flex-start; gap:6px; }' +
+    // 空白行：枠も余白も持たない、ただの空き
+    '.hr-spacer-row { padding:0 !important; border:none !important; background:none !important; min-height:0 !important; box-shadow:none !important; }' +
+    '.hr-spacer { height:14px; }' +
+    '.hr-summary-blank { height:8px; }' +
     '.hr-log-row .hr-btns { flex:1; min-width:0; }' +
     '.hr-log-btn { height:28px; padding:0 12px; border:1px solid var(--accent,#3742fa);' +
       'border-radius:6px; background:var(--accent-lt,#eef0ff); color:var(--accent-text,#3742fa);' +

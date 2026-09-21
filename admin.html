@@ -371,6 +371,16 @@
 /* 選択肢・デバイスのインライン編集パネル */
 /* 行の編集・削除はカードの右端にそろえる */
 .tab-panel-hearing .hr-row .hr-btns:has(> .hr-text-input){ flex:1 1 100%; width:100%; }   /* 記述・メモは同じ幅（行いっぱい） */
+.prev-subj-box{display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
+.prev-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;border:1px solid var(--border);border-radius:14px;background:var(--surface2);font-size:12px;color:var(--text2);max-width:100%;}
+.prev-chip>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.prev-chip button{border:none;background:none;color:var(--red);cursor:pointer;font-size:14px;line-height:1;padding:0 3px;}
+.prev-empty{font-size:11px;color:var(--muted);}
+.prev-add{display:flex;gap:6px;width:100%;}
+.prev-add .mail-input{flex:1;}
+.prev-hint{font-size:11px;color:var(--muted);}
+.page-admin .hr-spacer{height:22px;border:1px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;}
+.page-admin .hr-spacer::before{content:'ここに空白行が入ります';}
 .hr-tpl-edit{
   width:18px;height:18px;padding:0;line-height:1;
   border:1px solid var(--border);border-radius:4px;
@@ -2782,7 +2792,7 @@ function _hrConditionFields() {
   var seen = {};
 
   qs.forEach(function(q) {
-    if (!q || q.type === 'heading') return;      // 見出しは回答を持たない
+    if (!q || q.type === 'heading' || q.type === 'spacer') return;      // 見出し・空白行は回答を持たない
     var v = q.field || q.id;
     if (!v || seen[v]) return;
     seen[v] = 1;
@@ -3317,6 +3327,7 @@ let data = {};
   if (window._appCache && window._appCache.mailTemplates && window._appCache.mailTemplates.length) {
     mailData = window._appCache.mailTemplates.slice();
   }
+  _mailSnapshotSubjects();
   if (window._appCache && window._appCache.mailCatMeta) {
     mailCatMeta = window._appCache.mailCatMeta;
   }
@@ -4303,7 +4314,7 @@ if(_bc){
     }
     // ── メールデータ更新 ──
     if(type==='mailDataUpdated'){
-      var ms=window._appCache.mailTemplates;if(ms)mailData=ms.slice();
+      var ms=window._appCache.mailTemplates;if(ms){mailData=ms.slice();_mailSnapshotSubjects();}
       var mc=window._appCache.mailCatMeta;if(mc)mailCatMeta=mc;
       renderMailSidebar();
     }
@@ -4346,6 +4357,7 @@ function _notifyScreenTabs(){
   if(_bc){ try{_bc.postMessage({type:'screenDataUpdated',ts:Date.now()});}catch(e){} }
 }
 function saveAllManual(){
+  _mailRecordPrevSubjects();
   window._appCache.scripts       = data;
   window._appCache.mailTemplates = mailData;
   window._appCache.mailCatMeta   = mailCatMeta || {cats:[],subs:{}};
@@ -4680,6 +4692,7 @@ window.addEventListener('beforeunload',function(e){if(_dirty){e.preventDefault()
 // ===================================================================
 // MAIL_COLORS → APP_COLORS エイリアスを共通パレット定義箇所で宣言済み
 let mailData = (window._appCache && window._appCache.mailTemplates) ? window._appCache.mailTemplates.slice() : [];
+setTimeout(function(){ if (!_mailSubjBaseline) _mailSnapshotSubjects(); }, 0);   // 読み込み直後の件名を控える（initAppData 後に再度控える）
 let mId=null,_pendingMailSubCatKey=null;
 let mailCatMeta=(function(){try{const s=localStorage.getItem('mailCatMeta');return s?JSON.parse(s):null;}catch(e){return null;}})();
 function saveMailCatMeta(){}
@@ -4688,6 +4701,47 @@ function getMailCats(){initMailCatMeta();return mailCatMeta.cats||[];}
 function getMailSubCats(catKey){initMailCatMeta();return(mailCatMeta.subs&&mailCatMeta.subs[catKey])||[];}
 function renameMailCatMeta(catKey,name){initMailCatMeta();const cat=mailCatMeta.cats.find(c=>c.key===catKey);if(cat){cat.name=name;saveMailCatMeta();}mailData.filter(t=>t.catKey===catKey).forEach(t=>t.category=name);}
 function renameMailSubCatMeta(catKey,subKey,name){initMailCatMeta();const subs=mailCatMeta.subs[catKey]||[];const sub=subs.find(s=>s.key===subKey);if(sub){sub.name=name;saveMailCatMeta();}mailData.filter(t=>t.catKey===catKey&&t.subCatKey===subKey).forEach(t=>t.subCategory=name);}
+
+
+// ── 旧件名 ─────────────────────────────────────────────
+// テンプレート名は同じまま件名が更新されることがある。変更前の件名は prevSubjects（新しい順）に残し、
+// メール画面に表示し、検索でもヒットさせる。
+// 入力のたびに履歴が増えないよう、保存済み（読み込み時・前回の保存時）の件名と、
+// 「保存して反映」のときに比べて、違っていたら旧件名として追加する。
+var _mailSubjBaseline = null;
+
+/** 保存済みの件名を控える（id → 件名） */
+function _mailSnapshotSubjects() {
+  _mailSubjBaseline = {};
+  (mailData || []).forEach(function(t) { if (t && t.id) _mailSubjBaseline[t.id] = String(t.subject || ''); });
+}
+
+/** t の旧件名に old を追加する（空・現在の件名と同じ・重複は追加しない）。追加したら true */
+function _mailAddPrevSubject(t, old) {
+  old = String(old == null ? '' : old).trim();
+  if (!old || old === String(t.subject || '').trim()) return false;
+  if (!Array.isArray(t.prevSubjects)) t.prevSubjects = [];
+  if (t.prevSubjects.indexOf(old) >= 0) return false;
+  t.prevSubjects.unshift(old);            // 新しい順
+  return true;
+}
+
+/** 保存のとき：件名が変わったテンプレートに、変更前の件名を旧件名として残す */
+function _mailRecordPrevSubjects() {
+  if (!_mailSubjBaseline) return;
+  (mailData || []).forEach(function(t) {
+    var base = _mailSubjBaseline[t.id];
+    if (base !== undefined) _mailAddPrevSubject(t, base);
+    // 今の件名に戻した場合は、その件名を旧件名から外す
+    if (Array.isArray(t.prevSubjects)) {
+      var cur = String(t.subject || '').trim();
+      t.prevSubjects = t.prevSubjects.filter(function(s) { return s !== cur; });
+      if (!t.prevSubjects.length) delete t.prevSubjects;
+    }
+  });
+  _mailSnapshotSubjects();
+  if (typeof _refreshPrevSubj === 'function') _refreshPrevSubj();   // 編集中の画面の旧件名欄も更新する
+}
 
 function buildMailAdminItem(t){
   const active=mId===t.id;
@@ -4806,6 +4860,9 @@ function renderMailEditor(){
     <div class="step-card"><div class="step-head"><span class="step-badge step-badge-num">✉️ メール内容</span><span class="step-head-spacer"></span></div>
     <div class="step-body">
       <div class="mail-field"><span class="mail-field-label">件名</span><input class="mail-input" type="text" value="${escHtml(t.subject||'')}" oninput="updMail('subject',this.value)" placeholder="件名を入力"></div>
+      <div class="mail-field"><span class="mail-field-label">旧件名 <span style="font-weight:400;color:var(--muted)">（メール画面に表示・検索対象）</span></span>
+        <div class="prev-subj-box" id="prevSubjBox">${_prevSubjHtml(t)}</div>
+      </div>
       <div class="mail-field"><span class="mail-field-label">本文</span>
         <div class="rt-edit mail-input" contenteditable="true" data-ph="本文を入力"
              oninput="updMailRich('body',this)"
@@ -4820,7 +4877,19 @@ function renderMailEditor(){
       <div class="mail-field"><span class="mail-field-label">備考 <span style="font-weight:400;color:var(--muted)">（サイドバーに表示・任意）</span></span><input class="mail-input" type="text" value="${escHtml(t.note||'')}" oninput="updMail('note',this.value)" placeholder="例：〇〇のとき使用　など"></div>
     </div></div>`;
 }
-function updMail(key,val){const t=mailData.find(x=>x.id===mId);if(t){t[key]=val;saveAll();renderMailSidebar();}}
+/** 編集画面の「旧件名」欄の中身 */
+function _prevSubjHtml(t){
+  const list=Array.isArray(t.prevSubjects)?t.prevSubjects:[];
+  const base=_mailSubjBaseline?_mailSubjBaseline[t.id]:undefined;
+  const pend=(base!==undefined&&String(base).trim()&&String(base).trim()!==String(t.subject||'').trim()&&list.indexOf(String(base).trim())<0)?String(base).trim():'';
+  return (list.length?list.map((s,i)=>`<span class="prev-chip"><span>${escHtml(s)}</span><button type="button" title="この旧件名を削除" onclick="delPrevSubj(${i})">×</button></span>`).join(''):'<span class="prev-empty">まだありません</span>')
+    +`<div class="prev-add"><input class="mail-input" id="prevSubjInput" type="text" placeholder="旧件名を追加（Enter）" onkeydown="if(event.key==='Enter'){event.preventDefault();addPrevSubj();}"><button type="button" class="btn" onclick="addPrevSubj()">追加</button></div>`
+    +`<div class="prev-hint" id="prevSubjPending">${pend?'保存すると、変更前の件名「'+escHtml(pend)+'」が旧件名に追加されます。':'件名を変更して保存すると、変更前の件名が自動でここに残ります。'}</div>`;
+}
+function _refreshPrevSubj(){const t=mailData.find(x=>x.id===mId);const box=document.getElementById('prevSubjBox');if(t&&box)box.innerHTML=_prevSubjHtml(t);}
+function addPrevSubj(){const t=mailData.find(x=>x.id===mId);const inp=document.getElementById('prevSubjInput');if(!t||!inp)return;const v=inp.value.trim();if(!v)return;if(!_mailAddPrevSubject(t,v)){toast('⚠️ すでにある、または現在の件名と同じです');return;}saveAll();_refreshPrevSubj();renderMailSidebar();}
+function delPrevSubj(i){const t=mailData.find(x=>x.id===mId);if(!t||!Array.isArray(t.prevSubjects))return;t.prevSubjects.splice(i,1);if(!t.prevSubjects.length)delete t.prevSubjects;saveAll();_refreshPrevSubj();renderMailSidebar();}
+function updMail(key,val){const t=mailData.find(x=>x.id===mId);if(t){t[key]=val;saveAll();renderMailSidebar();if(key==='subject'){const p=document.getElementById('prevSubjPending');if(p){const b=_mailSubjBaseline?_mailSubjBaseline[t.id]:undefined;const bt=b===undefined?'':String(b).trim();p.textContent=(bt&&bt!==String(val||'').trim()&&!(t.prevSubjects||[]).includes(bt))?'保存すると、変更前の件名「'+bt+'」が旧件名に追加されます。':'件名を変更して保存すると、変更前の件名が自動でここに残ります。';}}}}
 
 /**
  * 書式付きの欄を保存する。
@@ -5454,8 +5523,8 @@ function _hrPatModalRenderTriggers() {
         { label: q.trueLabel  || 'はい',   value: 'true'  },
         { label: q.falseLabel || 'いいえ', value: 'false' }
       ];
-    } else if (q.type === 'heading') {
-      return;                                   // 見出しは回答を持たない
+    } else if (q.type === 'heading' || q.type === 'spacer') {
+      return;                                   // 見出し・空白行は回答を持たない
     } else {
       buttons = (window.getHearingOptions ? window.getHearingOptions(q) : (q.options || []))
         .map(function(o) { return { label: o.l, value: o.v }; });
@@ -5741,6 +5810,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 function saveAndExportSelected() {
+  _mailRecordPrevSubjects();   // 件名が変わったテンプレートは、変更前の件名を旧件名として残す
   var st = document.getElementById('saveModalStatus');
   if (st) { st.textContent = '⏳ 保存中…'; st.style.visibility = 'visible'; st.style.background = 'var(--accent-lt)'; st.style.color = 'var(--accent)'; }
 
@@ -14511,7 +14581,7 @@ window.addEventListener('resize',function(){
     var title = document.createElement('div');
     title.style.cssText = 'font-size:12px;font-weight:700;color:var(--accent-text);';
     title.textContent = isEdit
-      ? (editQ.type === 'log' ? '✏️ ログ作成補助を編集' : '✏️ 「' + (editQ.label || '') + '」を編集')
+      ? (editQ.type === 'log' ? '✏️ ログ作成補助を編集' : (editQ.type === 'spacer' ? '✏️ 空白行を編集' : '✏️ 「' + (editQ.label || '') + '」を編集'))
       : '＋ 新しい質問を追加';
     container.appendChild(title);
 
@@ -14653,7 +14723,8 @@ window.addEventListener('resize',function(){
       '<option value="radio">ラジオボタン</option>' +
       '<option value="checkbox">チェックボックス</option>' +
       '<option value="toggle">トグルボタン</option>' +
-      '<option value="log">ログ作成補助</option>';
+      '<option value="log">ログ作成補助</option>' +
+      '<option value="spacer">空白行</option>';
     var typeRow = row('回答方法', typeSel);
     container.insertBefore(typeRow, mainRow);   // 並びは：テンプレート名 → 回答方法 → 項目名・出力
 
@@ -14793,7 +14864,15 @@ window.addEventListener('resize',function(){
 
       // ログ作成補助は「ボタン」だけで成り立つので、項目名・記号・出力の欄は出さない
       // （項目名を入力させない）。他の回答方法に戻したら元どおり出す。
-      mainRow.style.display = (t === 'log') ? 'none' : 'flex';
+      // 空白行も入力する内容が無いので、項目名・記号・出力・書式バーは出さない。
+      mainRow.style.display = (t === 'log' || t === 'spacer') ? 'none' : 'flex';
+      rtRow.style.display   = (t === 'spacer') ? 'none' : 'flex';
+
+      if (t === 'spacer') {
+        extra.style.display = 'none';
+        slotBtn.style.display = 'none';
+        return;
+      }
 
       if (t === 'heading') {
         extra.style.display = 'none';
@@ -14907,7 +14986,7 @@ window.addEventListener('resize',function(){
     // いま登録されている質問のうち、条件に使えるもの（選択肢を持つもの）だけ
     var srcQs = (typeof _hrQuestionsGet === 'function' ? _hrQuestionsGet() : [])
       .filter(function(x) {
-        if (!x || x.type === 'heading') return false;
+        if (!x || x.type === 'heading' || x.type === 'spacer') return false;
         return x.type === 'bool' ||
                (window.getHearingOptions && window.getHearingOptions(x).length > 0);
       });
@@ -14965,9 +15044,12 @@ window.addEventListener('resize',function(){
     addBtn.textContent = isEdit ? '保存する' : '追加する';
     addBtn.addEventListener('click', function() {
       var isLog = (typeSel.value === 'log');
+      var isSpacer = (typeSel.value === 'spacer');
       var label = labelInp.value.trim();
+      // 空白行は項目名を持たない。内部の名前だけ付ける（表示はしない）
+      if (isSpacer) label = '空白行';
       // ログ作成補助は項目名を持たない（入力欄も出していない）
-      if (!isLog && !label) { toast('⚠️ 項目名を入力してください'); labelInp.focus(); return; }
+      if (!isLog && !isSpacer && !label) { toast('⚠️ 項目名を入力してください'); labelInp.focus(); return; }
 
       // テンプレートを決める（複数選べる）。「新しい名前」があれば作る（同じ名前が既にあればそれを使う）
       var tplIds = tplChks.filter(function(c) { return c.checked; }).map(function(c) { return c.value; });
@@ -15004,8 +15086,9 @@ window.addEventListener('resize',function(){
         tplId: tplIds[0] || ''              // 旧データとの互換用（先頭の1つ）
       };
       // 書式（太字・色など）を付けたときだけ、plain とは別に HTML も保存する
-      if (!isLog && lblRich.html) newQ.labelHtml = lblRich.html;
-      if (!isLog && outVal && outRich.html) newQ.outHtml = outRich.html;
+      if (isSpacer) { newQ.outLabel = ''; newQ.outTpl = ''; }
+      if (!isLog && !isSpacer && lblRich.html) newQ.labelHtml = lblRich.html;
+      if (!isLog && !isSpacer && outVal && outRich.html) newQ.outHtml = outRich.html;
       // 回答の保存先キー。編集では入力済みの回答が消えないよう元のキーを保つ
       newQ.field = isEdit ? (editQ.field || editQ.id) : newQ.id;
       if (isEdit && editQ.builtin) newQ.builtin = editQ.builtin;
@@ -15017,7 +15100,7 @@ window.addEventListener('resize',function(){
         newQ.showIf = [[{ field: condQ.value, op: 'eq', value: condV.value }]];
       }
 
-      if (t === 'heading') {
+      if (t === 'heading' || t === 'spacer') {
         // 入力欄を持たないので追加設定は不要
       } else if (t === 'text') {
         newQ.multiline = !!(multiline && multiline.checked);
@@ -15090,7 +15173,7 @@ window.addEventListener('resize',function(){
         window.renderHearing();
         if (typeof _hrLoadAndRender === 'function') _hrLoadAndRender();
       });
-      var shown = isLog ? 'ログ作成補助' : '「' + label + '」';
+      var shown = isLog ? 'ログ作成補助' : (isSpacer ? '空白行' : '「' + label + '」');
       toast(isEdit ? '✅ ' + shown + 'を保存しました' : '✅ ' + shown + 'を追加しました');
     });
 
@@ -15185,8 +15268,8 @@ window.addEventListener('resize',function(){
       // 項目名の左の記号プルダウン、「文」「選択肢」の小さなボタンは廃止した。
       // 見つけにくく使いこなせないという指摘のため、右端の「編集」から
       // 追加フォームと同じ画面でまとめて設定する形にしている。
-      labelEl.innerHTML = (q.type === 'log')
-        ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">ログ作成補助</span>'
+      labelEl.innerHTML = (q.type === 'log' || q.type === 'spacer')
+        ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">' + (q.type === 'spacer' ? '空白行' : 'ログ作成補助') + '</span>'
         : '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) +
           '</span><span class="hr-label-text">' + _hrLabelAdmin(q) + '</span>';
       var labelTextEl = labelEl.querySelector('.hr-label-text');
@@ -15526,8 +15609,8 @@ window.addEventListener('resize',function(){
              ' data-q-id="' + escHtml(q.id) + '"' +
              (hiddenBy ? ' data-hidden-by="' + escHtml(hiddenBy) + '"' : '') + '>' +
              '<div class="hr-label">' +
-               (q.type === 'log'
-                 ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">ログ作成補助</span>'
+               ((q.type === 'log' || q.type === 'spacer')
+                 ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">' + (q.type === 'spacer' ? '空白行' : 'ログ作成補助') + '</span>'
                  : '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) + '</span>' +
                    '<span class="hr-label-text">' + _hrLabelAdmin(q) + '</span>') + '</div>' +
              '<div class="hr-btns">' + content + '</div>' +
