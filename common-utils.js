@@ -3465,10 +3465,30 @@ window.toggleHearingTemplate = function(id) {
  */
 window.filterQuestionsByTemplate = function(list) {
   var cur = window.getCurrentTemplate();
-  return (list || []).filter(function(q) {
+  var lst = list || [];
+  var ok = function(q) {
     var ids = window.getQuestionTplIds(q);
     if (!ids.length) return true;       // 共通・未設定は従来どおり常に表示
     return ids.indexOf(cur) >= 0;
+  };
+  // ログ作成補助の中の項目（parentId を持つ）は、親が表示されるときだけ表示する
+  var shown = {};
+  lst.forEach(function(q) { if (q && !q.parentId && ok(q)) shown[q.id] = true; });
+  return lst.filter(function(q) { return q.parentId ? !!shown[q.parentId] : ok(q); });
+};
+
+/**
+ * ログ作成補助の中に置かれた項目（記述・選択など）のうち、いま表示するもの。
+ * 有効で、表示条件・パターンを満たすものだけ。
+ */
+window.hearingChildItems = function(q, s) {
+  if (!q || typeof _hrGetQuestions !== 'function') return [];
+  var over = (typeof _hrPatternOverrides === 'function') ? _hrPatternOverrides(s || hearingState) : {};
+  return window.filterQuestionsByTemplate(_hrGetQuestions()).filter(function(k) {
+    if (k.parentId !== q.id || !k.enabled) return false;
+    if (k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return false;
+    if (k.id in over) return !!over[k.id];
+    return _hrEvalShowIf(k.showIf, s || hearingState);
   });
 };
 
@@ -4772,9 +4792,16 @@ window.hearingItemHTML = function (q, s) {
         + ' onclick="toggleHearingMulti(\'' + fld + '\',\'' + escHtml(v).replace(/'/g, "\\'") + '\')">'
         + window.hrOptHtmlEsc(o, v) + '</button>';
     }).join('');
-    // ログ作成補助は項目名を出さず、ボタンだけを縦に並べる
+    // ログ作成補助は項目名を出さず、ボタンだけを縦に並べる。
+    // 中に置いた項目（記述・選択など）は、ボタンの下に続けて出す。
+    var kidsHtml = '';
+    if (!(document.body && document.body.classList.contains('page-admin'))) {
+      kidsHtml = window.hearingChildItems(q, s).map(function (k) { return window.hearingItemHTML(k, s); }).join('');
+    }
     return '<div class="hr-row hr-log-row"><div class="hr-btns">'
-      + '<div class="hr-log-group">' + btns + '</div></div></div>';
+      + '<div class="hr-log-group">' + btns + '</div>'
+      + (kidsHtml ? '<div class="hr-log-children">' + kidsHtml + '</div>' : '')
+      + '</div></div>';
   }
   if (q.type === 'checkbox') {
     // チェックボックスは常に複数選択。選んだものが「、」でつながって出力される。
@@ -5227,6 +5254,7 @@ function renderHearing() {
   var h = '';
 
   qs.forEach(function(q) {
+    if (q.parentId) return;    // ログ作成補助の中の項目は、親の行の中に出す
     if (!q.enabled) return;
     // パターンが優先、なければ showIf を評価
     if (q.id in patternOverrides) {
@@ -5442,7 +5470,8 @@ function buildHearingLines(s) {
     ? window.filterQuestionsByTemplate(_hrGetQuestions()) : [];
   var over = _hrPatternOverrides(s);
 
-  qs.forEach(function (q) {
+  // 1つの項目ぶんの出力を sink に積む（ログ作成補助の中の項目も、同じ処理で出力する）
+  var emit = function (q, out) {
     if (!q.enabled) return;
     if (q.id in over) { if (!over[q.id]) return; }
     else if (!_hrEvalShowIf(q.showIf, s)) return;
@@ -5453,7 +5482,13 @@ function buildHearingLines(s) {
       var logFld = q.field || q.id;
       var picked = s[logFld];
       picked = Array.isArray(picked) ? picked : (picked ? [picked] : []);
-      if (!picked.length) return;
+      // ログの中に置いた項目（記述・選択など）の出力。ボタンの文章のあとに続ける
+      var kidItems = [];
+      qs.forEach(function (k) {
+        if (k.parentId !== q.id || k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return;
+        emit(k, kidItems);
+      });
+      if (!picked.length && !kidItems.length) return;
       var opts = window.getHearingOptions(q);
       var order = opts.map(function (o) { return o.v || o.l; });
       var htmlBlocks = [], hasRich = false;
@@ -5469,10 +5504,21 @@ function buildHearingLines(s) {
                       : escHtml(body).replace(/\n/g, '<br>')));
         return (o.l || v) + '\n' + body;
       });
+      var logParts = [], logHtmlParts = [];
+      if (blocks.length) {
+        logParts.push(blocks.join('\n' + LOG_SEPARATOR + '\n'));
+        logHtmlParts.push(htmlBlocks.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>'));
+      }
+      if (kidItems.length) {
+        // ボタンの文章と、中の項目は区切り線ではさむ（片方だけのときは区切らない）
+        logParts.push(kidItems.map(_hrLineText).join('\n'));
+        logHtmlParts.push(kidItems.map(_hrLineHtml).join('<br>'));
+        if (kidItems.some(_hrLineIsRich)) hasRich = true;
+      }
       out.push({
         kind: 'row', label: q.label, outLabel: (q.outLabel || q.label),
-        value: blocks.join('\n' + LOG_SEPARATOR + '\n'),
-        htmlValue: hasRich ? htmlBlocks.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>') : '',
+        value: logParts.join('\n' + LOG_SEPARATOR + '\n'),
+        htmlValue: hasRich ? logHtmlParts.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>') : '',
         type: '', outTpl: '', multiline: true, logOnly: true
       });
       return;
@@ -5553,6 +5599,11 @@ function buildHearingLines(s) {
       isMemo: (fld === 'memo' || q.id === 'q_memo'),
       multiline: !!q.multiline
     }, _hrRichParts(q)));
+  };
+
+  qs.forEach(function (q) {
+    if (q.parentId) return;    // ログ作成補助の中の項目は、親の出力にまとめる
+    emit(q, out);
   });
 
   // ── 対応方針 ──
@@ -5774,6 +5825,9 @@ document.addEventListener('keydown', function (e) {
     '.hr-row .hr-btns > div { width:100%; }' +
     '.hr-row .hr-btns > div > .hr-text-input { width:100%; box-sizing:border-box; }' +
     '.hr-log-group { display:flex; flex-direction:column; align-items:flex-start; gap:6px; }' +
+    // ログ作成補助の中の項目：ボタンの下に、左に線を引いて続ける
+    '.hr-log-children { display:flex; flex-direction:column; gap:4px; margin-top:6px; padding:4px 0 2px 10px; border-left:3px solid var(--accent-lt,#dfe3ff); }' +
+    '.hr-log-children > .hr-row { padding:4px 0 !important; border:none !important; background:none !important; }' +
     // 空白行：枠も余白も持たない、ただの空き
     '.hr-spacer-row { padding:0 !important; border:none !important; background:none !important; min-height:0 !important; box-shadow:none !important; }' +
     '.hr-spacer { height:14px; }' +

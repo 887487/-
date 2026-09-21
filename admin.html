@@ -386,6 +386,8 @@
 .prev-hint{font-size:11px;color:var(--muted);}
 .page-admin .hr-spacer{height:22px;border:1px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;}
 .page-admin .hr-spacer::before{content:'ここに空白行が入ります';}
+.hr-row-child{margin-left:24px;border-left:3px solid var(--accent-lt,#dfe3ff);background:var(--surface2);}
+.hr-child-tag{display:inline-block;margin-right:6px;padding:0 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--accent-lt);color:var(--accent-text);vertical-align:middle;}
 .hr-tpl-edit{
   width:18px;height:18px;padding:0;line-height:1;
   border:1px solid var(--border);border-radius:4px;
@@ -419,6 +421,8 @@
   font-size:10px; font-family:inherit; cursor:pointer;
 }
 .hr-row-edit:hover{ border-color:var(--accent); color:var(--accent-text); }
+.hr-row-addkid{ height:18px; padding:0 7px; border-radius:3px; border:1px solid var(--border); background:var(--surface); color:var(--text3); font-size:10px; font-family:inherit; cursor:pointer; }
+.hr-row-addkid:hover{ border-color:var(--accent); color:var(--accent-text); }
 
 /* プレビューの見出しとボタンを同じ行に並べる。
    hearing.html の .hr-page-head は同ファイル内でしか定義されていないため、
@@ -14479,7 +14483,10 @@ window.addEventListener('resize',function(){
       });
     });
 
+    var kids = all.filter(function(x) { return x && x.parentId === qId; });
     var msg = '質問「' + label + '」を削除しますか？\n\n入力済みの回答も表示されなくなります。';
+    if (kids.length) msg += '\n\nログ作成補助の中にある項目 ' + kids.length + ' 件（'
+      + kids.slice(0, 3).map(function(x) { return x.label; }).join('、') + (kids.length > 3 ? ' ほか' : '') + '）も一緒に削除されます。';
     if (dependents.length) {
       msg += '\n\n⚠️ この質問を「表示条件」にしている項目が ' + dependents.length + ' 件あります。'
            + '\n' + dependents.slice(0, 5).map(function(x) { return '　・' + x.label; }).join('\n')
@@ -14495,14 +14502,14 @@ window.addEventListener('resize',function(){
     }
     if (!confirm(msg)) return;
 
-    var qs = all.filter(function(x) { return x.id !== qId; });
+    var qs = all.filter(function(x) { return x.id !== qId && x.parentId !== qId; });
     _hrQuestionsSave(qs);
-    // 入力済みの回答も片付ける
+    // 入力済みの回答も片付ける（中の項目の分も）
     try {
-      if (hearingState && hearingState[qId] !== undefined) {
-        delete hearingState[qId];
-        if (typeof saveHearingState === 'function') saveHearingState();
-      }
+      var gone = [qId].concat(kids.map(function(x) { return x.field || x.id; }));
+      var dirty = false;
+      gone.forEach(function(k) { if (hearingState && hearingState[k] !== undefined) { delete hearingState[k]; dirty = true; } });
+      if (dirty && typeof saveHearingState === 'function') saveHearingState();
     } catch (e) {}
     window.renderHearing();
     if (typeof _hrLoadAndRender === 'function') _hrLoadAndRender();
@@ -14558,8 +14565,10 @@ window.addEventListener('resize',function(){
    * 記号・出力・選択肢などを行ごとの小さなボタンに分けていたが、
    * 見つけにくく使いこなせないという指摘のため、編集はこの1画面にまとめた。
    */
-  function _openInlineAddForm(container, editQ) {
+  function _openInlineAddForm(container, editQ, opts) {
     var isEdit = !!editQ;
+    // ログ作成補助の中に置く項目のときの、親の質問ID（編集のときは項目自身が持っている）
+    var parentId = (editQ && editQ.parentId) || (opts && opts.parentId) || '';
     container.innerHTML = '';
     container.style.cssText =
       'margin:8px 0 4px;background:var(--surface);border:1px solid var(--accent);' +
@@ -14585,7 +14594,9 @@ window.addEventListener('resize',function(){
 
     var title = document.createElement('div');
     title.style.cssText = 'font-size:12px;font-weight:700;color:var(--accent-text);';
-    title.textContent = isEdit
+    title.textContent = parentId
+      ? (isEdit ? '✏️ 「' + (editQ.label || '') + '」を編集（ログ作成補助の中の項目）' : '＋ ログ作成補助の中に項目を追加')
+      : isEdit
       ? (editQ.type === 'log' ? '✏️ ログ作成補助を編集' : (editQ.type === 'spacer' ? '✏️ 空白行を編集' : '✏️ 「' + (editQ.label || '') + '」を編集'))
       : '＋ 新しい質問を追加';
     container.appendChild(title);
@@ -14642,6 +14653,7 @@ window.addEventListener('resize',function(){
     });
     tplHost.appendChild(tplBtn); tplHost.appendChild(tplPop);
     var tplRow = row('テンプレート名', tplHost);
+    if (parentId) tplRow.style.display = 'none';   // 中の項目は、親のログ作成補助と同じテンプレートで表示される
 
     var newTplInp = document.createElement('input');
     newTplInp.type = 'text'; newTplInp.placeholder = '例：A';
@@ -14681,7 +14693,13 @@ window.addEventListener('resize',function(){
       c.addEventListener('change', function() { syncTpl(c); });
     });
     newTplInp.addEventListener('input', function() { syncTpl(newTplInp); });
-    commonChk.checked = true;
+    // 新規追加で、プレビューが特定のテンプレートに絞られているときは、
+    // そのテンプレートを選んだ状態から始める（毎回「共通」に戻って選び直す手間を省く）。
+    // 編集のときや、ログ作成補助の中に項目を追加するとき（テンプレート欄自体を隠す）は対象外。
+    var _preselect = (!isEdit && !parentId) ? window.getCurrentTemplate() : '';
+    var _preChk = _preselect && tplChks.find(function(c) { return c.value === _preselect; });
+    if (_preChk) { _preChk.checked = true; commonChk.checked = false; }
+    else commonChk.checked = true;
     refreshTplText();
 
     // ── 項目名 / 出力名 ──
@@ -14730,6 +14748,12 @@ window.addEventListener('resize',function(){
       '<option value="toggle">トグルボタン</option>' +
       '<option value="log">ログ作成補助</option>' +
       '<option value="spacer">空白行</option>';
+    // ログ作成補助の中には、入力や選択の項目だけを置ける（見出し・空白行・ログ作成補助は置かない）
+    if (parentId) {
+      ['heading', 'log', 'spacer'].forEach(function(v) {
+        var o = typeSel.querySelector('option[value="' + v + '"]'); if (o) typeSel.removeChild(o);
+      });
+    }
     var typeRow = row('回答方法', typeSel);
     container.insertBefore(typeRow, mainRow);   // 並びは：テンプレート名 → 回答方法 → 項目名・出力
 
@@ -14904,6 +14928,14 @@ window.addEventListener('resize',function(){
                         : '各項目名';
       hd.appendChild(hdTxt);
       extra.appendChild(hd);
+      if (t === 'log' && !parentId) {
+        var lnote = document.createElement('div');
+        lnote.style.cssText = 'font-size:10px;color:var(--text3);';
+        lnote.textContent = 'ボタンのほかに、記述・選択などの項目をログの中に置けます。'
+          + '保存したあと、プレビューのこの項目の右端にある［＋ 項目］から追加します。'
+          + '中の項目の入力は、ボタンの文章のあとに続けてログに出力されます。';
+        extra.appendChild(lnote);
+      }
       if (t === 'toggle') {
         var note = document.createElement('div');
         note.style.cssText = 'font-size:10px;color:var(--text3);';
@@ -15096,6 +15128,7 @@ window.addEventListener('resize',function(){
       if (!isLog && !isSpacer && outVal && outRich.html) newQ.outHtml = outRich.html;
       // 回答の保存先キー。編集では入力済みの回答が消えないよう元のキーを保つ
       newQ.field = isEdit ? (editQ.field || editQ.id) : newQ.id;
+      if (parentId) newQ.parentId = parentId;              // ログ作成補助の中の項目
       if (isEdit && editQ.builtin) newQ.builtin = editQ.builtin;
       // 先頭記号：「既定に従う」ならキー自体を持たせない
       if (pfxSel.value !== '__default__') newQ.prefix = pfxSel.value;
@@ -15167,6 +15200,12 @@ window.addEventListener('resize',function(){
       }
 
       var qs = _hrQuestionsGet();
+      // ログ作成補助でなくなる場合、中に置いていた項目は独立した項目に戻す（消さない）
+      if (isEdit && editQ.type === 'log' && t !== 'log') {
+        var freed = 0;
+        qs.forEach(function(x) { if (x.parentId === editQ.id) { delete x.parentId; freed++; } });
+        if (freed) toast('ℹ️ ログ作成補助の中にあった ' + freed + ' 件の項目は、独立した項目になりました');
+      }
       if (isEdit) {
         var ei = qs.findIndex(function(x) { return x.id === newQ.id; });
         if (ei >= 0) qs[ei] = newQ; else qs.push(newQ);   // 見つからなければ追加扱い
@@ -15275,7 +15314,7 @@ window.addEventListener('resize',function(){
       // 追加フォームと同じ画面でまとめて設定する形にしている。
       labelEl.innerHTML = (q.type === 'log' || q.type === 'spacer')
         ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">' + (q.type === 'spacer' ? '空白行' : 'ログ作成補助') + '</span>'
-        : '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) +
+        : (q.parentId ? '<span class="hr-child-tag">ログ内</span>' : '') + '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) +
           '</span><span class="hr-label-text">' + _hrLabelAdmin(q) + '</span>';
       var labelTextEl = labelEl.querySelector('.hr-label-text');
 
@@ -15304,6 +15343,33 @@ window.addEventListener('resize',function(){
         _openInlineAddForm(area, cur);
         if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
+      // ログ作成補助には、中に項目（記述・選択など）を追加するボタンを出す
+      if (q.type === 'log') {
+        var addKid = document.createElement('button');
+        addKid.type = 'button';
+        addKid.textContent = '＋ 項目';
+        addKid.className = 'hr-row-addkid';   // 見た目は編集ボタンと同じ（.hr-row-edit とは別のクラス）
+        addKid.title = 'ログ作成補助の中に、記述・選択などの項目を追加';
+        addKid.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var area = document.getElementById('hrRowEditArea');
+          if (area) area.parentNode.removeChild(area);
+          area = document.createElement('div');
+          area.id = 'hrRowEditArea';
+          // 親の行の直下（すでに中の項目があれば、その最後の下）に出す
+          var anchor = rowEl;
+          var all = _hrQuestionsGet();
+          all.forEach(function(x) {
+            if (x.parentId !== qId) return;
+            var r = rowEl.parentNode.querySelector('.hr-row[data-q-id="' + x.id + '"]');
+            if (r) anchor = r;
+          });
+          anchor.parentNode.insertBefore(area, anchor.nextSibling);
+          _openInlineAddForm(area, null, { parentId: qId });
+          if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+        actions.appendChild(addKid);
+      }
       if (!undeletable) actions.appendChild(editQ);
 
       // メモは仕組み上そのまま残るため、プレビューだけ消せてしまうと誤解を招く。
@@ -15431,7 +15497,7 @@ window.addEventListener('resize',function(){
   }
 
   // ── 項目の並べ替え（左端のつまみをドラッグ）──
-  var _hrDragId = null;
+  var _hrDragId = null, _hrDragParent = '';
 
   /** srcId の質問を dstId の前（または後）へ移す。並び順はそのまま質問の並びとして保存される */
   function _hrMoveQuestion(srcId, dstId, after) {
@@ -15468,8 +15534,11 @@ window.addEventListener('resize',function(){
     handle.title = 'ドラッグで並べ替え';
     labelEl.insertBefore(handle, labelEl.firstChild);
 
+    // 中の項目は同じログ作成補助の中でだけ並べ替える（外へは出さない）
+    var _myQ = _hrQuestionsGet().find(function(x) { return x.id === qId; });
+    var myParent = (_myQ && _myQ.parentId) || '';
     handle.addEventListener('dragstart', function(e) {
-      _hrDragId = qId;
+      _hrDragId = qId; _hrDragParent = myParent;
       e.dataTransfer.effectAllowed = 'move';
       try { e.dataTransfer.setData('text/plain', qId); } catch (err) {}
       try { e.dataTransfer.setDragImage(rowEl, 16, 12); } catch (err) {}
@@ -15482,7 +15551,7 @@ window.addEventListener('resize',function(){
       return e.clientY > r.top + r.height / 2;
     };
     rowEl.addEventListener('dragover', function(e) {
-      if (!_hrDragId || _hrDragId === qId) return;
+      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
       var after = isAfter(e);
@@ -15494,7 +15563,7 @@ window.addEventListener('resize',function(){
       rowEl.classList.remove('hr-drop-before', 'hr-drop-after');
     });
     rowEl.addEventListener('drop', function(e) {
-      if (!_hrDragId || _hrDragId === qId) return;
+      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent) return;
       e.preventDefault();
       var src = _hrDragId, after = isAfter(e);
       _hrDragId = null; _hrClearDropMarks();
@@ -15578,10 +15647,20 @@ window.addEventListener('resize',function(){
       // 条件の参照先は、表示していない（別テンプレートの）項目も含めて探す
       qsAll.forEach(function(x) { if (x) allFields[x.field || x.id] = 1; });
 
+      // ログ作成補助の中の項目は、親の行のすぐ下に並べる（ツール画面では親の中に出る）
+      var ordered = [];
       qs.forEach(function(q) {
+        if (q.parentId) return;
+        ordered.push(q);
+        if (q.type === 'log') qs.forEach(function(k) { if (k.parentId === q.id) ordered.push(k); });
+      });
+      var hiddenParents = {};
+
+      ordered.forEach(function(q) {
         if (!q.enabled) return;
         var hiddenBy = '';
-        if (q.id in patternOverrides) {
+        if (q.parentId && hiddenParents[q.parentId]) { hiddenBy = 'ログ作成補助が非表示のため非表示'; }
+        else if (q.id in patternOverrides) {
           if (!patternOverrides[q.id]) hiddenBy = 'パターンにより非表示';
         } else if (typeof window._hrEvalShowIf === 'function' && !window._hrEvalShowIf(q.showIf, s)) {
           // 条件の参照先が削除されていると、二度と表示されない
@@ -15595,6 +15674,7 @@ window.addEventListener('resize',function(){
             ? '条件の参照先がありません（' + missing.join(', ') + '）'
             : '条件により非表示';
         }
+        if (hiddenBy && !q.parentId) hiddenParents[q.id] = true;
         if (hiddenBy && !showHidden) return;
 
         // 選択肢そのものを編集できる型だけ専用の描画。それ以外は共通の描画を使う
@@ -15610,13 +15690,14 @@ window.addEventListener('resize',function(){
           content = m ? m[1] : '';
         }
         // data-q-id を行に付与
-        var rowHtml = '<div class="hr-row' + (hiddenBy ? ' hr-row-cond-hidden' : '') + '"' +
+        var rowHtml = '<div class="hr-row' + (q.parentId ? ' hr-row-child' : '') + (hiddenBy ? ' hr-row-cond-hidden' : '') + '"' +
              ' data-q-id="' + escHtml(q.id) + '"' +
              (hiddenBy ? ' data-hidden-by="' + escHtml(hiddenBy) + '"' : '') + '>' +
              '<div class="hr-label">' +
                ((q.type === 'log' || q.type === 'spacer')
                  ? '<span class="hr-label-text" style="opacity:.7;font-size:11px;">' + (q.type === 'spacer' ? '空白行' : 'ログ作成補助') + '</span>'
-                 : '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) + '</span>' +
+                 : (q.parentId ? '<span class="hr-child-tag">ログ内</span>' : '') +
+                   '<span class="hr-label-prefix">' + escHtml(window.getHearingPrefix(q)) + '</span>' +
                    '<span class="hr-label-text">' + _hrLabelAdmin(q) + '</span>') + '</div>' +
              '<div class="hr-btns">' + content + '</div>' +
              '</div>';

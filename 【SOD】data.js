@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト・画面遷移
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-21T15:00:17.555Z
+// 生成日時: 2026-09-21T23:19:37.115Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-21T15:00:17.555Z",
-  "savedAt": "2026-09-21T15:00:17.555Z",
+  "generatedAt": "2026-09-21T23:19:37.115Z",
+  "savedAt": "2026-09-21T23:19:37.115Z",
   "sideMenuData": [
     {
       "id": "smCat_1789973152233",
@@ -517,35 +517,133 @@ window.APP_STATIC_DATA = {
       "multiline": false
     },
     {
-      "id": "q_n4epc97",
+      "id": "q_rhq93fo",
       "enabled": true,
-      "label": "聴取",
+      "label": "TEST",
       "outLabel": "",
       "outTpl": "",
-      "type": "toggle",
-      "common": true,
-      "tplIds": [],
-      "tplId": "",
-      "field": "q_n4epc97",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "field": "q_rhq93fo"
+    },
+    {
+      "id": "q_49vwpw1",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_49vwpw1"
+    },
+    {
+      "id": "q_5znp95d",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_e11qhs"
+      ],
+      "tplId": "tpl_e11qhs",
+      "field": "q_5znp95d"
+    },
+    {
+      "id": "q_ruqkt51",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_ruqkt51"
+    },
+    {
+      "id": "q_249238f",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_wz29x6"
+      ],
+      "tplId": "tpl_wz29x6",
+      "field": "q_249238f"
+    },
+    {
+      "id": "q_ko98mjw",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_ko98mjw"
+    },
+    {
+      "id": "q_s8andm1",
+      "enabled": true,
+      "label": "ソーダストリームのガスシリンダーが●本、資源ごみに出されていた。／ソーダストリームのガスシリンダーが●本、不法投棄されていた。",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_zwaz6t"
+      ],
+      "tplId": "tpl_zwaz6t",
+      "field": "q_s8andm1",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_3l56hf5",
+      "enabled": true,
+      "label": "ログ作成補助（◆お問合せフォーム送信了承◆／◆お問合せフォーム送信不承◆）",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": false,
+      "tplIds": [
+        "tpl_qtaios"
+      ],
+      "tplId": "tpl_qtaios",
+      "field": "q_3l56hf5",
       "options": [
         {
-          "l": "今後のソーダメーカーご使用予定（※有の場合は交換購入を勧めてください）",
-          "v": "今後のソーダメーカーご使用予定（※有の場合は交換購入を勧めてください）",
-          "details": [
-            "あり",
-            "なし"
-          ]
+          "l": "◆お問合せフォーム送信了承◆",
+          "v": "◆お問合せフォーム送信了承◆",
+          "text": "＜ご注文専用ページ誘導＞\n \n使用機種：\n判断理由：　（例：保証期間外のため／予備としての購入のため）\n \n本体全体とガスシリンダー装着箇所の写真を添付の上、お問合せフォームから送信いただくよう依頼をし、確認後メールにてご連絡すると案内済。",
+          "textHtml": "<div><span style=\"color:var(--text)\">＜ご注文専用ページ誘導＞</span></div><div>&nbsp;</div><div>使用機種：</div><div>判断理由：　（例：保証期間外のため／予備としての購入のため）</div><div>&nbsp;</div><div>本体全体とガスシリンダー装着箇所の写真を添付の上、お問合せフォームから送信いただくよう依頼をし、確認後メールにてご連絡すると案内済。</div>"
         },
         {
-          "l": "今後のソーダメーカーご使用予定あ（※有の場合は交換購入を勧めてください）",
-          "v": "今後のソーダメーカーご使用予定あ（※有の場合は交換購入を勧めてください）",
-          "details": [
-            "あり",
-            "なし"
-          ]
+          "l": "◆お問合せフォーム送信不承◆",
+          "v": "◆お問合せフォーム送信不承◆",
+          "text": "＜ご注文専用ページ誘導＞\n \n使用機種：\n判断理由：　（例：保証期間外のため／予備としての購入のため）\n \ninfo@sodastream.jpへのお問合せフォーム送信不承だったため、お客様のメールアドレスをお伺いしご連絡すると案内済。不備があった際は、登録した電話番号へ連絡すること了承済。\n \n・お客様メールアドレス：\n",
+          "textHtml": "<div><span style=\"color:var(--text)\">＜ご注文専用ページ誘導＞</span></div><div>&nbsp;</div><div>使用機種：</div><div>判断理由：　（例：保証期間外のため／予備としての購入のため）</div><div>&nbsp;</div><div>info@sodastream.jpへのお問合せフォーム送信不承だったため、お客様のメールアドレスをお伺いしご連絡すると案内済。不備があった際は、登録した電話番号へ連絡すること了承済。</div><div>&nbsp;</div><div>・お客様メールアドレス：</div><div><br></div>"
         }
       ],
-      "multi": false
+      "autoLabel": true
     }
   ],
   "hearingPolicies": [],
@@ -606,13 +704,53 @@ window.APP_STATIC_DATA = {
   "hearingTemplates": [
     {
       "id": "tpl_0qh5ht",
-      "name": "その他問合せ：空ガスの返送：不要なシリンダーの処分方法（ガス返却方法案内）",
+      "name": "①その他問合せ：空ガスの返送：不要なシリンダーの処分方法（ガス返却方法案内）",
       "order": 0
     },
     {
       "id": "tpl_4xue01",
-      "name": "その他問合せ：シリンダー規格誤り：本体買換（不具合起因）：以前のシリンダー所持",
+      "name": "②その他問合せ：シリンダー規格誤り：本体買換（不具合起因）：以前のシリンダー所持",
       "order": 1
+    },
+    {
+      "id": "tpl_o9v91b",
+      "name": "③不具合：対応結果テンプレート：無償交換：ガス",
+      "order": 2
+    },
+    {
+      "id": "tpl_8cmqca",
+      "name": "④注文キャンセル・各種情報変更",
+      "order": 3
+    },
+    {
+      "id": "tpl_e11qhs",
+      "name": "⑤不具合：聴取テンプレート：部品購入（パッキン／電源アダプター／ボトルキャップ）",
+      "order": 4
+    },
+    {
+      "id": "tpl_0tljqg",
+      "name": "⑥その他問合せ：シリンダー規格誤り：単品購入（青⇔ピンク）",
+      "order": 5
+    },
+    {
+      "id": "tpl_wz29x6",
+      "name": "⑦その他問合せ：空ガス本数不足　（交換用シリンダー/お得便購入時）：出荷後受取前",
+      "order": 6
+    },
+    {
+      "id": "tpl_ha86y1",
+      "name": "⑧不具合：聴取テンプレート：炭酸水が弱い/出ない、いつもよりガスが早くなくなった:",
+      "order": 7
+    },
+    {
+      "id": "tpl_zwaz6t",
+      "name": "⑨その他問合せ：不法投棄のシリンダー回収希望：一般の方",
+      "order": 8
+    },
+    {
+      "id": "tpl_qtaios",
+      "name": "⑩不具合：対応結果テンプレート：パッキン購入（ご注文専用ページ誘導）",
+      "order": 9
     }
   ],
   "hearingLabelPrefix": "■",
@@ -662,7 +800,7 @@ window.APP_STATIC_DATA = {
 // 画面遷移データ。画像は screen-images/ フォルダに実ファイルとして保存されています。
 // library は画像ライブラリの復元用です（別PCでも一覧が再現されます）。
 window.APP_SCREEN_DATA = {
-  "savedAt": "2026-09-21T15:00:17.555Z",
+  "savedAt": "2026-09-21T23:19:37.114Z",
   "images": {},
   "library": [],
   "patterns": [

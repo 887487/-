@@ -496,7 +496,7 @@ th { background:var(--bg); }
 
 /* ヒアリングのテンプレート選択 */
 .hr-tpl-bar{
-  display:flex;flex-wrap:wrap;gap:6px;
+  display:flex;flex-direction:column;gap:6px;
   padding:8px 10px;margin-bottom:10px;
   background:var(--surface2);border:1px solid var(--border);border-radius:8px;
 }
@@ -505,10 +505,12 @@ th { background:var(--bg); }
   color:var(--text);background:var(--surface);
   border:1px solid var(--border);border-radius:6px;cursor:pointer;
   transition:background .12s,border-color .12s,color .12s;
+  width:100%;text-align:left;
 }
 .hr-tpl-btn:hover{border-color:var(--accent);color:var(--accent-text);}
 /* 管理画面でテンプレートごとに出す削除ボタン */
-.hr-tpl-wrap{display:inline-flex;align-items:center;gap:2px;}
+.hr-tpl-wrap{display:flex;align-items:center;gap:2px;width:100%;}
+.hr-tpl-wrap .hr-tpl-btn{flex:1;min-width:0;}
 .hr-tpl-del{
   width:18px;height:18px;padding:0;line-height:1;
   border:1px solid var(--border);border-radius:4px;
