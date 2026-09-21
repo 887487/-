@@ -370,6 +370,10 @@
 
 /* 選択肢・デバイスのインライン編集パネル */
 /* 行の編集・削除はカードの右端にそろえる */
+/* トグルの中項目（■デバイスなど）は、ツール画面と同じ見た目にそろえる。
+   中項目の行も .hr-row なので、管理画面の行の余白・区切り線・名前の上余白が入ってしまう */
+.tab-panel-hearing .hr-device-group > .hr-device-row{ padding:1px 0; border-bottom:none; position:static; gap:6px; background:none; }
+.tab-panel-hearing .hr-device-group > .hr-device-row .hr-label{ padding:0; color:#555; line-height:1.3; }
 .tab-panel-hearing .hr-row .hr-btns:has(> .hr-text-input),
 .tab-panel-hearing .hr-row .hr-btns:has(> .hr-device-group){ flex:1 1 100%; width:100%; }   /* 記述・メモ・トグルのグループは行いっぱい（名前を折り返さず1行にできる幅を確保） */   /* 記述・メモは同じ幅（行いっぱい） */
 .prev-subj-box{display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
