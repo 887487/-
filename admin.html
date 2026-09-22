@@ -384,8 +384,7 @@
 .prev-add{display:flex;gap:6px;width:100%;}
 .prev-add .mail-input{flex:1;}
 .prev-hint{font-size:11px;color:var(--muted);}
-.page-admin .hr-spacer{height:22px;border:1px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;}
-.page-admin .hr-spacer::before{content:'ここに空白行が入ります';}
+.page-admin .hr-spacer{height:10px;border-top:1px dashed var(--border);margin:5px 0;}   /* 左の「空白行」ラベルで用途は分かるため、説明文は出さない */
 .hr-row-child{border-left:3px solid var(--accent-lt,#dfe3ff);background:var(--surface2);}   /* margin-left は深さに応じて行ごとに指定 */
 .hr-child-tag{display:inline-block;margin-right:6px;padding:0 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--accent-lt);color:var(--accent-text);vertical-align:middle;}
 .hr-tpl-edit{
@@ -414,7 +413,8 @@
   position:absolute; top:4px; right:6px;
   display:inline-flex; align-items:center; gap:4px;
 }
-.tab-panel-hearing .hr-row{ position:relative; padding-right:78px; }
+.tab-panel-hearing .hr-row{ position:relative; padding-right:78px; padding-left:18px; }
+.tab-panel-hearing .hr-row .hr-drag-handle{ position:absolute; top:2px; left:-2px; margin-right:0; }
 .hr-row-edit{
   height:18px; padding:0 7px; border-radius:3px;
   border:1px solid var(--border); background:var(--surface); color:var(--text3);
@@ -14425,11 +14425,10 @@ window.addEventListener('resize',function(){
 
   function _mkPrefixSelect(q, onChange) {
     var sel = document.createElement('select');
-    var cur = (q && typeof q.prefix === 'string') ? q.prefix : '__default__';
-    var opts = [{ v: '__default__', l: '既定(' + (window.getHearingDefaultPrefix() || 'なし') + ')' }]
-      .concat(window.HEARING_PREFIX_OPTIONS.map(function(o) {
-        return { v: o.v, l: window.hearingPrefixLabel(o.v) };
-      }));
+    var cur = (q && typeof q.prefix === 'string') ? q.prefix : '';
+    var opts = window.HEARING_PREFIX_OPTIONS.map(function(o) {
+      return { v: o.v, l: window.hearingPrefixLabel(o.v) };
+    });
     sel.innerHTML = opts.map(function(o) {
       return '<option value="' + escHtml(o.v) + '"' + (o.v === cur ? ' selected' : '') + '>' + escHtml(o.l) + '</option>';
     }).join('');
@@ -14721,8 +14720,8 @@ window.addEventListener('resize',function(){
     var pfxSel = document.createElement('select');
     pfxSel.title = '先頭に付ける記号';
     pfxSel.style.cssText = INP + 'flex:0 0 84px;';
-    pfxSel.innerHTML = '<option value="__default__">既定</option>' +
-      window.HEARING_PREFIX_OPTIONS.map(function(o) {
+    // 先頭記号は常に明示的な値を持つ（新規項目は「なし」から始まる）
+    pfxSel.innerHTML = window.HEARING_PREFIX_OPTIONS.map(function(o) {
         return '<option value="' + escHtml(o.v) + '">' + escHtml(window.hearingPrefixLabel(o.v)) + '</option>';
       }).join('');
 
@@ -14776,7 +14775,7 @@ window.addEventListener('resize',function(){
     if (isEdit) {
       labelInp.setRich(editQ.labelHtml, editQ.label || '');
       outTplInp.setRich(editQ.outHtml, editQ.outTpl || editQ.outLabel || '');
-      pfxSel.value = (typeof editQ.prefix === 'string') ? editQ.prefix : '__default__';
+      pfxSel.value = (typeof editQ.prefix === 'string') ? editQ.prefix : '';
       typeSel.value = editQ.type || 'text';
       var _ids = window.getQuestionTplIds(editQ);
       tplChks.forEach(function(c) { c.checked = _ids.indexOf(c.value) >= 0; });
@@ -15197,8 +15196,8 @@ window.addEventListener('resize',function(){
       newQ.field = isEdit ? (editQ.field || editQ.id) : newQ.id;
       if (parentId) newQ.parentId = parentId;              // ログ作成補助の中の項目
       if (isEdit && editQ.builtin) newQ.builtin = editQ.builtin;
-      // 先頭記号：「既定に従う」ならキー自体を持たせない
-      if (pfxSel.value !== '__default__') newQ.prefix = pfxSel.value;
+      // 先頭記号：常に明示的な値を保存する（「既定に従う」は廃止）
+      newQ.prefix = pfxSel.value;
 
       // 表示条件（既存の showIf と同じ形式で保存する）
       if (condQ.value) {
@@ -15610,7 +15609,7 @@ window.addEventListener('resize',function(){
     handle.textContent = '⠿';
     handle.draggable = true;
     handle.title = 'ドラッグで並べ替え';
-    labelEl.insertBefore(handle, labelEl.firstChild);
+    rowEl.insertBefore(handle, rowEl.firstChild);   // ラベルの中ではなく、行の左端に独立して置く
 
     // 中の項目は同じログ作成補助の中でだけ並べ替える（外へは出さない）
     var _myQ = _hrQuestionsGet().find(function(x) { return x.id === qId; });

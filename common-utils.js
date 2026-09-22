@@ -4377,18 +4377,20 @@ window.hearingPrefixLabel = function (v) {
   return v === '' ? 'なし' : (v === '　' ? '空白' : v);
 };
 
-/** 全体の既定記号（未設定なら ■） */
+/**
+ * 全体の既定記号。
+ * 以前は項目ごとの記号選択に「既定に従う」という選択肢があり、その既定値は ■ だった。
+ * 「既定」と「■」が実質同じ選択肢として並んでいて紛らわしいため、「既定に従う」は廃止し、
+ * 項目は常に自分の記号を持つようにした（新規項目は「なし」から始まる）。
+ * この関数は、記号を持たない古いデータ（以前の「既定に従う」のまま保存されたもの）のための
+ * 後方互換の受け皿として残してあり、常に「なし」を返す。
+ */
 window.getHearingDefaultPrefix = function () {
-  var v = window._appCache && window._appCache.hearingLabelPrefix;
-  return (typeof v === 'string') ? v : '■';
+  return '';
 };
 
-/** 全体の既定記号を変える（管理画面から呼ぶ） */
-window.setHearingDefaultPrefix = function (v) {
-  window._appCache.hearingLabelPrefix = (typeof v === 'string') ? v : '■';
-  if (window.idbSetAppData) window.idbSetAppData('hearingLabelPrefix', window._appCache.hearingLabelPrefix);
-  if (typeof renderHearing === 'function') renderHearing();
-};
+/** 後方互換のために残してあるだけで、現在は呼び出し元が無い（記号は項目ごとに直接持つ） */
+window.setHearingDefaultPrefix = function () {};
 
 /**
  * その項目に付ける記号を返す。
@@ -4917,8 +4919,10 @@ function _hearingItemHTMLRaw(q, s) {
       : _strBtns(fld, s[fld], window.getHearingOptions(q)), '', pf);
   }
   if (q.type === 'radio') {
-    // ラジオは1つだけ選ぶので横並びで足りる
-    return _hrRow(window.hrLabelHtml(q), _radioBtns(fld, s[fld], window.getHearingOptions(q), false, true), '', pf);
+    // ラジオも、チェックボックスと同じく縦一列に並べる
+    return _hrRow(window.hrLabelHtml(q),
+      '<div class="hr-choice-vertical">' + _radioBtns(fld, s[fld], window.getHearingOptions(q), false, true) + '</div>',
+      '', pf);
   }
   if (q.type === 'spacer') {
     // 空白行：入力欄を持たない、ただの空き（結果文・コピーにも空行として出る）
