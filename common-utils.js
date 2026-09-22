@@ -5747,6 +5747,8 @@ function buildHearingLines(s) {
           emitWithChildren(k, kidItems);
         });
 
+        // 文字が無くても、画像だけの本文はそれ自体が内容（差し込み・出力から落とさない）
+        var bodyHasImg = /<img\b/i.test(o.textHtml || '');
         var segParts = [], segHtmlParts = [];
         if (body) segParts.push(body);
         if (body || o.textHtml) segHtmlParts.push(bodyHtml);
@@ -5755,8 +5757,8 @@ function buildHearingLines(s) {
           segHtmlParts.push(kidItems.map(_hrLineHtml).join('<br>'));
           if (kidItems.some(_hrLineIsRich)) hasRich = true;
         }
-        if (!segParts.length) return;       // このボタンは出す内容が無い
-        blocks.push(segParts.join('\n'));
+        if (!segParts.length && !bodyHasImg) return;   // このボタンは出す内容が無い
+        blocks.push(segParts.join('\n'));              // 画像だけのときは空文字（plain には映らない）
         htmlBlocks.push(segHtmlParts.join('<br>'));
       });
       if (!blocks.length) return;
