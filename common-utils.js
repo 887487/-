@@ -3531,6 +3531,106 @@ var DEFAULT_STATE = {
  * 読み込み順に左右されないよう関数宣言にしている
  * （初期状態の組み立てが、この下の定義より先に走るため）。
  */
+/**
+ * チェック＋数量：チェックした項目の行を作る（plain と、書式があるときの html）。
+ * 各項目の文字にある「●」は、共有のテキストエリアの値に置き換える。
+ */
+function _hrQtyCheckParts(q, s) {
+  var fld = q.field || q.id;
+  var st = s[fld] || {};
+  var picked = Array.isArray(st.picked) ? st.picked : [];
+  var qty = (st.text != null) ? String(st.text) : '';
+  var opts = window.getHearingOptions(q) || [];
+  var order = opts.map(function (o) { return o.v || o.l; });
+  var texts = [], htmls = [], hasRich = false;
+  picked.slice().sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); }).forEach(function (v) {
+    var o = opts.find(function (x) { return (x.v || x.l) === v; }) || { l: v };
+    texts.push(String(o.l || v).split('\u25cf').join(qty));
+    if (o.lHtml) {
+      hasRich = true;
+      htmls.push(window.hearingSanitizeHtml(o.lHtml).split('\u25cf').join(escHtml(qty)));
+    } else {
+      htmls.push(escHtml(o.l || v).split('\u25cf').join(escHtml(qty)));
+    }
+  });
+  return { texts: texts, htmls: htmls, hasRich: hasRich };
+}
+
+
+/**
+ * 項目1つぶんの「いまの回答」を、1行の文字列にする（種類を問わず使える）。
+ * ログ作成補助の出力する文章の中で、他の項目の回答を差し込むために使う
+ * （buildHearingLines の中の同種の処理とは別に、単体でも呼べるように用意している）。
+ * 未回答なら空文字を返す。
+ */
+window.hearingAnswerText = function (q, s) {
+  if (!q) return '';
+  s = s || (typeof hearingState !== 'undefined' ? hearingState : {});
+  var fld = q.field || q.id;
+
+  if (q.type === 'qtycheck') return _hrQtyCheckParts(q, s).texts.join('\u3001');
+  if (q.type === 'bool') {
+    var bv = s[fld];
+    if (bv === true)  return q.trueResult  || q.trueLabel  || 'はい';
+    if (bv === false) return q.falseResult || q.falseLabel || 'いいえ';
+    return '';
+  }
+  if (q.type === 'text') return (s[fld] == null) ? '' : String(s[fld]);
+  if (window.isDetailToggle(q)) {
+    var dst = s[fld] || {}, parts = [];
+    _hrOptsOf(q).forEach(function (o) {
+      var val = o.v || o.l, d = dst[val];
+      if (!d || !d.selected) return;
+      var dd = Array.isArray(d.detail) ? d.detail : (d.detail ? [d.detail] : []);
+      parts.push(dd.length ? (o.l || val) + '(' + dd.join('/') + ')' : (o.l || val));
+    });
+    return parts.join('\u3001');
+  }
+  var val = s[fld];
+  if (val === null || val === undefined || val === '') return '';
+  if (Array.isArray(val) && !val.length) return '';
+  if (_hrIsManualValue(q, val)) {
+    var mv = s[q.manualField || (fld + 'Manual')];
+    return mv ? String(mv) : '';
+  }
+  if (Array.isArray(val)) {
+    var order = window.getHearingOptions(q).map(function (o) { return o.v; });
+    val = val.slice().sort(function (a, b) {
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      return (ia < 0 ? 9999 : ia) - (ib < 0 ? 9999 : ib);
+    });
+    return val.map(function (v) { return _hrOptText(q, v); }).join('\u3001');
+  }
+  return _hrOptText(q, val);
+};
+
+/**
+ * ログ作成補助の出力する文章の中の「{{項目名}}」を、その項目のいまの回答に置き換える。
+ * 一致する項目が見つからないときは、書いたとおりの文字を残す（気付けるように消さない）。
+ */
+window.hearingResolveRefs = function (text, s) {
+  if (!text || text.indexOf('{{') < 0) return text;
+  var qs = _hrGetQuestions();
+  return String(text).replace(/\{\{([^{}]+)\}\}/g, function (m, label) {
+    label = label.trim();
+    var q = qs.find(function (x) { return x && x.label === label; });
+    if (!q) return m;
+    return window.hearingAnswerText(q, s);
+  });
+};
+
+/** HTML の中の「{{項目名}}」を置き換える（差し込む値は HTML エスケープする） */
+window.hearingResolveRefsHtml = function (html, s) {
+  if (!html || html.indexOf('{{') < 0) return html;
+  var qs = _hrGetQuestions();
+  return String(html).replace(/\{\{([^{}]+)\}\}/g, function (m, label) {
+    label = label.trim();
+    var q = qs.find(function (x) { return x && x.label === label; });
+    if (!q) return m;
+    return escHtml(window.hearingAnswerText(q, s));
+  });
+};
+
 function _hrOptsOf(q) {
   var list = (q && q.options) || [];
   // 名前が空の選択肢は選べないので出さない。
@@ -4824,6 +4924,24 @@ function _hearingItemHTMLRaw(q, s) {
     // 空白行：入力欄を持たない、ただの空き（結果文・コピーにも空行として出る）
     return '<div class="hr-row hr-spacer-row"><div class="hr-btns"><div class="hr-spacer"></div></div></div>';
   }
+  if (q.type === 'qtycheck') {
+    // チェック＋数量：チェックした項目名（「●」を含められる）に、共有のテキストエリアの値を差し込んで出す。
+    // 例：「テスト、●本」を選び、テキストエリアに「3」→「テスト、3本」。
+    var qtySt = s[fld] || {};
+    var qtyPicked = Array.isArray(qtySt.picked) ? qtySt.picked : [];
+    var qtyRows = (window.getHearingOptions(q) || []).map(function (o) {
+      var v = o.v || o.l;
+      var on = qtyPicked.indexOf(v) >= 0;
+      return '<label class="hr-qtycheck-row"><input type="checkbox"' + (on ? ' checked' : '') +
+        ' onchange="toggleHearingQtyCheck(\'' + fld + '\',\'' + escHtml(v).replace(/'/g, "\\'") + '\')">' +
+        '<span>' + window.hrOptHtmlEsc(o, v) + '</span></label>';
+    }).join('');
+    var qtyPh = escHtml(q.placeholder || '');
+    var qtyTa = '<textarea class="hr-text-input hr-autogrow hr-qtycheck-input" data-hr-field="' + escHtml(fld) + '__qty" rows="1"' +
+      ' placeholder="' + qtyPh + '" style="font-family:inherit;"' +
+      ' oninput="setHearingQtyText(\'' + fld + '\',this.value);window.hrAutoGrow(this)">' + escHtml(qtySt.text || '') + '</textarea>';
+    return _hrRow(window.hrLabelHtml(q), '<div class="hr-qtycheck-group">' + qtyRows + qtyTa + '</div>', '', pf);
+  }
   if (q.type === 'log') {
     // ログ作成補助。選んだボタンの内容が、この項目の出力になる。
     // もう一度押すと外れる。
@@ -5224,6 +5342,27 @@ function _multiBtns(field, val, options) {
 }
 
 /** 複数選択の値を出し入れする */
+/** チェック＋数量：チェックの ON/OFF を切り替える */
+window.toggleHearingQtyCheck = function (field, value) {
+  var st = hearingState[field];
+  if (!st || typeof st !== 'object' || Array.isArray(st)) st = hearingState[field] = { picked: [], text: '' };
+  if (!Array.isArray(st.picked)) st.picked = [];
+  var i = st.picked.indexOf(value);
+  if (i >= 0) st.picked.splice(i, 1); else st.picked.push(value);
+  saveHearingState();
+  renderHearing();
+};
+
+/** チェック＋数量：共有のテキストエリアの値を設定する（入力中は描き直さない） */
+window.setHearingQtyText = function (field, text) {
+  var st = hearingState[field];
+  if (!st || typeof st !== 'object' || Array.isArray(st)) st = hearingState[field] = { picked: [], text: '' };
+  st.text = text;
+  saveHearingState();
+  if (_hrShowIfDepends(field)) { renderHearing(); return; }
+  if (typeof renderHearingSummary === 'function') renderHearingSummary();
+};
+
 window.toggleHearingMulti = function(field, value) {
   var cur = hearingState[field];
   var arr = Array.isArray(cur) ? cur.slice() : (cur ? [cur] : []);
@@ -5536,11 +5675,12 @@ function buildHearingLines(s) {
         return order.indexOf(a) - order.indexOf(b);      // 押した順ではなく並び順
       }).map(function (v) {
         var o = opts.find(function (x) { return (x.v || x.l) === v; }) || { l: v };
-        var body = (o.text == null) ? '' : String(o.text);
+        // 「他の項目の回答を入れる」差し込み（{{項目名}}）を、出力の直前に解決する
+        var body = (o.text == null) ? '' : window.hearingResolveRefs(String(o.text), s);
         // 書式つきの本文があれば、表示・コピー用の HTML も作る
         if (o.textHtml) hasRich = true;
         htmlBlocks.push(escHtml(o.l || v) + '<br>' +
-          (o.textHtml ? window.hearingSanitizeHtml(o.textHtml)
+          (o.textHtml ? window.hearingResolveRefsHtml(window.hearingSanitizeHtml(o.textHtml), s)
                       : escHtml(body).replace(/\n/g, '<br>')));
         return (o.l || v) + '\n' + body;
       });
@@ -5577,6 +5717,19 @@ function buildHearingLines(s) {
     }
 
     var fld = q.field || q.id;
+
+    // チェック＋数量：チェックした項目だけ、●を数量に置き換えて、そのまま出力する（項目名は付けない）
+    if (q.type === 'qtycheck') {
+      var qp = _hrQtyCheckParts(q, s);
+      if (!qp.texts.length) return;
+      out.push({
+        kind: 'row', label: q.label, outLabel: (q.outLabel || q.label),
+        value: qp.texts.join('\n'),
+        htmlValue: qp.hasRich ? qp.htmls.join('<br>') : '',
+        type: '', outTpl: '', multiline: true, logOnly: true
+      });
+      return;
+    }
 
     // 詳細つきトグルは「iPhone(Web)、PC(Win)」の形にまとめる
     if (window.isDetailToggle(q)) {
@@ -5886,6 +6039,10 @@ document.addEventListener('keydown', function (e) {
     // 空白行：枠も余白も持たない、ただの空き
     '.hr-spacer-row { padding:0 !important; border:none !important; background:none !important; min-height:0 !important; box-shadow:none !important; }' +
     '.hr-spacer { height:14px; }' +
+    // チェック＋数量
+    '.hr-qtycheck-group { display:flex; flex-direction:column; gap:6px; align-items:stretch; }' +
+    '.hr-qtycheck-row { display:flex; align-items:flex-start; gap:6px; font-size:13px; cursor:pointer; }' +
+    '.hr-qtycheck-row input { margin-top:3px; width:15px; height:15px; flex:0 0 auto; cursor:pointer; }' +
     '.hr-summary-blank { height:8px; }' +
     '.hr-log-row .hr-btns { flex:1; min-width:0; }' +
     '.hr-log-btn { height:28px; padding:0 12px; border:1px solid var(--accent,#3742fa);' +

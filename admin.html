@@ -14761,7 +14761,8 @@ window.addEventListener('resize',function(){
       '<option value="checkbox">チェックボックス</option>' +
       '<option value="toggle">トグルボタン</option>' +
       '<option value="log">ログ作成補助</option>' +
-      '<option value="spacer">空白行</option>';
+      '<option value="spacer">空白行</option>' +
+      '<option value="qtycheck">チェック＋数量</option>';
     // ログ作成補助の中には、入力や選択の項目だけを置ける（見出し・空白行・ログ作成補助は置かない）
     if (parentId) {
       ['heading', 'log', 'spacer'].forEach(function(v) {
@@ -14820,7 +14821,7 @@ window.addEventListener('resize',function(){
       'background:var(--surface2);border-radius:6px;';
     container.appendChild(extra);
 
-    var multiline = null, multi = null, optsArea = null;
+    var multiline = null, multi = null, optsArea = null, qtyPhInput = null;
     var _syncOtherBtn = null;   // 「その他（手入力）」ボタンの出し分け
 
     var addOptRow = function(val, details, logText, logHtml, lHtml, detailsHtml) {
@@ -14887,6 +14888,36 @@ window.addEventListener('resize',function(){
         top.appendChild(inp); top.appendChild(del);
         r.appendChild(top);
         r.appendChild(logTa);
+        // 他の項目（記述・プルダウン・ラジオ・チェックボックス・トグルなど）のいまの回答を、
+        // この文章の中に差し込める。押すとカーソル位置（無ければ末尾）に「{{項目名}}」を入れる。
+        // 出力するときに、その項目のいまの回答へ自動で置き換わる。
+        var refWrap = document.createElement('div');
+        refWrap.style.cssText = 'display:flex;align-items:center;gap:6px;';
+        var refSel = document.createElement('select');
+        refSel.className = 'hr-ref-select';
+        refSel.style.cssText = INP + 'flex:0 0 auto;max-width:220px;font-size:10px;height:22px;';
+        var refCandidates = _hrQuestionsGet().filter(function(x) {
+          return x && x.label && x.type !== 'heading' && x.type !== 'spacer' && x.type !== 'log';
+        });
+        refSel.innerHTML = '<option value="">＋ 他の項目の回答を挿入…</option>' +
+          refCandidates.map(function(x) {
+            return '<option value="' + escHtml(x.label) + '">' + escHtml(x.label) + '</option>';
+          }).join('');
+        refSel.title = '選ぶと、この文章のカーソル位置（末尾）に「{{項目名}}」を入れます。'
+          + '出力するとき、その項目のいまの回答に置き換わります。';
+        refSel.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+        refSel.addEventListener('change', function() {
+          if (!refSel.value) return;
+          logTa.focus();
+          var rg = document.createRange(); rg.selectNodeContents(logTa); rg.collapse(false);
+          var winSel = window.getSelection(); winSel.removeAllRanges(); winSel.addRange(rg);
+          document.execCommand('insertText', false, '{{' + refSel.value + '}}');
+          logTa.dispatchEvent(new Event('input'));
+          refSel.value = '';
+        });
+        refWrap.appendChild(refSel);
+        if (!refCandidates.length) refWrap.style.display = 'none';   // 差し込める項目がまだ無ければ隠す
+        r.appendChild(refWrap);
       } else {
         r.appendChild(inp);
         if (det) r.appendChild(det);
@@ -14939,6 +14970,7 @@ window.addEventListener('resize',function(){
       var hdTxt = document.createElement('span');
       hdTxt.textContent = (t === 'toggle') ? '各項目名と詳細'
                         : (t === 'log')    ? 'ボタンと差し込む文章'
+                        : (t === 'qtycheck') ? '各項目名（「●」の部分が数量に置き換わります）'
                         : '各項目名';
       hd.appendChild(hdTxt);
       extra.appendChild(hd);
@@ -14956,6 +14988,13 @@ window.addEventListener('resize',function(){
         note.textContent = '詳細はカンマ区切り（例：Web, アプリ）。'
           + '入れると「項目 → 詳細」の2段になり、空欄なら ON／OFF の切り替えになります。';
         extra.appendChild(note);
+      }
+      if (t === 'qtycheck') {
+        var qnote = document.createElement('div');
+        qnote.style.cssText = 'font-size:10px;color:var(--text3);';
+        qnote.textContent = '項目名に「●」を入れておくと、下のテキストエリアに入力した値に置き換わります（例：テスト、●本）。'
+          + 'チェックした項目だけ、項目名を付けずにそのまま出力されます。';
+        extra.appendChild(qnote);
       }
 
       optsArea = document.createElement('div');
@@ -15009,6 +15048,20 @@ window.addEventListener('resize',function(){
       extra.appendChild(optsArea);
       if (!(isEdit && Array.isArray(editQ.options) && editQ.options.length)) {
         addOptRow(''); addOptRow('');
+      }
+      if (t === 'qtycheck') {
+        var qtyRow = document.createElement('div');
+        qtyRow.style.cssText = 'display:flex;align-items:center;gap:8px;margin-top:2px;';
+        var qtyLbl = document.createElement('span');
+        qtyLbl.style.cssText = 'font-size:11px;color:var(--text2);flex:0 0 auto;white-space:nowrap;';
+        qtyLbl.textContent = 'テキストエリアのプレースホルダ';
+        qtyPhInput = document.createElement('input');
+        qtyPhInput.type = 'text';
+        qtyPhInput.style.cssText = INP + 'flex:1;';
+        qtyPhInput.placeholder = '例：本数';
+        qtyPhInput.value = (isEdit && editQ.placeholder) || '';
+        qtyRow.appendChild(qtyLbl); qtyRow.appendChild(qtyPhInput);
+        extra.appendChild(qtyRow);
       }
 
       // ラジオは1つだけ選ぶもの。複数選択にすると見た目がチェックボックスになり
@@ -15157,6 +15210,7 @@ window.addEventListener('resize',function(){
       } else if (t === 'text') {
         newQ.multiline = !!(multiline && multiline.checked);
       } else {
+        if (t === 'qtycheck' && qtyPhInput) newQ.placeholder = qtyPhInput.value.trim();
         newQ.options = [];
         optsArea.querySelectorAll('[data-role="opt"]').forEach(function(inp) {
           var v = inp.value.trim();
