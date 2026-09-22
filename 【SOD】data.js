@@ -1,9 +1,9 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト・画面遷移
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-21T23:19:37.115Z
+// 生成日時: 2026-09-22T07:25:46.379Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-21T23:19:37.115Z",
-  "savedAt": "2026-09-21T23:19:37.115Z",
+  "generatedAt": "2026-09-22T07:25:46.379Z",
+  "savedAt": "2026-09-22T07:25:46.379Z",
   "sideMenuData": [
     {
       "id": "smCat_1789973152233",
@@ -312,20 +312,6 @@ window.APP_STATIC_DATA = {
       "multiline": false
     },
     {
-      "id": "q_h9jmga7",
-      "enabled": true,
-      "label": "空白行",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "spacer",
-      "common": false,
-      "tplIds": [
-        "tpl_0qh5ht"
-      ],
-      "tplId": "tpl_0qh5ht",
-      "field": "q_h9jmga7"
-    },
-    {
       "id": "q_rvv5yea",
       "enabled": true,
       "label": "聴取項目",
@@ -519,21 +505,23 @@ window.APP_STATIC_DATA = {
     {
       "id": "q_rhq93fo",
       "enabled": true,
-      "label": "TEST",
+      "label": "＜GC●本無償交換手配＞",
       "outLabel": "",
-      "outTpl": "",
-      "type": "heading",
+      "outTpl": "＜GC[入力]本無償交換手配＞",
+      "type": "text",
       "common": false,
       "tplIds": [
         "tpl_o9v91b"
       ],
       "tplId": "tpl_o9v91b",
-      "field": "q_rhq93fo"
+      "field": "q_rhq93fo",
+      "prefix": "",
+      "multiline": false
     },
     {
       "id": "q_49vwpw1",
       "enabled": true,
-      "label": "TEST",
+      "label": "ご注文のキャンセル希望",
       "outLabel": "",
       "outTpl": "",
       "type": "heading",
@@ -542,26 +530,29 @@ window.APP_STATIC_DATA = {
         "tpl_8cmqca"
       ],
       "tplId": "tpl_8cmqca",
-      "field": "q_49vwpw1"
+      "field": "q_49vwpw1",
+      "prefix": ""
     },
     {
       "id": "q_5znp95d",
       "enabled": true,
-      "label": "TEST",
+      "label": "症状（第一声）",
       "outLabel": "",
-      "outTpl": "",
-      "type": "heading",
+      "outTpl": "・症状（第一声）：[入力]",
+      "type": "text",
       "common": false,
       "tplIds": [
         "tpl_e11qhs"
       ],
       "tplId": "tpl_e11qhs",
-      "field": "q_5znp95d"
+      "field": "q_5znp95d",
+      "prefix": "・",
+      "multiline": true
     },
     {
       "id": "q_ruqkt51",
       "enabled": true,
-      "label": "TEST",
+      "label": "ガスシリンダーの色を誤って購入してしまった（規格誤り）とお問合せ",
       "outLabel": "",
       "outTpl": "",
       "type": "heading",
@@ -570,7 +561,8 @@ window.APP_STATIC_DATA = {
         "tpl_0tljqg"
       ],
       "tplId": "tpl_0tljqg",
-      "field": "q_ruqkt51"
+      "field": "q_ruqkt51",
+      "prefix": ""
     },
     {
       "id": "q_249238f",
@@ -587,26 +579,12 @@ window.APP_STATIC_DATA = {
       "field": "q_249238f"
     },
     {
-      "id": "q_ko98mjw",
-      "enabled": true,
-      "label": "TEST",
-      "outLabel": "",
-      "outTpl": "",
-      "type": "heading",
-      "common": false,
-      "tplIds": [
-        "tpl_ha86y1"
-      ],
-      "tplId": "tpl_ha86y1",
-      "field": "q_ko98mjw"
-    },
-    {
       "id": "q_s8andm1",
       "enabled": true,
-      "label": "ソーダストリームのガスシリンダーが●本、資源ごみに出されていた。／ソーダストリームのガスシリンダーが●本、不法投棄されていた。",
+      "label": "␣",
       "outLabel": "",
       "outTpl": "",
-      "type": "text",
+      "type": "qtycheck",
       "common": false,
       "tplIds": [
         "tpl_zwaz6t"
@@ -614,7 +592,17 @@ window.APP_STATIC_DATA = {
       "tplId": "tpl_zwaz6t",
       "field": "q_s8andm1",
       "prefix": "",
-      "multiline": false
+      "placeholder": "",
+      "options": [
+        {
+          "l": "ソーダストリームのガスシリンダーが●本、資源ごみに出されていた。",
+          "v": "ソーダストリームのガスシリンダーが●本、資源ごみに出されていた。"
+        },
+        {
+          "l": "ソーダストリームのガスシリンダーが●本、不法投棄されていた。",
+          "v": "ソーダストリームのガスシリンダーが●本、不法投棄されていた。"
+        }
+      ]
     },
     {
       "id": "q_3l56hf5",
@@ -644,6 +632,639 @@ window.APP_STATIC_DATA = {
         }
       ],
       "autoLabel": true
+    },
+    {
+      "id": "q_67lvkeb",
+      "enabled": true,
+      "label": "GC購入日/店舗名",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_67lvkeb",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_c8zw2s1",
+      "enabled": true,
+      "label": "GC取付日",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_c8zw2s1",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_q7tuabz",
+      "enabled": true,
+      "label": "予備GC",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_q7tuabz",
+      "prefix": "・",
+      "options": [
+        {
+          "l": "なし",
+          "v": "なし"
+        },
+        {
+          "l": "あり",
+          "v": "あり"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_xnimi8m",
+      "enabled": true,
+      "label": "＜予備GCでのお試し＞",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_xnimi8m",
+      "prefix": "",
+      "options": [
+        {
+          "l": "試していない",
+          "v": "試していない"
+        },
+        {
+          "l": "試すも改善なし",
+          "v": "試すも改善なし"
+        },
+        {
+          "l": "試して改善した",
+          "v": "試して改善した"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_vlg30ph",
+      "enabled": true,
+      "label": "GC重量　※重量測れない場合、ピン押せる・押せない",
+      "outLabel": "",
+      "outTpl": "GC重量：[入力]",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "labelHtml": "GC重量　<font color=\"#e63946\">※重量測れない場合、ピン押せる・押せない</font>",
+      "field": "q_vlg30ph",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_vzhg5p7",
+      "enabled": true,
+      "label": "ログ作成補助（◆お客様にて箱をご準備の上、返送いただける場合◆／◆返送用の…）",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": false,
+      "tplIds": [
+        "tpl_zwaz6t"
+      ],
+      "tplId": "tpl_zwaz6t",
+      "field": "q_vzhg5p7",
+      "options": [
+        {
+          "l": "◆お客様にて箱をご準備の上、返送いただける場合◆",
+          "v": "◆お客様にて箱をご準備の上、返送いただける場合◆",
+          "text": "適当な箱に入れてUFへ着払いにて返送いただくこと（本数少なければ紙袋可）\n推奨運送会社：佐川急便と案内済。\n \n▼返却先を案内した場合は下記も記載ください。\n返却先は下記を案内済。\n------------------------------------------------\n〒509-5312　岐阜県土岐市鶴里町柿野2322-102\n(株)ユーファクトリー第4物流センター　ソーダストリーム ガス回収係 宛\n電話番号：0120-286-230\n------------------------------------------------",
+          "textHtml": "<div><span style=\"color:var(--text)\">適当な箱に入れてUFへ着払いにて返送いただくこと（本数少なければ紙袋可）</span></div><div>推奨運送会社：佐川急便と案内済。</div><div>&nbsp;</div><div>▼返却先を案内した場合は下記も記載ください。</div><div>返却先は下記を案内済。</div><div>------------------------------------------------</div><div>〒509-5312　岐阜県土岐市鶴里町柿野2322-102</div><div>(株)ユーファクトリー第4物流センター　ソーダストリーム ガス回収係 宛</div><div>電話番号：0120-286-230</div><div>------------------------------------------------</div>"
+        },
+        {
+          "l": "◆返送用の箱・伝票を手配ご希望の場合◆",
+          "v": "◆返送用の箱・伝票を手配ご希望の場合◆",
+          "text": "返送用の箱・伝票の手配希望のため、送付先情報を聴取済。\n \nガスシリンダー表面の「sodastream」ロゴ：無／有\nGC回収本数：●本\n送付先住所：〒\n宛名 　   　：\n電話番号　：",
+          "textHtml": "<div><span style=\"color:var(--text)\">返送用の箱・伝票の手配希望のため、送付先情報を聴取済。</span></div><div>&nbsp;</div><div>ガスシリンダー表面の「sodastream」ロゴ：無／有</div><div>GC回収本数：●本</div><div>送付先住所：〒</div><div>宛名 　&nbsp; &nbsp;　：</div><div>電話番号　：</div>"
+        }
+      ],
+      "autoLabel": true
+    },
+    {
+      "id": "q_zmjwk9k",
+      "enabled": true,
+      "label": "判断理由　※「原因切り分けのため」は使わず、『今回のGCのみ症状が出ているため』など具体的に記載ください。",
+      "outLabel": "判断理由",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "labelHtml": "判断理由　<font color=\"#e63946\">※「原因切り分けのため」は使わず、『今回のGCのみ症状が出ているため』など具体的に記載ください。</font>",
+      "field": "q_zmjwk9k",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_s6w40x1",
+      "enabled": true,
+      "label": "空白行",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "spacer",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "field": "q_s6w40x1"
+    },
+    {
+      "id": "q_ekm177v",
+      "enabled": true,
+      "label": "TEST",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "field": "q_ekm177v",
+      "prefix": "",
+      "options": [
+        {
+          "l": "青ガス60L　 ガスシリンダー60L不良交換用",
+          "v": "青ガス60L　 ガスシリンダー60L不良交換用",
+          "lHtml": "<font color=\"#2f6df6\">青ガス60L　 ガスシリンダー60L不良交換用&nbsp;</font>"
+        },
+        {
+          "l": "青ガス25L 　ガスシリンダー25L不良交換用",
+          "v": "青ガス25L 　ガスシリンダー25L不良交換用",
+          "lHtml": "<font color=\"#2f6df6\">青ガス25L 　ガスシリンダー25L不良交換用</font>"
+        },
+        {
+          "l": "コストコ青ガス　ガスシリンダー（コストコ専用）1本",
+          "v": "コストコ青ガス　ガスシリンダー（コストコ専用）1本",
+          "lHtml": "<font color=\"#2f6df6\">コストコ青ガス　ガスシリンダー（コストコ専用）1本</font>"
+        },
+        {
+          "l": "CQC60L 　CQC60L（箱なし）",
+          "v": "CQC60L 　CQC60L（箱なし）"
+        },
+        {
+          "l": "コストコCQC　CQCガスシリンダー（コストコ）",
+          "v": "コストコCQC　CQCガスシリンダー（コストコ）"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_n1nltgx",
+      "enabled": true,
+      "label": "空白行",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "spacer",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "field": "q_n1nltgx"
+    },
+    {
+      "id": "q_7ky2ddx",
+      "enabled": true,
+      "label": "＜ご利用機種特定＞　※機種名を記載※",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "labelHtml": "＜ご利用機種特定＞　<font color=\"#e63946\">※機種名を記載※</font>",
+      "field": "q_7ky2ddx",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_ohzuzlp",
+      "enabled": true,
+      "label": "ログ作成補助（---保証期間内の場合---／---保証期間外かつ点検・修理…）",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": false,
+      "tplIds": [
+        "tpl_o9v91b"
+      ],
+      "tplId": "tpl_o9v91b",
+      "field": "q_ohzuzlp",
+      "options": [
+        {
+          "l": "---保証期間内の場合---",
+          "v": "---保証期間内の場合---",
+          "text": "症状改善なければ再入電いただきたい旨を案内済。\n次回入電時は、「GC交換後：症状改善なし」フローに沿って聴取してください。"
+        },
+        {
+          "l": "---保証期間外かつ点検・修理受付できない症状の場合---",
+          "v": "---保証期間外かつ点検・修理受付できない症状の場合---",
+          "text": "症状改善なければ本体をお買い換えいただくしかない旨案内済。",
+          "textHtml": "<div><span style=\"color:var(--text)\">症状改善なければ本体をお買い換えいただくしかない旨案内済。</span></div>"
+        },
+        {
+          "l": "---保証期間外かつ点検・修理受付可能な症状の場合---",
+          "v": "---保証期間外かつ点検・修理受付可能な症状の場合---",
+          "text": "症状改善なければ有償点検・修理か本体をお買い換えになる旨案内済。\n希望配達日：なし／●/●（●）\n{{希望時間帯}}",
+          "textHtml": "<div><span style=\"color:var(--text)\">症状改善なければ有償点検・修理か本体をお買い換えになる旨案内済。</span></div><div>希望配達日：なし／●/●（●）</div><div>{{希望時間帯}}</div>"
+        }
+      ],
+      "autoLabel": true
+    },
+    {
+      "id": "q_fr289kz",
+      "enabled": true,
+      "label": "空白行",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "spacer",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_fr289kz"
+    },
+    {
+      "id": "q_1mt2o6v",
+      "enabled": true,
+      "label": "EC-CUBE／CROSSMALL確認済",
+      "outLabel": "",
+      "outTpl": "[入力]確認済",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_1mt2o6v",
+      "options": [
+        {
+          "l": "EC-CUBE",
+          "v": "EC-CUBE"
+        },
+        {
+          "l": "CROSSMALL",
+          "v": "CROSSMALL"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_ogyizoh",
+      "enabled": true,
+      "label": "注文番号：リンク",
+      "outLabel": "",
+      "outTpl": "・注文番号：[入力]",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_ogyizoh",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_f0418de",
+      "enabled": true,
+      "label": "送付先氏名：コピペ",
+      "outLabel": "",
+      "outTpl": "・送付先氏名：[入力]",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_f0418de",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_v4erokx",
+      "enabled": true,
+      "label": "ログ作成補助（ご注文の送付先（住所／氏名／TEL）変更希望／ご注文の日時変…）",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": false,
+      "tplIds": [
+        "tpl_8cmqca"
+      ],
+      "tplId": "tpl_8cmqca",
+      "field": "q_v4erokx",
+      "options": [
+        {
+          "l": "ご注文の送付先（住所／氏名／TEL）変更希望",
+          "v": "ご注文の送付先（住所／氏名／TEL）変更希望",
+          "text": "\n希望：\n・住所：〒●●　●●●\n・氏名：●●\n・TEL：●●"
+        },
+        {
+          "l": "ご注文の日時変更希望",
+          "v": "ご注文の日時変更希望",
+          "text": "\n希望：（例）6/30　12時～14時　※配達指定可能なのは注文日より1ヶ月先まで　例：5/10注文→6/9まで"
+        }
+      ],
+      "autoLabel": true
+    },
+    {
+      "id": "q_hdh9ei5",
+      "enabled": true,
+      "label": "使用機種名",
+      "outLabel": "",
+      "outTpl": "・使用機種名：[入力]",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_e11qhs"
+      ],
+      "tplId": "tpl_e11qhs",
+      "field": "q_hdh9ei5",
+      "prefix": "・",
+      "multiline": false
+    },
+    {
+      "id": "q_b8ugc15",
+      "enabled": true,
+      "label": "購入希望",
+      "outLabel": "",
+      "outTpl": "・購入希望：[入力]",
+      "type": "checkbox",
+      "common": false,
+      "tplIds": [
+        "tpl_e11qhs"
+      ],
+      "tplId": "tpl_e11qhs",
+      "field": "q_b8ugc15",
+      "prefix": "・",
+      "options": [
+        {
+          "l": "パッキン",
+          "v": "パッキン"
+        },
+        {
+          "l": "電源アダプター",
+          "v": "電源アダプター"
+        },
+        {
+          "l": "ボトルキャップ",
+          "v": "ボトルキャップ"
+        }
+      ]
+    },
+    {
+      "id": "q_py7qn3a",
+      "enabled": true,
+      "label": "《上記以外のご申告内容》",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_e11qhs"
+      ],
+      "tplId": "tpl_e11qhs",
+      "field": "q_py7qn3a",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_m0ytwaw",
+      "enabled": true,
+      "label": "ガスシリンダー購入日",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_m0ytwaw",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_8p6mlrz",
+      "enabled": true,
+      "label": "ソーダメーカー購入日",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_8p6mlrz",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_o6uksfj",
+      "enabled": true,
+      "label": "使用機種",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_o6uksfj",
+      "prefix": "",
+      "multiline": false
+    },
+    {
+      "id": "q_ig9hnp1",
+      "enabled": true,
+      "label": "誤って購入したガスの色",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_ig9hnp1",
+      "prefix": "",
+      "options": [
+        {
+          "l": "青",
+          "v": "青"
+        },
+        {
+          "l": "CQC",
+          "v": "CQC"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_lepduux",
+      "enabled": true,
+      "label": "空白行",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "spacer",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_lepduux"
+    },
+    {
+      "id": "q_j6abj16",
+      "enabled": true,
+      "label": "GCシュリンク",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "heading",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_j6abj16",
+      "prefix": ""
+    },
+    {
+      "id": "q_gnvzwmq",
+      "enabled": true,
+      "label": "未開封：●本",
+      "outLabel": "",
+      "outTpl": "未開封：[入力]本",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_gnvzwmq",
+      "prefix": "　",
+      "multiline": false
+    },
+    {
+      "id": "q_butyyr9",
+      "enabled": true,
+      "label": "開封済：●本",
+      "outLabel": "",
+      "outTpl": "開封済：[入力]本",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_0tljqg"
+      ],
+      "tplId": "tpl_0tljqg",
+      "field": "q_butyyr9",
+      "prefix": "　",
+      "multiline": false
+    },
+    {
+      "id": "q_42nindn",
+      "enabled": true,
+      "label": "開封済分の使用有無",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "radio",
+      "common": true,
+      "tplIds": [],
+      "tplId": "",
+      "field": "q_42nindn",
+      "parentId": "q_butyyr9",
+      "prefix": "",
+      "options": [
+        {
+          "l": "未使用",
+          "v": "未使用"
+        },
+        {
+          "l": "使用済",
+          "v": "使用済"
+        }
+      ],
+      "multi": false
+    },
+    {
+      "id": "q_8bzx37j",
+      "enabled": true,
+      "label": "ログ作成補助（◆GC起因の場合は交換対応以下ヒアリング◆／◆GC起因ではな…）",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "log",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_8bzx37j",
+      "options": [
+        {
+          "l": "◆GC起因の場合は交換対応以下ヒアリング◆",
+          "v": "◆GC起因の場合は交換対応以下ヒアリング◆",
+          "text": "左上：バッチナンバー\n左下：製造年\n右上：ボックスナンバー"
+        },
+        {
+          "l": "◆GC起因ではない場合は追加ヒアリング◆",
+          "v": "◆GC起因ではない場合は追加ヒアリング◆",
+          "text": "・冷えた水で作成：Yes／No\n・炭酸作成時のプッシュ回数：　回\n・作成しているボトルサイズ：1L／0.5L\n・フォーム誘導　or　買い替え\n・機種名："
+        }
+      ],
+      "autoLabel": true
+    },
+    {
+      "id": "q_4pxsyrr",
+      "enabled": true,
+      "label": "《上記以外のご申告内容》",
+      "outLabel": "",
+      "outTpl": "",
+      "type": "text",
+      "common": false,
+      "tplIds": [
+        "tpl_ha86y1"
+      ],
+      "tplId": "tpl_ha86y1",
+      "field": "q_4pxsyrr",
+      "prefix": "",
+      "multiline": true
     }
   ],
   "hearingPolicies": [],
@@ -800,14 +1421,35 @@ window.APP_STATIC_DATA = {
 // 画面遷移データ。画像は screen-images/ フォルダに実ファイルとして保存されています。
 // library は画像ライブラリの復元用です（別PCでも一覧が再現されます）。
 window.APP_SCREEN_DATA = {
-  "savedAt": "2026-09-21T23:19:37.114Z",
-  "images": {},
-  "library": [],
+  "savedAt": "2026-09-22T07:25:46.378Z",
+  "images": {
+    "libk7d3dxigl": "【SOD】screen-images/download.png"
+  },
+  "library": [
+    {
+      "id": "libk7d3dxigl",
+      "name": "download",
+      "folder": "",
+      "file": "【SOD】screen-images/download.png",
+      "note": "",
+      "noteHtml": "",
+      "hotspots": [],
+      "hsLinkFrom": null
+    }
+  ],
   "patterns": [
     {
       "id": "scv24rjx01",
       "name": "パターン1",
-      "screens": []
+      "screens": [
+        {
+          "id": "scsecmcggj",
+          "name": "download",
+          "note": "",
+          "imageSrc": "lib:libk7d3dxigl",
+          "hotspots": []
+        }
+      ]
     }
   ]
 };

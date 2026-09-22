@@ -1,183 +1,160 @@
 // ツール設定ファイル — スクリプト・メール・サイドメニュー・ヒアリング・更新履歴・固定テキスト・画面遷移
 // admin.html の「💾 保存して反映」で自動更新されます。手動編集は非推奨です。
-// 生成日時: 2026-09-22T08:36:09.247Z
+// 生成日時: 2026-09-22T03:18:21.075Z
 window.APP_STATIC_DATA = {
-  "generatedAt": "2026-09-22T08:36:09.247Z",
-  "savedAt": "2026-09-22T08:36:09.247Z",
+  "generatedAt": "2026-09-22T03:18:21.075Z",
+  "savedAt": "2026-09-22T03:18:21.075Z",
   "sideMenuData": [
     {
-      "id": "smCat_1789974391763",
+      "id": "linkTools",
       "label": "🔧 ツール",
       "type": "links",
       "items": [
         {
           "name": "Genesys",
           "url": "https://login.mypurecloud.jp/#/authenticate-adv/org/tci-gp1",
-          "manualUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\各種ツール\\【NGH】Genesys Cloud利用マニュアル_20260618.pdf",
+          "manualUrl": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/各種ツール/【NGH】Genesys Cloud利用マニュアル_20260618.pdf",
           "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\各種ツール\\【NGH】Genesys Cloud利用マニュアル.mp4"
         },
         {
           "name": "CRM",
           "url": "https://ctssvr501.cloud.contact-link.jp/cts_nhk_net/login/index.php",
-          "manualUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\各種ツール\\【trans-CRM】利用マニュアル_20260713.pdf",
+          "manualUrl": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/各種ツール/【trans-CRM】利用マニュアル_20260713.pdf",
           "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\各種ツール\\【trans-CRM】利用マニュアル.mp4"
         },
         {
-          "name": "LINE",
+          "name": "LINE WORKS",
           "url": "https://talk.worksmobile.com/#/",
-          "manualUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\各種ツール\\【LINE WORKS】インストールと活用方法.pdf",
+          "manualUrl": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/各種ツール/【LINE WORKS】インストールと活用方法.pdf",
           "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\各種ツール\\【LINE WORKS】ログインと利用方法.mp4"
         },
         {
           "name": "新Transpeech",
           "url": "https://transpeech.jp/login",
-          "manualUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\各種ツール\\【NGH】新transpeechマニュアル_20260625.pdf",
+          "manualUrl": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/各種ツール/【NGH】新transpeechマニュアル_20260625.pdf",
           "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\各種ツール\\【NGH】Transpeechマニュアル.mp4"
         },
         {
           "name": "対話要約AI",
-          "url": "https://tci-dcc-support-summaryai02.spiral-site.com/summary_nhk",
-          "manualUrl": ""
+          "url": "https://tci-dcc-support-summaryai02.spiral-site.com/summary_nhk"
         },
         {
           "name": "SpeechVisualizer",
-          "url": "http://tci-ami-web16/Speechvisualizer/",
-          "manualUrl": ""
+          "url": "http://tci-ami-web16/Speechvisualizer/"
         }
       ]
     },
     {
-      "id": "smCat_1789974499910",
+      "id": "linkDocs",
       "label": "📄 資料",
       "type": "links_with_sub",
       "subSections": [
         {
-          "id": "sub_1789974518983",
+          "id": "subDocs_Work",
           "label": "NHKONE 関連資料",
           "items": [
             {
               "name": "コールセンターについて",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】コールセンターについて_20260626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NHK ONE】コールセンターについて_20260626.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\【NHK ONE】コールセンターについて.mp4"
             },
             {
               "name": "サービス概要・世帯での利用",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】サービス概要・世帯での利用_20260626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NHK ONE】サービス概要・世帯での利用_20260626.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\①世帯　動画.mp4"
             },
             {
               "name": "学校での利用",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】学校での利用_20260626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NHK ONE】学校での利用_20260626.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\②学校　動画.mp4"
             },
             {
               "name": "事業での利用",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】事業での利用_20250626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NHK ONE】事業での利用_20250626.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\③事業　動画.mp4"
             },
             {
               "name": "ユーザーお困りポイント",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】事業での利用_20250626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【世帯アカウント】ユーザーお困りポイント_20250908.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\【世帯アカウント】ユーザーお困りポイント.mp4"
             },
             {
               "name": "アカウント登録導線説明資料",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NHK ONE】アカウント登録導線説明資料.pdf",
-              "manualUrl": ""
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NHK ONE】アカウント登録導線説明資料.pdf"
             },
             {
               "name": "受信料アカウント全国説明会資料",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【確定版】20251110_受信料アカウント全国説明会資料_1117修正.pdf",
-              "manualUrl": ""
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【確定版】20251110_受信料アカウント全国説明会資料_1117修正.pdf"
             },
             {
               "name": "J→S転送対応フロー",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【確定版】20251110_受信料アカウント全国説明会資料_1117修正.pdf",
-              "manualUrl": ""
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/S⇔J転送/J→S転送受け/【NGH版】J→S転送受けフロー_20260611.pdf"
             },
             {
               "name": "S→J転送対応フロー",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\S⇔J転送\\S→J転送\\【NGH用】S→J転送対応フロー_20260714.pdf",
-              "manualUrl": "",
-              "videoUrl": ""
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/S⇔J転送/S→J転送/【NGH用】S→J転送対応フロー_20260714.pdf"
             },
             {
               "name": "PW+ログインID忘れのユーザー対応",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\NHK ONE 関連資料\\【NGH版】PW＋ログインID忘れの対応_20260727.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/NHK ONE 関連資料/【NGH版】PW＋ログインID忘れの対応_20260727.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\NHK ONE\\④ID忘れ　動画.mp4"
             }
           ]
         },
         {
-          "id": "sub_1789974521773",
+          "id": "subDocs_Quality",
           "label": "応対品質",
           "items": [
             {
               "name": "クレーム対応のポイント",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\クレーム対応のポイント.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/応対品質/クレーム対応のポイント.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\応対品質\\クレーム対応のポイント.mp4"
             },
             {
               "name": "わかりやすい伝え方・話し方（ロジカルシンキング）",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\わかりやすい伝え方・話し方（ロジカルシンキング）.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/応対品質/わかりやすい伝え方・話し方（ロジカルシンキング）.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\応対品質\\わかりやすい伝え方・話し方.mp4"
             },
             {
               "name": "高齢者対応",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\高齢者対応.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/応対品質/高齢者対応.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\応対品質\\高齢者対応のポイント.mp4"
             },
             {
               "name": "不適切応対防止研修",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\【NGH】不適切応対防止研修.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/応対品質/【NGH】不適切応対防止研修.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\応対品質\\【NGH】不適切応対防止研修.mp4"
             },
             {
               "name": "応対時間短縮マニュアル",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\応対時間短縮マニュアル.pdf",
-              "manualUrl": "",
-              "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\【NGH】応対時間短縮研修.mp4"
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/応対品質/応対時間短縮マニュアル.pdf"
             }
           ]
         },
         {
-          "id": "sub_1789974522576",
+          "id": "subDocs_Training",
           "label": "研修",
           "items": [
             {
               "name": "事業所紹介",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\【NGH】事業所紹介_20260626.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/【NGH】事業所紹介_20260626.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\事業所\\【NGH】事業所紹介.mp4"
             },
             {
               "name": "CMマニュアル",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\【NGHver】通話時間短縮研修.pdf",
-              "manualUrl": "",
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/【NGH】CMマニュアル_20260527.pdf",
               "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\研修関連\\新人研修用動画\\事業所\\【NGH】CMマニュアル.mp4"
             },
             {
               "name": "ATT短縮研修資料",
-              "url": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\【NGHver】通話時間短縮研修.pdf",
-              "manualUrl": "",
-              "videoUrl": "\\\\tohoku\\share\\拠点\\仙台青葉\\00_事業所\\NGH\\業務資料\\マニュアル関連\\応対品質\\【NGH】応対時間短縮研修.mp4"
+              "url": "file://tohoku/share/拠点/仙台青葉/00_事業所/NGH/業務資料/マニュアル関連/ATT短縮研修資料.pdf"
             }
           ]
         }
       ]
     },
     {
-      "id": "smCat_1789974747928",
+      "id": "linkSites",
       "label": "🌐 関連サイト",
       "type": "links",
       "items": [
@@ -237,8 +214,1110 @@ window.APP_STATIC_DATA = {
     }
   ],
   "sideMenuFiles": {},
-  "hearingQuestions": [],
-  "hearingPolicies": [],
+  "hearingQuestions": [
+    {
+      "id": "q_usage",
+      "label": "用途",
+      "field": "usage",
+      "type": "str",
+      "options": [
+        {
+          "l": "世帯",
+          "v": "世帯"
+        },
+        {
+          "l": "学校",
+          "v": "学校"
+        },
+        {
+          "l": "事業",
+          "v": "事業"
+        }
+      ],
+      "showIf": [],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "oldPlusUsed",
+        "migMailStatus",
+        "migSAccCreated",
+        "migSAccGuide",
+        "migSAccLogin",
+        "migSAccPwReset",
+        "transferA",
+        "transferB",
+        "transferC",
+        "newSAccCreated",
+        "newSAccGuide",
+        "newSAccLogin",
+        "newSAccPwReset",
+        "sjLink",
+        "jAccGuide",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_oldPlusUsed",
+      "label": "旧NHKプラス",
+      "field": "oldPlusUsed",
+      "type": "bool",
+      "trueLabel": "2025/8/15までに利用あり（気がする）",
+      "falseLabel": "2025/8/15までに利用なし",
+      "showIf": [
+        [
+          {
+            "field": "usage",
+            "op": "eq",
+            "value": "世帯"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "migMailStatus",
+        "migSAccCreated",
+        "migSAccGuide",
+        "migSAccLogin",
+        "migSAccPwReset",
+        "transferA",
+        "transferB",
+        "transferC",
+        "newSAccCreated",
+        "newSAccGuide",
+        "newSAccLogin",
+        "newSAccPwReset",
+        "sjLink",
+        "jAccGuide",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_migMailStatus",
+      "label": "移行メアド",
+      "field": "migMailStatus",
+      "type": "str",
+      "options": [
+        {
+          "l": "移行案内メールから特定済み、現在も使用可能",
+          "v": "移行案内メールから特定済み、現在も使用可能"
+        },
+        {
+          "l": "移行案内メールも確認できず特定不可",
+          "v": "移行案内メールも確認できず特定不可"
+        },
+        {
+          "l": "移行案内メールから特定済み、現在は使用不可",
+          "v": "移行案内メールから特定済み、現在は使用不可"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "oldPlusUsed",
+            "op": "true"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "migSAccCreated",
+        "migSAccGuide",
+        "migSAccLogin",
+        "migSAccPwReset",
+        "transferA",
+        "transferB",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission"
+      ]
+    },
+    {
+      "id": "q_migSAccCreated",
+      "label": "【移行Sアカ】作成",
+      "field": "migSAccCreated",
+      "type": "bool",
+      "trueLabel": "済",
+      "falseLabel": "未",
+      "showIf": [
+        [
+          {
+            "field": "migMailStatus",
+            "op": "eq",
+            "value": "移行案内メールから特定済み、現在も使用可能"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "migSAccGuide",
+        "migSAccLogin",
+        "migSAccPwReset",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission"
+      ]
+    },
+    {
+      "id": "q_migSAccGuide",
+      "label": "【移行Sアカ】作成案内",
+      "field": "migSAccGuide",
+      "type": "str",
+      "options": [
+        {
+          "l": "成功",
+          "v": "成功"
+        },
+        {
+          "l": "失敗（エラーメール受信）",
+          "v": "失敗（エラーメール受信）"
+        },
+        {
+          "l": "失敗（メール受信なし）",
+          "v": "失敗（メール受信なし）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "migSAccCreated",
+            "op": "false"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "migSAccLogin",
+        "migSAccPwReset",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission"
+      ]
+    },
+    {
+      "id": "q_migSAccLogin",
+      "label": "【移行Sアカ】ログイン",
+      "field": "migSAccLogin",
+      "type": "bool",
+      "trueLabel": "成功 もしくは ログイン済み",
+      "falseLabel": "失敗",
+      "showIf": [
+        [
+          {
+            "field": "migSAccCreated",
+            "op": "true"
+          }
+        ],
+        [
+          {
+            "field": "migSAccGuide",
+            "op": "eq",
+            "value": "成功"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "migSAccPwReset"
+      ]
+    },
+    {
+      "id": "q_migSAccPwReset",
+      "label": "【移行Sアカ】PW再設定",
+      "field": "migSAccPwReset",
+      "type": "str",
+      "options": [
+        {
+          "l": "成功",
+          "v": "成功"
+        },
+        {
+          "l": "失敗（ログインID設定あり）",
+          "v": "失敗（ログインID設定あり）"
+        },
+        {
+          "l": "失敗（ログインID以外の任意情報設定あり）",
+          "v": "失敗（ログインID以外の任意情報設定あり）"
+        },
+        {
+          "l": "失敗（任意情報設定なし）",
+          "v": "失敗（任意情報設定なし）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "migSAccLogin",
+            "op": "false"
+          }
+        ],
+        [
+          {
+            "field": "migSAccGuide",
+            "op": "eq",
+            "value": "失敗（エラーメール受信）"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": []
+    },
+    {
+      "id": "q_transferA",
+      "label": "【転送パターンA】入電者確認",
+      "field": "transferA",
+      "type": "str",
+      "options": [
+        {
+          "l": "受信契約者本人",
+          "v": "受信契約者本人"
+        },
+        {
+          "l": "配偶者",
+          "v": "配偶者"
+        },
+        {
+          "l": "受信契約者本人/配偶者　ではないが　本人同席",
+          "v": "受信契約者本人/配偶者　ではないが　本人同席"
+        },
+        {
+          "l": "上記に該当しない",
+          "v": "上記に該当しない"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "migMailStatus",
+            "op": "eq",
+            "value": "移行案内メールも確認できず特定不可"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": []
+    },
+    {
+      "id": "q_transferB",
+      "label": "【転送パターンB】入電者確認",
+      "field": "transferB",
+      "type": "str",
+      "options": [
+        {
+          "l": "受信契約者本人",
+          "v": "受信契約者本人"
+        },
+        {
+          "l": "配偶者",
+          "v": "配偶者"
+        },
+        {
+          "l": "受信契約者本人/配偶者　ではないが　本人同席",
+          "v": "受信契約者本人/配偶者　ではないが　本人同席"
+        },
+        {
+          "l": "上記に該当しない",
+          "v": "上記に該当しない"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "migMailStatus",
+            "op": "eq",
+            "value": "移行案内メールから特定済み、現在は使用不可"
+          }
+        ],
+        [
+          {
+            "field": "sjLink",
+            "op": "eq",
+            "value": "未確認（他S）"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": []
+    },
+    {
+      "id": "q_transferC",
+      "label": "【転送パターンC】入電者確認",
+      "field": "transferC",
+      "type": "str",
+      "options": [
+        {
+          "l": "受信契約者本人",
+          "v": "受信契約者本人"
+        },
+        {
+          "l": "配偶者",
+          "v": "配偶者"
+        },
+        {
+          "l": "受信契約者本人/配偶者　ではないが　本人同席",
+          "v": "受信契約者本人/配偶者　ではないが　本人同席"
+        },
+        {
+          "l": "上記に該当しない",
+          "v": "上記に該当しない"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "sjLink",
+            "op": "eq",
+            "value": "未連携（Jアカ作成済）※Jアカログイン不可"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": []
+    },
+    {
+      "id": "q_transferD",
+      "label": "【転送パターンD】入電者確認",
+      "field": "transferD",
+      "type": "str",
+      "options": [
+        {
+          "l": "受信契約者本人",
+          "v": "受信契約者本人"
+        },
+        {
+          "l": "配偶者",
+          "v": "配偶者"
+        },
+        {
+          "l": "受信契約者本人/配偶者　ではないが　本人同席",
+          "v": "受信契約者本人/配偶者　ではないが　本人同席"
+        },
+        {
+          "l": "上記に該当しない",
+          "v": "上記に該当しない"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "usage",
+            "op": "eq",
+            "value": "__never__"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": []
+    },
+    {
+      "id": "q_newSAccCreated",
+      "label": "【新規Sアカ】作成",
+      "field": "newSAccCreated",
+      "type": "bool",
+      "trueLabel": "済",
+      "falseLabel": "未",
+      "showIf": [
+        [
+          {
+            "field": "oldPlusUsed",
+            "op": "false"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "newSAccGuide",
+        "newSAccLogin",
+        "newSAccPwReset",
+        "sjLink",
+        "jAccGuide",
+        "transferB",
+        "transferC",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_newSAccGuide",
+      "label": "【新規Sアカ】作成案内",
+      "field": "newSAccGuide",
+      "type": "str",
+      "options": [
+        {
+          "l": "成功",
+          "v": "成功"
+        },
+        {
+          "l": "失敗（エラーメール受信）",
+          "v": "失敗（エラーメール受信）"
+        },
+        {
+          "l": "失敗（メール受信なし）",
+          "v": "失敗（メール受信なし）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "newSAccCreated",
+            "op": "false"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "newSAccLogin",
+        "newSAccPwReset",
+        "sjLink",
+        "jAccGuide",
+        "transferB",
+        "transferC",
+        "cbSMistake",
+        "cbSSpam",
+        "cbSPermission",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_newSAccLogin",
+      "label": "【新規Sアカ】ログイン",
+      "field": "newSAccLogin",
+      "type": "bool",
+      "trueLabel": "成功 もしくは ログイン済み",
+      "falseLabel": "不可",
+      "showIf": [
+        [
+          {
+            "field": "newSAccCreated",
+            "op": "true"
+          }
+        ],
+        [
+          {
+            "field": "newSAccGuide",
+            "op": "eq",
+            "value": "成功"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "newSAccPwReset",
+        "sjLink",
+        "jAccGuide",
+        "transferB",
+        "transferC",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_newSAccPwReset",
+      "label": "【新規Sアカ】PW再設定",
+      "field": "newSAccPwReset",
+      "type": "str",
+      "options": [
+        {
+          "l": "成功",
+          "v": "成功"
+        },
+        {
+          "l": "失敗（ログインID設定あり）",
+          "v": "失敗（ログインID設定あり）"
+        },
+        {
+          "l": "失敗（ログインID以外の任意情報設定あり）",
+          "v": "失敗（ログインID以外の任意情報設定あり）"
+        },
+        {
+          "l": "失敗（任意情報設定なし）",
+          "v": "失敗（任意情報設定なし）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "newSAccLogin",
+            "op": "false"
+          }
+        ],
+        [
+          {
+            "field": "newSAccGuide",
+            "op": "eq",
+            "value": "失敗（エラーメール受信）"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "sjLink",
+        "jAccGuide",
+        "transferB",
+        "transferC",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_sjLink",
+      "label": "【S-J連携】",
+      "field": "sjLink",
+      "type": "str",
+      "options": [
+        {
+          "l": "連携済（Jアカ作成済）",
+          "v": "連携済（Jアカ作成済）"
+        },
+        {
+          "l": "未連携（Jアカ作成済）",
+          "v": "未連携（Jアカ作成済）"
+        },
+        {
+          "l": "未連携（Jアカ作成済）※Jアカログイン不可",
+          "v": "未連携（Jアカ作成済）※Jアカログイン不可"
+        },
+        {
+          "l": "未連携（Jアカ未作成）",
+          "v": "未連携（Jアカ未作成）"
+        },
+        {
+          "l": "未確認（照合NG）",
+          "v": "未確認（照合NG）"
+        },
+        {
+          "l": "未確認（他S）",
+          "v": "未確認（他S）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "newSAccLogin",
+            "op": "true"
+          }
+        ],
+        [
+          {
+            "field": "newSAccPwReset",
+            "op": "eq",
+            "value": "成功"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "transferB",
+        "transferC",
+        "jAccGuide",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    },
+    {
+      "id": "q_jAccGuide",
+      "label": "【Jアカ】作成案内",
+      "field": "jAccGuide",
+      "type": "str",
+      "options": [
+        {
+          "l": "成功",
+          "v": "成功"
+        },
+        {
+          "l": "失敗（エラーメール受信）",
+          "v": "失敗（エラーメール受信）"
+        },
+        {
+          "l": "失敗（メール受信なし）",
+          "v": "失敗（メール受信なし）"
+        }
+      ],
+      "showIf": [
+        [
+          {
+            "field": "sjLink",
+            "op": "eq",
+            "value": "未連携（Jアカ未作成）"
+          }
+        ]
+      ],
+      "builtin": true,
+      "enabled": true,
+      "resets": [
+        "sjLink",
+        "transferB",
+        "transferC",
+        "cbJMistake",
+        "cbJSpam",
+        "cbJPermission"
+      ]
+    }
+  ],
+  "hearingPolicies": [
+    {
+      "id": "builtin_p01",
+      "conditions": [
+        {
+          "field": "usage",
+          "op": "eq",
+          "value": "学校"
+        }
+      ],
+      "policy": "【学校/事業】アカウント担当者からの入電として対応してください。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p02",
+      "conditions": [
+        {
+          "field": "usage",
+          "op": "eq",
+          "value": "事業"
+        }
+      ],
+      "policy": "【学校/事業】アカウント担当者からの入電として対応してください。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p03",
+      "conditions": [
+        {
+          "field": "migSAccLogin",
+          "op": "true"
+        }
+      ],
+      "policy": "クロージング　Jアカ作成希望であれば320誘導",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p04",
+      "conditions": [
+        {
+          "field": "migSAccPwReset",
+          "op": "eq",
+          "value": "成功"
+        }
+      ],
+      "policy": "ログイン確認後、クロージング　Jアカ作成希望であれば320誘導",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p05",
+      "conditions": [
+        {
+          "field": "migSAccPwReset",
+          "op": "eq",
+          "value": "失敗（ログインID設定あり）"
+        }
+      ],
+      "policy": "ログインID開示で受付",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p06",
+      "conditions": [
+        {
+          "field": "migSAccPwReset",
+          "op": "eq",
+          "value": "失敗（ログインID以外の任意情報設定あり）"
+        }
+      ],
+      "policy": "入力した任意情報に誤りがあります。入力内容をご確認下さい。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p07",
+      "conditions": [
+        {
+          "field": "migSAccPwReset",
+          "op": "eq",
+          "value": "失敗（任意情報設定なし）"
+        }
+      ],
+      "policy": "入力されたメアドでアカウントが存在しない可能性が高いです。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p08",
+      "conditions": [
+        {
+          "field": "newSAccPwReset",
+          "op": "eq",
+          "value": "失敗（ログインID設定あり）"
+        }
+      ],
+      "policy": "ログインID開示で受付",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p09",
+      "conditions": [
+        {
+          "field": "newSAccPwReset",
+          "op": "eq",
+          "value": "失敗（ログインID以外の任意情報設定あり）"
+        }
+      ],
+      "policy": "入力した任意情報に誤りがあります。入力内容をご確認下さい。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p10",
+      "conditions": [
+        {
+          "field": "newSAccPwReset",
+          "op": "eq",
+          "value": "失敗（任意情報設定なし）"
+        }
+      ],
+      "policy": "入力されたメアドでアカウントが存在しない可能性が高いです。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p11",
+      "conditions": [
+        {
+          "field": "transferA",
+          "op": "eq",
+          "value": "受信契約者本人"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p12",
+      "conditions": [
+        {
+          "field": "transferA",
+          "op": "eq",
+          "value": "配偶者"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p13",
+      "conditions": [
+        {
+          "field": "transferA",
+          "op": "eq",
+          "value": "受信契約者本人/配偶者　ではないが　本人同席"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p14",
+      "conditions": [
+        {
+          "field": "transferA",
+          "op": "eq",
+          "value": "上記に該当しない"
+        }
+      ],
+      "policy": "転送NG　本人からおかけ直しいただくよう案内",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p15",
+      "conditions": [
+        {
+          "field": "transferB",
+          "op": "eq",
+          "value": "受信契約者本人"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p16",
+      "conditions": [
+        {
+          "field": "transferB",
+          "op": "eq",
+          "value": "配偶者"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p17",
+      "conditions": [
+        {
+          "field": "transferB",
+          "op": "eq",
+          "value": "受信契約者本人/配偶者　ではないが　本人同席"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p18",
+      "conditions": [
+        {
+          "field": "transferB",
+          "op": "eq",
+          "value": "上記に該当しない"
+        }
+      ],
+      "policy": "転送NG　本人からおかけ直しいただくよう案内",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p19",
+      "conditions": [
+        {
+          "field": "transferC",
+          "op": "eq",
+          "value": "受信契約者本人"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p20",
+      "conditions": [
+        {
+          "field": "transferC",
+          "op": "eq",
+          "value": "配偶者"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p21",
+      "conditions": [
+        {
+          "field": "transferC",
+          "op": "eq",
+          "value": "受信契約者本人/配偶者　ではないが　本人同席"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p22",
+      "conditions": [
+        {
+          "field": "transferC",
+          "op": "eq",
+          "value": "上記に該当しない"
+        }
+      ],
+      "policy": "転送NG　本人からおかけ直しいただくよう案内",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p23",
+      "conditions": [
+        {
+          "field": "transferD",
+          "op": "eq",
+          "value": "受信契約者本人"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p24",
+      "conditions": [
+        {
+          "field": "transferD",
+          "op": "eq",
+          "value": "配偶者"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p25",
+      "conditions": [
+        {
+          "field": "transferD",
+          "op": "eq",
+          "value": "受信契約者本人/配偶者　ではないが　本人同席"
+        }
+      ],
+      "policy": "転送OK",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p26",
+      "conditions": [
+        {
+          "field": "transferD",
+          "op": "eq",
+          "value": "上記に該当しない"
+        }
+      ],
+      "policy": "転送NG　本人からおかけ直しいただくよう案内",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p27",
+      "conditions": [
+        {
+          "field": "sjLink",
+          "op": "eq",
+          "value": "連携済（Jアカ作成済）"
+        }
+      ],
+      "policy": "クロージング",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p28",
+      "conditions": [
+        {
+          "field": "sjLink",
+          "op": "eq",
+          "value": "未連携（Jアカ作成済）"
+        }
+      ],
+      "policy": "S-J連携を完了してサービスをご利用ください",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p29",
+      "conditions": [
+        {
+          "field": "sjLink",
+          "op": "eq",
+          "value": "未確認（照合NG）"
+        }
+      ],
+      "policy": "077で正しい受信契約情報を確認いただくよう案内",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p30",
+      "conditions": [
+        {
+          "field": "jAccGuide",
+          "op": "eq",
+          "value": "失敗（エラーメール受信）"
+        }
+      ],
+      "policy": "同メアドで既にJアカが存在しています。",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p31",
+      "conditions": [
+        {
+          "field": "cbSMistake",
+          "op": "true"
+        },
+        {
+          "field": "cbSSpam",
+          "op": "true"
+        },
+        {
+          "field": "cbSPermission",
+          "op": "true"
+        }
+      ],
+      "policy": "クライアントエスカレ",
+      "enabled": true,
+      "builtin": true
+    },
+    {
+      "id": "builtin_p32",
+      "conditions": [
+        {
+          "field": "cbJMistake",
+          "op": "true"
+        },
+        {
+          "field": "cbJSpam",
+          "op": "true"
+        },
+        {
+          "field": "cbJPermission",
+          "op": "true"
+        }
+      ],
+      "policy": "クライアントエスカレ",
+      "enabled": true,
+      "builtin": true
+    }
+  ],
   "hearingPatterns": [],
   "updateHistory": [
     {
@@ -291,17 +1370,16 @@ window.APP_STATIC_DATA = {
       "date": "2026/03/08"
     }
   ],
-  "fixedTexts": {},
+  "fixedTexts": {
+    "opening": "お電話 ありがとうございます。NHKONE窓口 担当●●でございます。"
+  },
   "faqData": [],
   "hearingTemplates": [],
   "hearingLabelPrefix": "■",
   "hearingFixedReady": true,
   "notice": "",
   "noticeDate": "",
-  "maintenance": {
-    "screen.html": true,
-    "faq.html": true
-  },
+  "maintenance": {},
   "talkScripts": {
     "cat_1772931103363": {
       "name": "コンテンツ/制度",
@@ -1621,15 +2699,15 @@ window.APP_STATIC_DATA = {
           "title": "S ⇒ J 転送",
           "steps": [
             {
-              "text": "\n<table>\n<thead><tr><th colspan=\"4\"><span style=\"font-size: 13px; font-weight: 400;\">転送パターン表\n</span></th></tr></thead>\n<tbody><tr><td colspan=\"4\"><span style=\"font-size: 13px;\">転送が想定される問合せ内容</span></td></tr>\n<tr><td>旧NHKプラスからの移行対象者だが、\n移行メールアドレスを覚えていない</td><td>旧NHKプラスからの移行対象者だが、\n現在、移行メールアドレスは使用不可</td><td>パスワードを忘れてしまい、\n受信料アカウントにログインできない</td><td>身に覚えのないハガキ\n（受信料アカウント関連）が届いた</td></tr>\n<tr><td colspan=\"4\"><span style=\"font-size: 13px;\">SアカCC側での確認事項</span></td></tr>\n<tr><td>① 旧NHKプラスからの移行対象であること\n・2025年8月15日時点で旧NHKプラスを利用していた\n・P.3に記載のいずれかのメールを受信していた（現在は確認不可）\n② 新規でNHK ONEアカウントを登録しているか\n\nすべて「確認済」</td><td>① 旧NHKプラスからの移行対象であること\n・2025年8月15日時点で旧NHKプラスを利用していた\n・P.3に記載のいずれかのメールを受信していた\n② 移行対象のメールアドレスは現在使用できないこと\n③ 新規でNHK ONEアカウントを登録しているか\n\nすべて「確認済」</td><td>① 受信料アカウントのPWを忘れてしまい、メール等でも確認できないこと\n② NHK ONEアカウントにはログインできていること\n\nすべて「確認済」\n</td><td>① ご家族にも受信料アカウントを登録した方がいないこと\n② 受信料アカウントに関するメールが一切届いていないこと\n\nいずれも「Yes」</td></tr>\n<tr><td colspan=\"4\"><span style=\"font-size: 13px;\">JアカCC側の対応内容</span></td></tr>\n<tr><td><span style=\"font-size: 13px;\">パターンＡ\n移行対象のメールアドレス確認\n</span></td><td><span style=\"font-size: 13px;\">パターンＢ\n移行アカウントの受信料アカウント削除</span></td><td><span style=\"font-size: 13px;\">パターンＣ\n受信料アカウントの初期パスワード再送</span></td><td><span style=\"font-size: 13px;\">パターンＤ\n受信料アカウントの登録状況確認</span></td></tr>\n</tbody></table>\nパターンA　⇒　「旧NHKプラスからの移行メールアドレス確認について、専門の窓口にお繋ぎします」\nパターンB　⇒　「移行アカウントの受信契約情報の削除が必要なため、専門の窓口にお繋ぎします」\nパターンC　⇒　「受信料アカウントの初期パスワードを再送いたしますので、専門の窓口にお繋ぎします」\nパターンD　⇒　「登録完了ハガキの内容について、専門の窓口にお繋ぎします」\n\n本日ご連絡いただいておりますのは、受信契約者ご本人様か配偶者様でしょうか？　\n",
+              "text": "\n<table>\n<thead><tr><th colspan=\"4\"><span style=\"font-size: 13px; font-weight: 400;\">転送パターン表\n</span></th></tr></thead>\n<tbody><tr><td colspan=\"4\"><span style=\"font-size: 13px;\">転送が想定される問合せ内容</span></td></tr>\n<tr><td><span style=\"font-size: 13px;\">旧NHKプラスからの移行対象者だが、</span>\n<span style=\"font-size: 13px;\">移行メールアドレスが不明</span></td><td><span style=\"font-size: 13px;\">旧NHKプラスからの移行対象者だが、</span>\n<span style=\"font-size: 13px;\">現在、移行メールアドレスは使用不可</span></td><td><span style=\"font-size: 13px;\">パスワードを忘れてしまい、</span>\n<span style=\"font-size: 13px;\">受信料アカウントにログインできない</span></td><td><span style=\"font-size: 13px;\">身に覚えのないハガキ</span>\n<span style=\"font-size: 13px;\">（受信料アカウント関連）が届いた</span></td></tr>\n<tr><td colspan=\"4\"><span style=\"font-size: 13px;\">SアカCC側での確認事項</span></td></tr>\n<tr><td><span style=\"font-size: 13px;\">・旧NHKプラスからの移行対象だとユーザー自身が自覚している\n　あるいは、旧NHKプラスからの移行に関するご案内のメールが届いたが、現在は確認不可\n・登録したメアドに心当たりがなく、移行手続きを試すことができない</span></td><td><span style=\"font-size: 13px;\">・旧NHKプラスからの移行対象だとユーザー自身が自覚している\n・移行メアドは使用不可のため移行手続きができない\nまたは\n・Sアカを新規作成し、Jアカ登録・連携した後で「すでに登録がある」という\n　内容のメールが届いた</span></td><td><span style=\"font-size: 13px;\">・誤って削除した等の理由で、受信料アカウントのパスワードに関するメールが残っていない\n・初期PWで一度ログインしお客様自身でPWを設定された場合はPW再設定を\n　案内するが、それもできない\n・NHK ONEアカウントにはログインできている</span></td><td><span style=\"font-size: 13px;\">・ご家族にも受信料アカウントを登録した方がいない\n・受信料アカウントに関するメールが一切届いていない</span></td></tr>\n<tr><td colspan=\"4\"><span style=\"font-size: 13px;\">JアカCC側の対応内容</span></td></tr>\n<tr><td><span style=\"font-size: 13px;\">パターンＡ\n移行対象のメールアドレス確認\n</span></td><td><span style=\"font-size: 13px;\">パターンＢ\n移行アカウントの受信料アカウント削除</span></td><td><span style=\"font-size: 13px;\">パターンＣ\n受信料アカウントの初期パスワード再送</span></td><td><span style=\"font-size: 13px;\">パターンＤ\n受信料アカウントの登録状況確認</span></td></tr>\n</tbody></table>\n●●●●については、専門の窓口におつなぎして、お客様の登録状況をお調べする必要がございます。\n　→　パターンＡ：移行対象のメールアドレス確認\n　　　 パターンＢ：移行アカウントの受信料アカウント削除\n　　　 パターンＣ：受信料アカウントの初期パスワード再送\n　　　 パターンＤ：受信料アカウントの登録状況確認\n\n本日ご連絡いただいておりますのは、受信契約者ご本人様か配偶者様でしょうか？　\n",
               "choices": [
                 {
                   "label": "はい",
-                  "go": 3
+                  "go": 1
                 },
                 {
                   "label": "いいえ",
-                  "go": 1
+                  "go": 3
                 }
               ],
               "memo": "※「転送します」「回します」「代わります」は、たらい回しにされている印象を受けるためNG！"
@@ -1673,64 +2751,24 @@ window.APP_STATIC_DATA = {
               "text": "お客さま、お待たせいたしました。\nただいまより専門の窓口へおつなぎいたしますが、お客様の現在の状況を引継ぎいたしますので、お時間をいただく場合がございます。\n何卒ご理解くださいますようお願いいたします。",
               "choices": [
                 {
-                  "label": "パターンA",
+                  "label": "＜内線に応答＞　　はい、JアカCCの●●です。",
                   "go": 6
-                },
-                {
-                  "label": "パターンB",
-                  "go": 7
-                },
-                {
-                  "label": "パターンC",
-                  "go": 8
-                },
-                {
-                  "label": "パターンD",
-                  "go": 9
                 }
               ],
               "memo": "※「転送します」「回します」「代わります」は、たらい回しにされている印象を　受けるためNG！"
             },
             {
-              "text": "お疲れ様です。 SアカCC 担当の●●です。\n転送パターンＡ で、 Sアカ新規作成済 ／ Sアカ未作成 のお客様です。\n電話番号は、XXX-XXXX-XXXX （番号通知で表示された着信電話番号）です。\n契約者本人 ／ 配偶者 ／ 本人（または配偶者）同席での第三者 からの入電です。",
+              "text": "お疲れさまです。　SアカCCの●●です。\n転送パターン○（Ａ～Ｄ）のお客様です。　電話番号は、xxx-xxxx-xxxxです。",
               "choices": [
                 {
-                  "label": "そのほか、申し送り事項はございますか？",
-                  "go": 10
+                  "label": " 転送パターン○、▲▲▲▲のお客様で、電話番号xxx-xxxx-xxxxですね。 そのほか、申し送り事項はございますか？",
+                  "go": 6
                 }
               ]
             },
             {
-              "text": "お疲れ様です。 SアカCC 担当の●●です。\n転送パターンＢ で、 Sアカ新規作成済 ／ Sアカ未作成 のお客様です。\n電話番号は、XXX-XXXX-XXXX （番号通知で表示された着信電話番号）です。\n契約者本人 ／ 配偶者 ／ 本人（または配偶者）同席での第三者 からの入電です。\n",
-              "choices": [
-                {
-                  "label": "そのほか、申し送り事項はございますか？",
-                  "go": 10
-                }
-              ]
-            },
-            {
-              "text": "お疲れ様です。 SアカCC 担当の●●です。 転送パターンＣ のお客様です。\n電話番号は、XXX-XXXX-XXXX （番号通知で表示された着信電話番号）です。\n契約者本人 ／ 配偶者 ／ 本人（または配偶者）同席での第三者 からの入電です。",
-              "choices": [
-                {
-                  "label": "そのほか、申し送り事項はございますか？",
-                  "go": 10
-                }
-              ]
-            },
-            {
-              "text": "お疲れ様です。 SアカCC 担当の●●です。 転送パターンＤ のお客様です。\n電話番号は、XXX-XXXX-XXXX （番号通知で表示された着信電話番号）です。\n契約者本人 ／ 配偶者 ／ 本人（または配偶者）同席での第三者 からの入電です。",
-              "choices": [
-                {
-                  "label": "そのほか、申し送り事項はございますか？",
-                  "go": 10
-                }
-              ]
-            },
-            {
-              "text": "＜ほかに申し送り事項があれば＞\n～～～～です。　よろしくお願いいたします。",
-              "choices": [],
-              "memo": ""
+              "text": "＜ほかに申し送り事項があれば＞\n～～～～です。　よろしくお願いいたします。\n",
+              "choices": []
             }
           ]
         },
@@ -1984,8 +3022,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールはNHK ONEアカウントの登録お手続きをされた方に自動送信しています。\n（このメールは送信専用アドレスからお送りしています。このメールへの返信はできません。）\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントの登録を完了してください。\n\n認証コード: $(6桁の認証コード)\n\nこのコードの有効期限は10分です。\n\nNHK ONEアカウントの登録お手続きでお困りの方は下記をご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "登録手続き中に飛ぶ認証コード",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_2",
@@ -1998,8 +3035,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードを送信できませんでした【NHK ONE】",
       "body": "────────────────────────────────\nこのメールは、NHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nこのたびご入力いただいたメールアドレス宛に「認証コード」を送信することができませんでした。以下のいずれかの理由が考えられますので、恐れ入りますが内容をご確認いただきご対応をお願いいたします。\n\n【考えられる理由と対応方法】\n１）旧NHKプラスで同じメールアドレスを登録されていた場合\nこの場合は、新規登録ではなく、旧NHKプラスからNHK ONEへのアカウント移行手続きが必要となります。移行手続きの詳細につきましては、以下のページをご確認ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/P001-0001/\n\n２）すでに同じメールアドレスで、NHK ONEアカウントを登録されている場合\n同じメールアドレスで登録できるNHK ONEアカウントは１つのみです。すでにご登録済みのアカウントをご利用ください。NHK ONEウェブサイト（https:/www.web.NHK/）や各アプリの画面上部にある「ログイン」ボタンからログインしてご利用ください。\nなお、パスワードをお忘れの場合は、ログイン画面の「パスワードをお忘れの方はこちら」から再設定が可能です。\n\n３）同じメールアドレスでNHK ONEアカウントの登録が完了し、その後削除された場合\nセキュリティ上の理由などから、一度登録が完了したアカウントを削除された場合、削除後１か月間は同じメールアドレスでの再登録ができません。恐れ入りますが、別のメールアドレスにてアカウント登録をお願いいたします。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています。\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "新規登録導線で失敗した場合に認証コードの代わりに飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_3",
@@ -2012,8 +3048,7 @@ window.APP_STATIC_DATA = {
       "subject": "アカウント登録完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n \nNHK ONEアカウントの登録が完了しました。\n\n【世帯（個人）でご利用の方へ】\n受信契約の確認のお手続きが必要になります。こちらからご確認・お手続きをお願いいたします。\nhttps://portal.web.NHK/contract\n\n【事業でご利用の方へ】\nNHK ONEアカウント登録に続けて、確認キーの取得が必要です。\n詳細は以下をご覧ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/B001-0001/\n\n【学校でご利用の方へ】\nご利用方法は以下をご覧ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/S001-0001/\n\n────────────────────────────────\nNHK ONE ご利用についてお困りのときは、下記ページをご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_4",
@@ -2026,8 +3061,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\nお使いのNHK ONEアカウントで受信契約の確認が完了しました。\n受信料制度にご理解いただき、ありがとうございます。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\nNHK ONE ご利用についてお困りのときは、下記ページをご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_5",
@@ -2040,8 +3074,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウントとの連携完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\nお使いのNHK ONEアカウントと、受信料アカウントとの連携が完了しました。\n現在、受信契約の確認中です。結果は、後日お知らせいたします。\n\n受信契約が確認できなかった場合、受信料アカウントとの連携は解除されます。\nお手数ですが、再度受信契約の確認のお手続きをお願いします。\n受信料制度へのご理解をお願いいたします。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_6",
@@ -2054,8 +3087,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認ができませんでした【NHK ONE】\n再度、受信契約の確認のお手続きをお願いします【NHK ONE】",
       "body": "────────────────────────────────\nこのメールは、NHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nこのたび、NHK ONEのご利用における「受信契約情報の登録・連携」の手続きをいただきましたが、申請内容を確認させていただいた結果、NHK ONEアカウントと受信料アカウントの連携が解除されました。\n\nなお、詳細については、「NHK受信料の窓口」より、以下のメールをお送りしております。お手数をおかけしますが、内容をご確認のうえ、再度お手続きをお願いいたします。\n\n・件名：受信契約の確認ができませんでした【受信料アカウント】\n　または、登録済みの受信料アカウントがあります【受信料アカウント】\n・送信先：お客様が受信料アカウントに登録されたメールアドレス\n・送信元アドレス：@mail.service.NHK-cs.jp\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_7",
@@ -2068,8 +3100,7 @@ window.APP_STATIC_DATA = {
       "subject": "ほかのアカウントに受信料アカウントが連携されています【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n受信契約の確認のお手続きで連携した受信料アカウントは、すでにほかのNHK ONEアカウントと連携されています。\n受信料アカウントは、複数のNHK ONEアカウントと連携できません。\nご自身やご家族が作成されたNHK ONEアカウントを、いま一度ご確認ください。\n\nいまお使いのNHK ONEアカウントと連携したい場合は、連携済みのNHK ONEアカウントで受信料アカウントとの連携の解除のお手続きが必要です。\n下のリンクからアカウント設定ページを開き、連携済みのNHK ONEアカウントにログインしてください。そして「受信料アカウントとの連携の解除」をクリックしてください。\nhttps://portal.web.NHK/\n\nNHK ONEアカウントのパスワードをお忘れの方は、ログイン画面から再設定の手続きができます。\n\nよくある質問については、こちらをご覧ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_8",
@@ -2082,8 +3113,7 @@ window.APP_STATIC_DATA = {
       "subject": "再度、受信契約確認のお手続きをお願いします【NHK ONE】",
       "body": "────────────────────────────────\nこのメールは、NHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nこのたび、NHK ONEのご利用における「受信契約情報の登録・連携」の手続きをいただきましたが、申請内容を確認させていただいた結果、NHK ONEアカウントと受信料アカウントの連携が解除されました。\n\nなお、詳細については、「NHK受信料の窓口」より、以下のメールをお送りしております。お手数をおかけしますが、内容をご確認のうえ再度お手続きをお願いいたします。\n・件名：受信契約の確認ができませんでした【受信料アカウント】\n　または、登録済みの受信料アカウントがあります【受信料アカウント】\n・送信先：お客様が受信料アカウントに登録されたメールアドレス\n・送信元アドレス：@mail.service.NHK-cs.jp\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_9",
@@ -2096,8 +3126,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウントとの連携が解除されました【NHK ONE】\n",
       "body": "────────────────────────────────\nこのメールはNHKより自動送信しています。ご返信いただいてもお答えできませんのでご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただき、ありがとうございます。\n\nお客様からの申請により、NHK ONEアカウントと受信料アカウントとの連携が解除されました。\n\n再度連携を行う場合は、NHK ONEアカウント設定ページ(https://portal.web.NHK/ )の「受信契約の確認」よりお手続きをお願いいたします。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_10",
@@ -2110,8 +3139,7 @@ window.APP_STATIC_DATA = {
       "subject": "ログインがありました【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\n\n2025/05/21 文面なし\n\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "運用開始前",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_11",
@@ -2124,8 +3152,7 @@ window.APP_STATIC_DATA = {
       "subject": "ログインID 設定完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n手続きが行われ、NHK ONEアカウントのログインID設定が完了しました。\n\n────────────────────────────────\n新しいログインID: $(ID)\n────────────────────────────────\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_12",
@@ -2138,8 +3165,7 @@ window.APP_STATIC_DATA = {
       "subject": "パスワード変更完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n変更手続きが行われ、NHK ONEアカウントのパスワード変更が完了しました。\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\nNHK ONEアカウントに関するお問い合わせ\n電話番号: 0570-099-033 （ナビダイヤルをご利用になれない方は 050-3786-5007）\n受付時間: 午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_13",
@@ -2152,8 +3178,7 @@ window.APP_STATIC_DATA = {
       "subject": "登録メールアドレス 変更完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n変更手続きが行われ、NHK ONEアカウントに登録されているメールアドレスの変更が完了しました。\n────────────────────────────────\nメールアドレス: $(e-mail_address)\n────────────────────────────────\n\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\nNHK ONEアカウントに関するお問い合わせ\n電話番号: 0570-099-033 （ナビダイヤルをご利用になれない方は 050-3786-5007）\n受付時間: 午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_14",
@@ -2166,8 +3191,7 @@ window.APP_STATIC_DATA = {
       "subject": "復旧用メールアドレス 登録完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n変更手続きが行われ、NHK ONEアカウントの復旧用メールアドレス登録が完了しました。\n────────────────────────────────\n復旧用メールアドレス: $(e-mail_address_sub)\n────────────────────────────────\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\nNHK ONEアカウントに関するお問い合わせ\n電話番号: 0570-099-033 （ナビダイヤルをご利用になれない方は 050-3786-5007）\n受付時間: 午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_15",
@@ -2180,8 +3204,7 @@ window.APP_STATIC_DATA = {
       "subject": "復旧用メールアドレス 削除完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n削除手続きが行われ、NHK ONEアカウントに登録されている復旧用メールアドレスの削除が完了しました。\n\nひきつづきNHK ONEをご利用くださください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_16",
@@ -2194,8 +3217,7 @@ window.APP_STATIC_DATA = {
       "subject": "復旧用メールアドレス 変更完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n変更手続きが行われ、NHK ONEの復旧用メールアドレスの変更が完了しました。\n────────────────────────────────\n新しい復旧用メールアドレス: $(e-mail_address_sub)\n────────────────────────────────\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_17",
@@ -2208,8 +3230,7 @@ window.APP_STATIC_DATA = {
       "subject": "携帯電話番号 登録完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n手続きが行われ、NHK ONEアカウントへ携帯電話番号の登録が完了しました。\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_18",
@@ -2222,8 +3243,7 @@ window.APP_STATIC_DATA = {
       "subject": "重複のためメールアドレスの変更ができません【NHK ONE】",
       "body": "────────────────────────────────\nこのメールはNHKより自動送信しています。ご返信いただいてもお答えできませんのでご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nご入力いただいたメールアドレスはすでに使用されているため、ご利用いただくことができません。以下のいずれかの理由が考えられますので、恐れ入りますが内容をご確認いただき、ご対応をお願いいたします。\n\n【考えられる理由と対応方法】\n１）旧NHKプラスで同じメールアドレスを登録されていた場合\nこの場合は新規登録ではなく、旧NHKプラスからNHK ONEへのアカウント移行手続きが必要となります。移行手続きの詳細につきましては、以下のページをご確認ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/P001-0001/\n\n２）同じメールアドレスでほかのNHK ONEアカウントが登録されている場合\n同じメールアドレスで登録できるNHK ONEアカウントは1つのみです。すでにご登録済みのNHK ONEアカウントをご利用ください。NHK ONEウェブサイト（https://www.web.NHK/ ）や各アプリの画面上部にある「ログイン」ボタンからログインしてご利用ください。\nなおパスワードをお忘れの場合は、ログイン画面の「パスワードをお忘れの方はこちら」から再設定が可能です。\n\n３）同じメールアドレスでNHK ONEアカウントの登録が完了し、その後削除された場合\nセキュリティ上の理由などから、一度登録が完了したアカウントを削除された場合、削除後１か月間は同じメールアドレスでの再登録ができません。恐れ入りますが、別のメールアドレスにてアカウント登録をお願いいたします。\n\n４）同じメールアドレスが「復旧用メールアドレス」として登録されている場合\nアカウント設定ページより「復旧用メールアドレス」を変更していただくか、別のメールアドレスをご利用ください。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "アカウント管理＞アカウント情報からメアド変更しようとしてメアド重複する際に飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_19",
@@ -2236,8 +3256,7 @@ window.APP_STATIC_DATA = {
       "subject": "重複のため復旧用メールアドレスが変更できません【NHK ONE】",
       "body": "────────────────────────────────\nこのメールはNHKより自動送信しています。ご返信いただいてもお答えできませんのでご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nこのたびご入力いただいたメールアドレスはすでに使用されているため、設定することができませんでした。以下のいずれかの理由が考えられますので、恐れ入りますが内容をご確認いただきご対応をお願いいたします。\n\n１）すでにNHK ONEアカウントに登録されているメールアドレスを、復旧用として設定された場合\n同じメールアドレスをメインと復旧用の両方でお使いいただくことはできません。別のメールアドレスをお使いください。\n\n２）同じメールアドレスが、別のNHK ONEアカウントの復旧用メールアドレスとして設定されている場合\n同じメールアドレスを複数のNHK ONEアカウントの復旧用として設定することはできません。NHK ONEアカウントは世帯でおひとつ作成いただくようお願いしています。不要なアカウントについては削除をお願いいたします。\nNHK ONEアカウントの削除方法は以下のページをご確認ください。\nhttps://www.NHK.or.jp/NHKone/help/article/H001-0020/\n\n３）同じメールアドレスでNHK ONEアカウントを登録し、その後削除された場合\nセキュリティ上の理由などから、一度登録が完了したアカウントを削除された場合、削除後１か月間は同じメールアドレスを登録ができません。復旧用には別のメールアドレスをお使いください。\n\nお手数をおかけいたしますが、ご理解とご協力をよろしくお願いいたします。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "復旧用メールアドレス変更しようとして失敗した際に飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_20",
@@ -2250,8 +3269,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力してください。\n\n認証コード: $(6桁の認証コード)\n\nこのコードの有効期限は10分です。\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "「アカウント管理」＞「アカウント情報」にアクセス時に飛ぶ認証コード",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_21",
@@ -2264,8 +3282,7 @@ window.APP_STATIC_DATA = {
       "subject": "ログインID 削除完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n手続きが行われ、NHK ONEアカウントのログインID削除が完了しました。\n今後は、登録されているメールアドレスとパスワードでログインできます。\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.  ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_22",
@@ -2278,8 +3295,7 @@ window.APP_STATIC_DATA = {
       "subject": "登録電話番号 削除完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n削除手続きが行われ、NHK ONEアカウントに登録されている携帯電話番号の削除が完了しました。\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_23",
@@ -2292,8 +3308,7 @@ window.APP_STATIC_DATA = {
       "subject": "ご利用ありがとうございました アカウント削除のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nお手続きによりNHK ONEアカウントの利用が終了しました。\nNHK ONEをご利用いただきありがとうございました。\n引き続きサービスの向上に取り組みますので、またのご利用をお待ちしております。\n1か月間、同じログインID・メールアドレスでの利用申し込みはできませんのでご了承ください。\n\n受信料のお支払いや住所変更等のお手続きは【受信料の窓口】をご利用ください。\nhttps://www.NHK-cs.jp/jushinryo/\n\n今後とも、NHKへのご理解ご協力をよろしくお願いします。\n\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_24",
@@ -2306,8 +3321,7 @@ window.APP_STATIC_DATA = {
       "subject": "アカウント長期未ログインの方へのお知らせ【NHK ONE】\nお使いのNHK ONEアカウントはまもなく削除されます【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\n※重要なお知らせのため、復旧用メールアドレスにもお送りしています。\nNHKをご利用いただきありがとうございます。\n\nお使いのNHK ONEアカウントは長期間ログインされていません。\nこれより約90日間ログインされない場合、アカウントは削除されます。\n継続利用をご希望の場合は、ログイン画面からログインをお願いいたします。NHK ONEアカウントのパスワードをお忘れの方は、ログイン画面からお手続きください。\n\n今後とも、NHKへのご理解ご協力よろしくお願いいたします。\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "運用開始前",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_25",
@@ -2320,8 +3334,7 @@ window.APP_STATIC_DATA = {
       "subject": "長期未ログインアカウント削除のお知らせ【NHK ONE】\nアカウント削除のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\n※重要なお知らせのため、復旧用メールアドレスにもお送りしています。NHKをご利用いただきありがとうございます。\n\nお使いのNHK ONEアカウントは、長期間ログインが確認されなかったため、削除されました。\nNHK ONEアカウントを再度作成する場合は、セキュリティ上の理由などからこれより1ヶ月間、同じログインID・メールアドレスでの利用申し込みはできませんのでご了承ください。\n\n今後とも、NHKへのご理解ご協力よろしくお願いいたします。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "運用開始前",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_26",
@@ -2334,8 +3347,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントのパスワード再設定を完了してください。\n\n認証コード: $(6桁の認証コード)\n\nこのコードの有効期限は10分です。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "パスワード再設定で飛ぶ認証コード(メインメアドが送信先の場合)",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_27",
@@ -2348,8 +3360,7 @@ window.APP_STATIC_DATA = {
       "subject": "パスワード再設定完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n手続きが行われ、NHK ONEアカウントのパスワード再設定が完了しました。\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_28",
@@ -2362,8 +3373,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントに登録するメールアドレスの再設定を行ってください。\n\n認証コード: $(6桁の認証コード)\n\nこのコードの有効期限は10分です。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "使用されていない　※1.1.6.4と内容同一",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_29",
@@ -2376,8 +3386,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントに登録するメールアドレスの変更を完了してください。\n\n認証コード: $(auth_code)\n\nこのコードの有効期限は10分です。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "メールアドレス再設定で飛ぶ認証コード",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_30",
@@ -2390,8 +3399,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードを送信できませんでした（メールアドレス再設定）【NHK ONE】",
       "body": "────────────────────────────────\nこのメールはNHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただきありがとうございます。\n\nこのたびご入力いただいたメールアドレス宛に「認証コード」を送信することができませんでした。以下のいずれかの理由が考えられますので、恐れ入りますが内容をご確認いただきご対応をお願いいたします。\n\n【考えられる理由と対応方法】\n１）同じメールアドレスが、旧NHKプラスに登録されていた場合\n旧NHKプラスをご利用されていた方は、NHK ONEへのアカウント移行手続きが必要となります。移行手続きの詳細につきましては、以下のページをご確認ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/P001-0001/\n\n２）同じメールアドレスでほかのNHK ONEアカウントが登録されている場合\n同じメールアドレスで登録できるNHK ONEアカウントは1つのみです。すでにご登録済みのNHK ONEアカウントをご利用ください。NHK ONEウェブサイト（https://www.web.NHK/ ）や各アプリの画面上部にある「ログイン」ボタンからログインしてご利用ください。\nなおパスワードをお忘れの場合は、ログイン画面の「パスワードをお忘れの方はこちら」から再設定が可能です。\n\n３）同じメールアドレスでNHK ONEアカウントの登録が完了し、その後削除された場合\nセキュリティ上の理由などから、一度登録が完了したアカウントを削除された場合、削除後１か月間は同じメールアドレスでの再登録ができません。別のメールアドレスをお使いください。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "メアド忘れからメアド再設定しようとしてメアド重複する際に飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_31",
@@ -2404,8 +3412,7 @@ window.APP_STATIC_DATA = {
       "subject": "登録メールアドレス 変更完了のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n変更手続きが行われ、NHK ONEアカウントに登録されているメールアドレスの変更が完了しました。\n────────────────────────────────\nメールアドレス: $(e-mail_address)\n────────────────────────────────\n\n\nひきつづきNHK ONEをご利用ください。\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_32",
@@ -2418,8 +3425,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントのパスワード再設定を完了してください。\n\n認証コード: $(auth_code)\n\nこのコードの有効期限は10分です。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "パスワード再設定で飛ぶ認証コード(復旧用メアドが送信先の場合)",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_33",
@@ -2432,8 +3438,7 @@ window.APP_STATIC_DATA = {
       "subject": "メールアドレスについての確認（旧NHKプラス移行対象者の方）【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力されたメールアドレスは、旧NHKプラスからの移行対象ですので、通常のパスワード変更画面から移行手続きはできません。\n下記の専用ページから移行手続きを行ってください。\nhttps://portal.web.NHK/kakunin\n\n旧NHKプラスからの移行対象のアカウントとメールアドレスについて、詳しくは下記ページをご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/article/P001-0001/\n\nNHK ONEアカウントの登録お手続きでお困りの方は下記をご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "移行手続き前の移行対象者が移行アドレスのPW変更を移行導線以外で行ったときに飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_34",
@@ -2446,8 +3451,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約情報の登録・連携の再手続きをお願いします【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n \nお客様がお使いの「NHK ONEアカウント」に連携いただいた「受信料アカウント」が削除されました。\n理由は以下のいずれかです。\n・お客様が連携手続きされた受信契約情報は既に別のNHK ONEアカウントに連携済みだった\n・お客様が登録された情報に基づく受信契約の確認ができなかった\n・お客様から受信料アカウントの削除や受信契約の解約のお申し出があった\n \nNHK ONEアカウントを引き続きご利用される場合は、システムの都合上、お手数をおかけしますが、3か月以内に再度ログインしてください。\n受信料アカウントを再登録のうえ、NHK ONEアカウントと受信料アカウントの再連携をしてください。\nまた、旧NHKプラスIDの移行対象の方で、旧NHKプラスに登録されていたメールアドレスが利用できない等により受信料アカウントの削除を希望された方は、受信料アカウントとNHK ONEアカウントをそれぞれ新規で登録のうえ、連携してご利用いただきますようお願いいたします。\n \nNHK ONEアカウントの継続利用をご希望されない場合は、何もご対応いただく必要はございません。3か月を過ぎますと、自動的にNHK ONEアカウントは削除されます。\n \n受信契約に関するご案内は【受信料の窓口】でご覧いただけます。\nhttps://www.NHK-cs.jp/\n\n受信契約情報（「受信料アカウント」）の登録手続きについては、下記のページで詳しくご案内しています。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n \n※ 2025年8月15日時点で旧NHKプラスを利用されていた方で、受信料アカウントの削除をお申し出された方（受信契約を解約された方含む）にも、このメールをお送りしております。\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n──────────────────────────────── \n────────────────\n発行元 ： NHK\n────────────────\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_35",
@@ -2460,8 +3464,7 @@ window.APP_STATIC_DATA = {
       "subject": "ご利用ありがとうございました アカウント削除のお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\nフィッシング詐欺にご注意ください。フィッシング詐欺防止のため、URLリンクは記載していません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n \n受信契約の解約により、NHK ONEアカウントが削除されました。\nNHK ONEをご利用いただきありがとうございました。\n \n引き続きサービスの向上に取り組みますので、またのご利用をお待ちしております。\n今後とも、NHKへのご理解ご協力をよろしくお願い申し上げます。\n \n※大変申し訳ありませんが、2025年8月15日時点で旧NHKプラスを利用されていた方で、\nNHK ONEアカウントをお作りでない方にも、本メールが送付されております。\n該当される方は、何もご対応いただく必要はございませんので、ご放念ください。\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_36",
@@ -2474,8 +3477,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認がとれません【NHK ONE】",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\nフィッシング詐欺防止のため、URLリンクは記載していません。\nNHKを語る偽サイトで、個人情報などを入力させるフィッシング詐欺が多発しています。ご注意ください。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\nNHK ONEをご利用いただくには、アカウント登録後、受信契約確認のお手続きが必要です。\nご利用のアカウントでは受信契約の確認手続きが完了していません。\n\n契約がお済みでない方は、受信契約をお願いします。\n\nすでに受信契約をされている方は、受信契約確認のお手続きをお願いします。\n（フィッシング詐欺防止のため、URLリンクは記載していません。）\n\n受信契約の確認の手続きは、NHK ONEアカウントのアカウント設定ページを開き、「受信契約の確認」をクリックしてください。案内に沿ってお手続きをお願いします。\n\n受信料制度へのご理解をよろしくお願いいたします。\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n受信契約内容の確認や受信料に関するお問い合わせ\n電話番号: 0570-077-077 （ナビダイヤルをご利用になれない場合は050-3786-5003）\n受付時間: 午前9時～午後6時（土・日・祝も受付）\n────────────────────────────────\n\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_37",
@@ -2488,8 +3490,7 @@ window.APP_STATIC_DATA = {
       "subject": "【NHK ONEアカウント】用途が変更されました",
       "body": "**********************************************************************\nこのメールは送信専用アドレスからお送りしています。このメールへの返信はできません。\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\nお使いの用途が変更されました。\n────────────────────────────────\nお使いの用途: $(entity)\n────────────────────────────────\n\nご利用のアカウントの詳しい情報はこちらをご覧ください。\nhttps://portal.web.NHK/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "使用されていない",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_38",
@@ -2502,8 +3503,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードのお知らせ【NHK ONE】",
       "body": "**********************************************************************\nこのメールは、旧NHKプラスからNHK ONEへのアカウント移行手続きをされた方に自動送信しています。\n（このメールは送信専用アドレスからお送りしています。このメールへの返信はできません。）\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n\n入力画面で以下の認証コードを入力して、NHK ONEアカウントのパスワード設定を完了してください。\n\n認証コード: $(6桁の認証コード)\n\nこのコードの有効期限は10分です。\n\nNHK ONEアカウントの登録お手続きでお困りの方は下記をご参照ください。\nhttps://www.NHK.or.jp/NHKone/how-to-use/\n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n────────────────\n発行元 ： NHK\n────────────────\n Copyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "パスワード設定で飛ぶ認証コード",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_39",
@@ -2516,8 +3516,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証コードを送信できませんでした【NHK ONE】",
       "body": "────────────────────────────────\nこのメールはNHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただき、ありがとうございます。\n\nこのたびご入力いただいたメールアドレス宛に「認証コード」を送信することができませんでした。以下のいずれかの理由が考えられますので、恐れ入りますが内容をご確認いただきますようお願いいたします。\n\n【考えられる理由と対応方法】\n１）ご入力いただいたメールアドレスが、旧NHKプラスからNHK ONEへのアカウント移行手続きの対象ではない場合\nアカウント移行手続きには、2025年8月15日時点で旧NHKプラスに登録されていたメールアドレスが必要です。それ以外のメールアドレスを入力された場合は、認証コードは送信されません。\n旧NHKプラスに登録されていたメールアドレスの確認方法につきましては、以下のページをご確認ください。\nhttps://www.NHK.or.jp/NHKone/help/article/T001-0006/\n\n２）すでに旧NHKプラスからNHK ONEへのアカウント移行手続きが完了している場合\n移行手続き完了の際、NHKから「アカウント移行手続き完了のお知らせ【NHK ONE】」というメールをお送りしております。このメールが届いている場合は、設定されたメールアドレスとパスワードで、NHK ONEにログインすることができます。追加のお手続きは不要です。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内しています\nhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "移行手続き失敗した場合に認証コードの代わりに飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_40",
@@ -2530,8 +3529,7 @@ window.APP_STATIC_DATA = {
       "subject": "アカウント移行手続き完了のお知らせ【NHK ONE】（旧件名:パスワード設定完了のお知らせ【NHK ONE】）",
       "body": "────────────────────────────────\nこのメールは、NHKより自動送信しています。ご返信いただいてもお答えできませんので、ご了承ください。お心当たりのない場合は下記のお問い合わせ先へご連絡ください。\n────────────────────────────────\nいつもNHK ONEをご利用いただき、ありがとうございます。\n\nNHK ONEアカウントのパスワード設定が完了し、旧NHKプラスからNHK ONEへのアカウント移行手続きが完了しました。ご協力いただき誠にありがとうございます。設定されたメールアドレスとパスワードでNHK ONEへログインのうえ、サービスをご利用ください。\n\nなおNHK ONEアカウントのメールアドレスを変更される場合は、「復旧用メールアドレス」や「携帯電話番号」の登録が必要となります。アカウント設定ページ（https://portal.web.NHK/ ）の「アカウント管理」から設定をお願いいたします。\n\nお手数をおかけいたしますが、ご理解とご協力を賜りますようお願い申し上げます。\n今後ともNHKをよろしくお願いいたします。\n────────────────────────────────\n◆NHK ONEに関する「よくあるご質問」は下記のサイトでご案内していますhttps://www.NHK.or.jp/NHKone/help/\n◆このメールについてのお問い合わせ先\n電話番号: 0570-099-033 （ナビダイヤル）\n・自動音声ガイダンスで「1」を押してください。\n・午前9時～午後6時（土・日・祝日も受付）\n────────────────────────────────\n発行元 ： NHK\nCopyright NHK (Japan Broadcasting Corporation) All rights reserved.",
       "note": "移行手続きのパスワード設定完了時に飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_41",
@@ -2544,8 +3542,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHK ONEアカウント　認証コード送信【NHK ONE】",
       "body": "**********************************************************************\nこのメールに心当たりのない場合や、ご不明な点がある場合は、下記お問い合わせ先へご連絡ください。\n（このメールは送信専用アドレスからお送りしています。このメールへの返信はできません。）\n**********************************************************************\nNHKをご利用いただきありがとうございます。\n \nこのメールでは、お客さまの本人確認に必要な認証コードをお送りしています。\n\n認証コード: $(6桁の認証コード)\n \n※本メールはNHK ONEアカウントより送付先に設定いただいた\nメールアドレスに送付しております。\n\n\nNHK ONEアカウントの登録お手続きでお困りの方は下記をご参照ください。 \n\n────────────────────────────────\n◆このメールについてのお問い合わせはこちらへ\n電話番号: 0570-099-033 （ナビダイヤル）\n自動音声ガイダンスで「1」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n──────────────────────────────── \n──────────────── \n発行元 ： NHK \n──────────────── \n Copyright NHK (Japan Broadcasting Corporation) All rights reserved. ",
       "note": "通話中の本人確認で飛ぶメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_42",
@@ -2558,8 +3555,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "［NHK ONE］\n認証コード $(認証コード6桁)\n認証画面でコードを入力してください。有効期限は10分間です。",
       "note": "ＳＭＳ",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_43",
@@ -2572,8 +3568,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "［NHK ONE］\n認証コード $(認証コード6桁)\n認証画面でコードを入力してください。有効期限は10分間です。",
       "note": "ＳＭＳ",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_46",
@@ -2586,8 +3581,7 @@ window.APP_STATIC_DATA = {
       "subject": "確認コードのお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nメールアドレスの確認のため、以下の確認コードを入力し、認証を完了してください。\n((#AUTH_CODE#))\n\n確認コードの有効期限は、発行から１０分間です。\n期限切れとなった場合は、お手数をおかけしますが、はじめからお手続きをお願いいたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "サービス利用ID申請メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_47",
@@ -2600,8 +3594,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請手続きを進めることができませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請時にご入力いただいたメールアドレスでは、以下のいずれかの理由に該当するため、手続きを進めることができませんでした。\n\n１）このメールアドレスですでに受信料アカウントが登録済み、または手続き中の可能性がある\n受信料アカウントは、受信契約につき１つのみ登録できます。\nNHKから件名に【受信料アカウント】と記載されたメールが過去に届いていないかご確認ください。\n届いている場合、登録済みの受信料アカウントをご利用いただきますようお願いいたします。\n\n２）ご自宅と単身赴任先など、複数の受信契約をお持ちで、すでにこのメールアドレスで受信料アカウントが登録済みの可能性がある\n複数の受信契約に共通のメールアドレスを使用して受信料アカウントを登録することはできません。\n恐れ入りますが、それぞれの受信契約で受信料アカウントを登録される場合は、異なるメールアドレスでのお手続きをお願いいたします。\n\n３）旧NHKプラスIDをお持ちでIDの移行手続きが必要な可能性がある\n旧NHKプラスIDをお持ちの方は、新規登録ではなく、IDの移行手続きが必要です。\n旧NHKプラスIDに登録のメールアドレスにて、「旧NHKプラスIDを移行して登録する」の入口からのお手続きをお願いいたします。\n※この移行手続きの対象は、2025年8月15日までに旧NHKプラスの利用申込みを行い、登録が完了されていた方です。\n\n上記に該当しない場合や、３）に該当するものの旧NHKプラスIDに登録のメールアドレスが不明、または現在利用していない場合は、登録済みの受信料アカウントの削除などの必要な対応をNHKにて行います。\n恐れ入りますが、下記フォームまたはコールセンターまでお問い合わせいただきますようお願いいたします。\n\n◆受信料アカウントに関するお問い合わせフォーム\nhttps://www.NHK-cs.jp/pID28/fromContact/new/input.do?k=EGYINQRY\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "サービス利用ID重複メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_48",
@@ -2614,8 +3607,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請を受け付けました【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請を受け付けましたので、お知らせします。\n\n今回申請いただいた情報をもとに、NHKにて以下の2点を順次確認いたします。\n① 証明書類による本人確認\n　確認が完了しましたら、初期パスワードをお知らせするメールをお送りします。\n\n② 受信契約情報の確認\n　契約情報の確認が完了しましたら、登録完了をお知らせするメールをお送りします。\n\n※それぞれ確認には、お時間をいただく場合があります。\n※確認ができなかった場合や追加の確認が必要な場合は、別途メールでご連絡します。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "本人確認申請完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_49",
@@ -2628,8 +3620,7 @@ window.APP_STATIC_DATA = {
       "subject": "本人確認書類審査完了のお知らせ（初期パスワード通知）【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#NAME#)) 　様\n\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n証明書類による本人確認のステップが完了しましたので、初期パスワードをお知らせします。\nNHK「受信料の窓口」にアクセスのうえ、ページ上部の「受信料アカウント」から、以下の受信料アカウントIDと初期パスワードでログインし、パスワードの変更などの初回設定を行っていただきますようお願いいたします。\n\n　● 受信料アカウントID\n\n　　　ご登録のメールアドレスまたは設定された任意の文字列\n\n　● 初期パスワード\n\n　　　((#INITIAL_PASSWORD#))\n\nなお、ご契約内容は、受信契約情報の確認が完了した後に照会いただけるようになります。\n確認が完了しましたら、別途メールでご連絡します。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "サービス利用ID登録完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_50",
@@ -2642,8 +3633,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#NAME#)) 　様\n\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n受信契約情報の確認が完了し、受信料アカウントサービスがご利用いただけるようになりましたので、お知らせします。\n\n「受信料の窓口」にアクセスのうえ、ページ上部の「受信料アカウント」からログインすると、現在のご契約内容やお支払い状況などをご確認いただけます。\n※はじめてログインされる方は、以前お送りした件名「初期パスワードのお知らせ【受信料アカウント】」のメールに記載の受信料アカウントIDと初期パスワードでログインし、初回設定を行ってからご利用ください。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "契約照合完了メール（照合OK）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_51",
@@ -2656,8 +3646,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認ができませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#NAME#)) 　様\n\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請内容を、NHKに登録されている受信契約情報を照合しましたが、ご契約を特定することができませんでした。\nお手数をおかけいたしますが、下記をご確認のうえ、あらためてお手続きをお願いいたします。\n（申請にご利用いただいたID・メールアドレスは、翌日午前３時４０分ころから再度ご利用いただけます）\n\n【申請時のご入力内容】\n受信契約者氏名：　((#NAME#))\n住所（都道府県）：　((#ADDRESS1#))\n住所（市区郡町村）：　((#ADDRESS2#))\n住所（町名・番地等）：　((#ADDRESS3#))\n住所（建物名・部屋番号等）：　((#ADDRESS4#))\n\n【よくある原因例とご対応のお願い】\n１）ご入力の契約者氏名がNHKの登録情報と一致しない\n・ご入力内容に誤りがある場合は、正しい契約者氏名で再申請してください。\n・契約者氏名の変更が必要な場合は、NHK「受信料の窓口」で氏名変更の手続き後、再申請してください。\n\n２）ご入力の住所がNHKの登録情報と一致しない\n・ご入力内容に誤りがある場合は、正しい住所で再申請してください（集合住宅の場合は建物名・部屋番号までご確認ください）。\n・お引越し後で住所変更の手続きがお済みでない場合は、NHK「受信料の窓口」で住所変更の手続き後、再申請してください。\n\n３）受信契約がお済みでない\n・受信契約がお済みでない場合、NHK「受信料の窓口」にて新規契約手続きと同時に受信料アカウントの申請が可能です。\n・すでに受信契約の手続きを行っている場合でも、NHKでのお手続きの内容確認が完了していない場合がございます。最近お手続きいただいた場合は、お手数をおかけいたしますが新規契約完了のご案内が届いてから、あらためてお手続きをお願いいたします。\n\n【再申請の方法】（いずれかをお選びください）\n① NHK ONEをご利用の方で「受信契約情報の登録・連携」のみを行う方（契約確認のみ／本人確認不要）  \nNHK ONE にログインし、アカウント設定から「受信契約情報の登録・連携」へお進みください。\n\n② ①に加えて、受信料アカウントを利用してご契約内容やご請求情報の確認まで行う方（本人確認が必要）  \n「受信料の窓口」トップ上部の「受信料アカウント」から再申請してください。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n\n◆本人確認（証明書アップロード）を実施された方はこちら\nTEL:0570-000-320(ナビダイヤル)\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "契約照合完了メール（照合NG）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_52",
@@ -2670,8 +3659,7 @@ window.APP_STATIC_DATA = {
       "subject": "登録済みの受信料アカウントがあります【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#NAME#)) 　様\n\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請内容を確認したところ、以下のいずれかの理由により、受信料アカウントを登録できませんでした。\n\n１）すでに登録済みの受信料アカウントがある可能性があります\n受信料アカウントは、受信契約につき１つのみ登録できます。\nこのメールアドレス以外に、NHKから件名「申請情報（契約確認）審査完了のお知らせ」のメールが過去に届いていないかご確認ください。\n届いている場合は、登録済みの受信料アカウントをご利用ください。\n\n２）旧NHKプラスIDをお持ちで、移行手続きが必要な可能性があります\n旧NHKプラスIDをお持ちの方は、新規登録ではなくIDの移行手続きが必要です。\n旧NHKプラスIDに登録のメールアドレスを用いて、「旧NHKプラスIDを移行して登録する」より移行手続きをお願いいたします。\n※この移行手続きの対象は、2025年8月15日までに旧NHKプラスの利用申込みを行い、登録が完了されていた方です。\n\n３）上記いずれにも該当しない、または旧NHKプラスIDに登録のメールアドレスが不明等の場合\n１）・２）のいずれにも該当しない場合や、旧NHKプラスIDに登録のメールアドレスが不明、または現在利用していない場合は、登録済みの受信料アカウントを削除などの必要な対応をNHKにて行います。\n恐れ入りますが、下記フォームまたはコールセンターまでお問い合わせいただきますようお願いいたします。\n\n◆受信料アカウントに関するお問い合わせフォーム\nhttps://www.NHK-cs.jp/pID28/fromContact/new/input.do?k=EGYINQRY\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "契約照合完了メール（重複あり）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_53",
@@ -2684,8 +3672,7 @@ window.APP_STATIC_DATA = {
       "subject": "証明書類による本人確認ができませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請いただいた証明書類を確認したところ、以下の事由により、受信料アカウントを登録できませんでした。\n\n■ 証明書類が有効なものではない（有効期限切れなど）\n\n上記の内容をご確認のうえ、お手数をおかけしますが、「受信料の窓口」にアクセスのうえ、ページ上部の「受信料アカウント」から、再申請をお願いいたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "eKYC手動照合NG（書類不可）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_54",
@@ -2698,8 +3685,7 @@ window.APP_STATIC_DATA = {
       "subject": "証明書類による本人確認ができませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n申請いただいた証明書類を確認したところ、以下の事由により、受信料アカウントを新規登録できませんでした。\n\n■ 申請情報と証明書類に記載の情報が一致していない\n\n上記の内容をご確認のうえ、お手数をおかけしますが、「受信料の窓口」にアクセスのうえ、ページ上部の「受信料アカウント」から、再申請をお願いいたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
       "note": "eKYC手動照合NG（入力内容不一致）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_55",
@@ -2712,8 +3698,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請を受け付けました（初期パスワード通知）【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、NHK ONEのご利用における受信契約情報の登録（受信料アカウントの登録）の申請をいただき、ありがとうございます。\n\n以下の通り、初期パスワードをお知らせします。\n\nNHK「受信料の窓口」にアクセスのうえ、ページ上部の「受信料アカウント」から、以下の受信料アカウントIDと初期パスワードでログインし、パスワードの変更などの初回設定を行っていただきますようお願いいたします。\n\n　● 受信料アカウントID\n\n　　　ご登録のメールアドレスまたは設定された任意の文字列\n\n　● 初期パスワード\n\n　　　((#INITIAL_PASSWORD#))\n\nまた、初回設定後、ログイン後の画面にある「NHK ONEアカウント設定ページ」ボタンからNHK ONEアカウントとの連携手続きにお進みください。\n遷移先画面の「受信契約の確認（受信契約情報の登録・連携）」の「受信料アカウントと連携する」から、再度受信料アカウントにログインいただくと、NHK ONEアカウントとの連携手続きが完了します。\n\n受信契約の確認が完了しましたら、受信料アカウントの登録完了をお知らせするメールをお送りします。\n※確認にお時間をいただく場合があります。確認ができなかった場合や確認が必要な場合は、別途メールにてご連絡いたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "サービス利用ID登録完了メール（登録時本人確認未実施）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_56",
@@ -2726,8 +3711,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "未運用",
       "note": "NHKプラス移行申請完了メール",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_57",
@@ -2740,8 +3724,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "未運用",
       "note": "サービス利用ID重複メール（NHKプラス移行登録）",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_58",
@@ -2754,8 +3737,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "未運用",
       "note": "メールアドレス重複メール（NHKプラス移行登録）",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_59",
@@ -2768,8 +3750,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約の確認完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#NAME#)) 　様\n\nこのたびは、受信料アカウントの申請をいただき、ありがとうございます。\n\n受信契約情報の確認ができ、受信料アカウントの登録が完了しましたので、お知らせします。\n\n受信料アカウントの登録は完了しましたが、引き続きNHK ONEのご利用中に「受信契約情報の登録・連携」手続きをお願いするメッセージが表示される場合は、NHK ONEアカウントとの連携が完了していない可能性があります。\nお手数をおかけしますが、NHK ONEにログインのうえ、「アカウント設定」から「受信契約の確認（受信契約情報の登録・連携）」をお願いいたします。\n（上記のメッセージが表示されない場合は、すでに連携済みのため手続きは不要です。）\n\nまた、NHK「受信料の窓口」にアクセスしてページ上部の「受信料アカウント」からログインのうえ、本人確認のお手続きをいただくと、現在のご契約内容やお支払い状況などをご確認いただけるようになります。ぜひあわせてご登録のうえ、ご利用ください。\n※初回ログインには、件名「初期パスワードのお知らせ」のメールに記載の受信料アカウントIDと初期パスワードが必要です。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "契約照合完了メール（照合OK）（登録時本人確認未実施）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_60",
@@ -2782,8 +3763,7 @@ window.APP_STATIC_DATA = {
       "subject": "確認コードのお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nご本人確認のため、以下の確認コードを入力し、認証を完了してください。\n((#AUTH_CODE#))\n\n確認コードの有効期限は、発行から１０分間です。\n期限切れとなった場合は、お手数をおかけしますが、NHK「受信料の窓口」ページ上部の「受信料アカウント」より、再度お手続きをお願いいたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "「旧NHKプラス」からの移行による確認コードのお知らせメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_61",
@@ -2796,8 +3776,7 @@ window.APP_STATIC_DATA = {
       "subject": "旧NHKプラスIDを確認できませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、旧NHKプラスIDの受信料アカウントへの移行手続きをいただき、ありがとうございます。\n\n恐れ入りますが、手続き時にご入力いただいたメールアドレスから、お客様の旧NHKプラスIDを確認することができませんでした。\n\n旧NHKプラスIDにご登録いただいていたメールアドレスにて、再手続きをお願いいたします。\n※この移行手続きは、2025年8月15日までに旧NHKプラスの利用申込みを行い、登録が完了されていた方が対象です。それ以外の方は、「受信料アカウントを新規登録する」からお手続きが必要です。\n\nなお、旧NHKプラスIDに登録のメールアドレスが不明、または現在は利用していない場合は、登録済みの受信料アカウントの削除などの必要な対応をNHKにて行います。\n恐れ入りますが、下記フォームまたはコールセンターまでお問い合わせいただきますようお願いいたします。\n\n◆受信料アカウントに関するお問い合わせフォーム\nhttps://www.NHK-cs.jp/pID28/fromContact/new/input.do?k=EGYINQRY\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "「旧NHKプラス」登録のメールアドレス確認依頼メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_62",
@@ -2810,8 +3789,7 @@ window.APP_STATIC_DATA = {
       "subject": "すでに移行手続きが完了しています【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、旧NHKプラスIDの受信料アカウントへの移行手続きをいただき、ありがとうございます。\n\n恐れ入りますが、このメールアドレスで、すでに移行手続きが完了しているようです。\n\nこれまでに、NHKから件名「初期パスワードのお知らせ【受信料アカウント】」のメールをお送りしていますので、ご確認いただきますようお願いいたします。\n\nなお、ID名（任意の文字列を指定されていなければ本メールアドレスがID名となります）やパスワードがわからずログインできない場合、「IDを忘れた方」「パスワードを忘れた方」から確認の手続きをいただけます。\nしかし、上記の「初期パスワードのお知らせ【受信料アカウント】」メールに記載の初回設定が未完了の場合、IDやパスワードの確認が行えないことがあります。\nもし該当のメールが見当たらず初回設定ができない場合や、その他の理由でログインができない場合は、NHKにご連絡いただければパスワードの初期化等の対応も可能です。\n恐れ入りますが、下記フォームまたはコールセンターまでお問い合わせいただきますようお願いいたします。\n\n◆受信料アカウントに関するお問い合わせフォーム\nhttps://www.NHK-cs.jp/pID28/fromContact/new/input.do?k=EGYINQRY\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "「旧NHKプラス」移行のメールアドレス重複お知らせメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_63",
@@ -2824,8 +3802,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請を受け付けました（初期パスワード通知）【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、旧NHKプラスIDの受信料アカウントへの移行手続きをいただき、ありがとうございます。\n\n移行手続きの申請を受け付けましたので、お知らせします。\n\n「申請を受け付けました」の画面の「ログイン画面」ボタンまたはNHK「受信料の窓口」から、以下の受信料アカウントIDと初期パスワードでログインし、パスワードの変更などの初回設定を行っていただきますようお願いいたします。\n\n　● 受信料アカウントID\n\n　　　旧NHKプラスでご登録のメールアドレス\n\n　● 初期パスワード\n\n　　　((#INITIAL_PASSWORD#))\n\nなお、受信料アカウントは、初回設定後にログインのうえ本人確認書類のご登録をいただくことで、受信契約情報やお支払い状況の確認などが行えます。あわせてご登録いただけますと幸いです。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "「旧NHKプラス」移行の初期パスワードのお知らせメール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_64",
@@ -2838,8 +3815,7 @@ window.APP_STATIC_DATA = {
       "subject": "移行手続きを進めることができませんでした【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nご返信いただいてもお答えできませんので、ご了承ください。\nお心当たりのない場合は、下記のお問い合わせ先へご連絡ください\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのたびは、旧NHKプラスIDの受信料アカウントへの移行手続きをいただき、ありがとうございます。\n\n恐れ入りますが、このメールアドレスでは、以下の理由から移行手続きを進めることができません。\n\n■同じメールアドレスですでに手続きが進んでいる可能性がある\n受信料アカウントは、受信契約につき１つのみ登録できます。\nまた、複数の受信契約に共通のメールアドレスを使用して受信料アカウントを登録することはできません。\nご自宅と単身赴任先など、複数の受信契約をお持ちで、それぞれの受信契約で受信料アカウントを登録される場合は、恐れ入りますが、異なるメールアドレスでのお手続きをお願いいたします。\n\nご不明な点がございましたら、メール下部の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちら\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\n※12月30日午後5時から1月3日はご利用いただけません。\n※固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "メールアドレス重複メール（NHKプラス移行登録）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_66",
@@ -2852,8 +3828,7 @@ window.APP_STATIC_DATA = {
       "subject": "ログイン通知【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nお客様の受信料アカウントを使ったログインが確認されました。\n\nログイン日時：((#LOGIN_DTIME#))\nログイン端末：((#USER_AGENT#))\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "ログイン通知メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_67",
@@ -2866,8 +3841,7 @@ window.APP_STATIC_DATA = {
       "subject": "パスワード再設定完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、パスワードの再設定が完了しましたのでお知らせします。\n「ID」と「パスワード」は受信料アカウントのご利用のために必要な情報です。\n忘れないように保管し、他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パスワード再設定完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_68",
@@ -2880,8 +3854,7 @@ window.APP_STATIC_DATA = {
       "subject": "パスワード変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、パスワードの変更が完了しましたのでお知らせします。\n「ID」と「パスワード」は受信料アカウントのご利用のために必要な情報です。\n忘れないように保管し、他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パスワード変更完了メール※利用者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_69",
@@ -2894,8 +3867,7 @@ window.APP_STATIC_DATA = {
       "subject": "パスワード変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nパスワードの変更が完了しましたのでお知らせします。\n「ID」と「パスワード」は受信料アカウントのご利用のために必要な情報です。\n忘れないように保管し、他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パスワード変更完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_70",
@@ -2908,8 +3880,7 @@ window.APP_STATIC_DATA = {
       "subject": "確認コードのお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n以下の確認コードを入力し、認証を完了してください。\n((#AUTH_CODE#))\n\n有効期限は確認コード発行から１０分間です。\n期限切れとなった場合は、再度はじめからお手続きをお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "確認コード通知メール（メールアドレス変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_71",
@@ -2922,8 +3893,7 @@ window.APP_STATIC_DATA = {
       "subject": "メールアドレス重複のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のご入力いただいたメールアドレスは、\n以下のいずれかのケースにあたると考えられ、手続きを進めることができません。\n\n１）同じメールアドレスですでに手続きが進んでいるIDがある\n受信契約に登録できるメールアドレスは、ひとつです。\nNHKからお送りした過去のメールをご確認ください。\n（旧NHKプラスIDが受信料アカウントに移行されている場合がございます。）\n\n２）ご自宅とは別に単身赴任などで複数の受信契約を締結している\n複数のご契約をお持ちの場合、同じメールアドレスはお使いになれません。\n\nIDやパスワードをお忘れの方は、「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」からログイン画面に進み、「IDを忘れた方」「パスワードを忘れた方」からお手続きいただけます。\n\nメールの内容にお心当たりがない場合は、下記お問い合わせ先へご連絡ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "メールアドレス利用済み通知メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_72",
@@ -2936,8 +3906,7 @@ window.APP_STATIC_DATA = {
       "subject": "メールアドレス変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、メールアドレスの変更が完了しましたのでお知らせします。\nメールアドレスをIDにされている方は、今後は新しいメールアドレスでログインしてください。\n\n「ID」と「パスワード」は受信料アカウントのご利用のために必要な情報です。\n忘れないように保管し、また他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "メールアドレス変更完了メール※利用者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_73",
@@ -2950,8 +3919,7 @@ window.APP_STATIC_DATA = {
       "subject": "メールアドレス変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nメールアドレスの変更が完了しましたのでお知らせします。\n\nメールアドレスをIDにされている方は、今後は新しいメールアドレスでログインしてください。\n「ID」と「パスワード」は受信料アカウントのご利用のために、必要な情報です。\n忘れないように保管し、また他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "メールアドレス変更完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_74",
@@ -2964,8 +3932,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証用携帯電話番号変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、認証用携帯電話番号の変更が完了しましたのでお知らせします。\n「認証用携帯電話番号」は受信料アカウントのご利用のために必要な情報です。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "認証用携帯電話番号変更完了メール※利用者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_75",
@@ -2978,8 +3945,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証用携帯電話番号変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n認証用携帯電話番号の変更が完了しましたのでお知らせします。\n\n「認証用携帯電話番号」は受信料アカウントのご利用のために必要な情報です。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "認証用携帯電話番号変更完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_76",
@@ -2992,8 +3958,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証設定変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、認証設定の変更が完了しましたのでお知らせします。\n\n変更内容は以下のとおりです。\n二要素認証 ((#OLD_MFA_NECESSITY#)) ⇒ ((#UPD_MFA_NECESSITY#))\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "認証設定変更完了メール※利用者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_77",
@@ -3006,8 +3971,7 @@ window.APP_STATIC_DATA = {
       "subject": "認証設定変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n認証設定の変更が完了しましたのでお知らせします。\n\n変更内容は以下のとおりです。\n二要素認証 ((#OLD_MFA_NECESSITY#)) ⇒ ((#UPD_MFA_NECESSITY#))\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "認証設定変更完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_78",
@@ -3020,8 +3984,7 @@ window.APP_STATIC_DATA = {
       "subject": "初期パスワードのお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nパスワードの初期化が完了しましたのでお知らせします。\n\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、\n以下の受信料アカウントIDと初期パスワードでログインし、パスワードの変更など設定を行ってください。\n\n　● 受信料アカウントID\n\n　　　ご登録のメールアドレスまたは設定された任意の文字列\n\n　● 初期パスワード\n\n　　　((#INITIAL_PASSWORD#))\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パスワード初期化メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_79",
@@ -3034,8 +3997,7 @@ window.APP_STATIC_DATA = {
       "subject": "メール通知設定変更のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、メール通知設定の変更が完了しましたのでお知らせします。\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "メール通知設定変更受付完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_80",
@@ -3048,8 +4010,7 @@ window.APP_STATIC_DATA = {
       "subject": "本人確認申請受付完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n本人確認手続きの申請を受け付けましたのでお知らせします。\n\n証明書類の確認ができ次第、メールをお送りします。\n※確認できなかった場合も、メールにてご連絡いたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "本人確認申請完了メール（登録後本人確認実施時）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_81",
@@ -3062,8 +4023,7 @@ window.APP_STATIC_DATA = {
       "subject": "本人確認完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nこのたびは、本人確認手続きの申請をいただき、ありがとうございます。\n\n証明書類および受信契約情報の確認が完了いたしましたので、お知らせいたします。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」からログインしていただくと、現在のご契約内容やご請求情報をご確認いただけます。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n\n今後とも、NHKへのご理解ご協力をよろしくお願い申し上げます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "本人確認完了メール（登録後本人確認実施時）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_82",
@@ -3076,8 +4036,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請情報（証明書類）審査結果のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nこのたびは、本人確認手続きの申請をいただき、ありがとうございます。\n\n申請いただいた内容を審査した結果、必要な情報を確認することができませんでした。\n\n以下の審査不備の原因をご確認のうえ、「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から再度申請のお手続きをお願いいたします。\n\n■ 審査不備の原因\n　・証明書類が有効なものではない（有効期限切れなど）\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "本人確認手動審査NG通知メール（書類不可）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_83",
@@ -3090,8 +4049,7 @@ window.APP_STATIC_DATA = {
       "subject": "申請情報（証明書類）審査結果のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nこのたびは、本人確認手続きの申請をいただき、ありがとうございます。\n\n申請いただいた内容を審査した結果、必要な情報を確認することができませんでした。\n\n以下の審査不備の原因をご確認のうえ、「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から再度申請のお手続きをお願いいたします。\n\n■ 審査不備の原因\n　・申請情報と証明書類に記載の情報が一致していない\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "本人確認手動審査NG通知メール（入力内容不一致の場合）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_84",
@@ -3104,8 +4062,7 @@ window.APP_STATIC_DATA = {
       "subject": "ID変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、IDの変更が完了しましたのでお知らせします。\n\n「ID」と「パスワード」は受信料アカウントのご利用のために、必要な情報です。\n忘れないように保管し、また他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "ID変更完了メール※利用者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_85",
@@ -3118,8 +4075,7 @@ window.APP_STATIC_DATA = {
       "subject": "ID変更完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\nIDの変更が完了しましたのでお知らせします。\n\n「ID」と「パスワード」は受信料アカウントのご利用のために、必要な情報です。\n忘れないように保管し、また他人に知らせることのないよう管理をお願いいたします。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "ID変更完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_86",
@@ -3132,8 +4088,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約者の名義変更にともなう一部機能停止について【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\t\t\t\n\n受信料アカウントをご利用いただき、誠にありがとうございます。\n\nこのたび、受信料アカウントにご登録いただいている受信契約者名義に変更がありましたので、以下の機能を停止いたしました。\n・受信料アカウントへのログインによる受信契約内容や支払い状況の確認、変更\n\n下記URLの「受信料アカウントにログインする」へお進みいただき、新たな受信契約者名義の本人確認書類をアップロードしていただくことで、停止した機能をご利用いただけるようになります。\nhttps://www.NHK-cs.jp/about/account/benri-kino/\n\n今後とも、NHKへのご理解ご協力をよろしくお願い申し上げます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」　\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ    \nTEL:0570-000-320(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）      \nなお、12月30日午後5時から1月3日はご利用いただけません。  \n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "グレードダウン通知メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_87",
@@ -3146,8 +4101,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約内容の確認のお願い【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、誠にありがとうございます。\n\n現在、お客様の受信契約内容について、確認を要する状況となっております。\nお手数をおかけいたしますが、受信契約の登録住所等に変更がある場合は、ご住所の変更や、支払方法の変更など必要なお手続きをお願いいたします。\n\nなお、すでに住所変更等のお手続きがお済みの場合は、行き違いでのご案内となりましたことを、何卒ご容赦ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "転居先不明通知メール（本人確認未実施）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_88",
@@ -3160,8 +4114,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信契約内容の確認のお願い【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、NHKより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、誠にありがとうございます。\n\nこのたび、受信契約の状況について確認が必要となりましたので、ご連絡いたしました。\n\n受信料アカウントにログインをいただくと、受信契約のご登録状況をご確認いただけます。\n登録内容に相違がないかご確認いただき、ご住所の変更や、支払方法の変更がある場合はお手続きをお願いいたします。\n\nなお、すでに住所変更などのお手続きがお済みの場合は、行き違いでのご案内となりましたことを、何卒ご容赦ください。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、ログインいただくことで、現在のご契約内容やご請求情報を確認いただけます。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.NHK-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.NHK-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "転居先不明通知メール（登録時本人確認実施済み）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_89",
@@ -3174,8 +4127,7 @@ window.APP_STATIC_DATA = {
       "subject": "※NHK様より受領後に記載(2026年3月実施見送り、今後未定)",
       "body": "※NHK様より受領後に記載",
       "note": "契約開始メール（予約新規）",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_90",
@@ -3188,8 +4140,7 @@ window.APP_STATIC_DATA = {
       "subject": "※NHK様より受領後に記載(2026年3月実施見送り、今後未定)",
       "body": "※NHK様より受領後に記載",
       "note": "契約開始メール（未契約）",
-      "enabled": false,
-      "linkify": false
+      "enabled": false
     },
     {
       "id": "mail_1785822565025_92",
@@ -3198,12 +4149,11 @@ window.APP_STATIC_DATA = {
       "catColor": "#e84393",
       "subCatKey": "msub_1785822565025_91",
       "subCategory": "問合せ関連",
-      "title": "MM000012／MM000014",
+      "title": "MM000012\nMM000014",
       "subject": "都度文面作成",
       "body": "",
       "note": "応対履歴の登録・回答メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_93",
@@ -3216,8 +4166,7 @@ window.APP_STATIC_DATA = {
       "subject": "お問合わせ受付完了のお知らせ",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\t\t\t\t\t\t\t\nこのメールは、NHK受信料の窓口より自動送信しています。\t\t\t\t\t\t\t\n返信していただきましてもお答えできません。\t\t\t\t\t\t\t\nこのメールに心当たりのない場合は、下記お問い合わせ先へご連絡ください。\t\t\t\t\t\t\t\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\t\t\n((ログインページID)) 様\t\t\t\n\t\t\t\t\t\t\t\nNHK受信料の窓口をご利用いただき、ありがとうございます。\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n((受付日時))に、((問合せジャンル))に関するお問い合わせを\t\t\t\t\t\t\t\n受け付けましたのでお知らせします。NHKからの連絡をお待ちください。\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\nなお、ご連絡までにお時間をいただいております。\t\t\t\t\t\t\t\nまた、お問い合わせの内容によっては、お答えができない場合があります。\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t\t\t\t\t\t\t\n　　日本放送協会〔受信料の窓口〕　\nhttps://www.nhk-cs.jp/jushinryo/ \t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t\t\t\t\t\t\t\n◆このメールについてのお問い合わせはこちらへ\t\t\t\t\t\t\t\n　ＮＨＫ受信料の窓口契約照会専用ダイヤル　\nTEL:0570-000320(ナビダイヤル)\t\t\t\t\t\t\t\n----------------------------------------------------------------------\t\t\t\t\t\t\t\n　午前9時～午後5時（土・日・祝日も受付）\t\t\t\t\t\t\t\n　なお、12月30日午後5時から1月3日はご利用いただけません。\t\t\t\t\t\t\t\n　固定電話からは、全国どこでも市内通話料金でご利用いただけます。\t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t",
       "note": "問合せ受付完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_94",
@@ -3230,8 +4179,7 @@ window.APP_STATIC_DATA = {
       "subject": "ご回答受付完了のお知らせ",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\t\t\t\t\t\t\t\nこのメールは、NHK受信料の窓口より自動送信しています。\t\t\t\t\t\t\t\n返信していただきましてもお答えできません。\t\t\t\t\t\t\t\nこのメールに心当たりのない場合は、下記お問い合わせ先へご連絡ください。\t\t\t\t\t\t\t\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\t\t\n((ログインページID)) 様\t\t\t\t\n\t\t\t\t\t\t\t\nNHK受信料の窓口をご利用いただき、ありがとうございます。\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\nNHKへの回答を受け付けましたのでお知らせします。\t\t\t\t\t\t\t\n別途NHKより連絡が入る可能性がございますので、予めご了承ください。\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t\t\t\t\t\t\t\n　　日本放送協会〔受信料の窓口〕　\nhttps://www.nhk-cs.jp/jushinryo/ \t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t\t\t\t\t\t\t\n◆このメールについてのお問い合わせはこちらへ\t\t\t\t\t\t\t\n　ＮＨＫ受信料の窓口契約照会専用ダイヤル　\nTEL:0570-000320(ナビダイヤル)\t\t\t\t\t\t\t\n----------------------------------------------------------------------\t\t\t\t\t\t\t\n　午前9時～午後5時（土・日・祝日も受付）\t\t\t\t\t\t\t\n　なお、12月30日午後5時から1月3日はご利用いただけません。\t\t\t\t\t\t\t\n　固定電話からは、全国どこでも市内通話料金でご利用いただけます。\t\t\t\t\t\t\t\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\t",
       "note": "(NHK追加)NHKへの回答受付完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_96",
@@ -3244,8 +4192,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウント削除完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、ＮＨＫより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nお客様のお手続きにより、受信料アカウントの削除が完了しましたのでお知らせします。\n再度、受信料アカウントをご利用いただく場合は、はじめからお申し込みいただくこととなりますので、あらかじめご了承ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "ID削除完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_97",
@@ -3258,8 +4205,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウント削除完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、ＮＨＫより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\n受信料アカウントの削除が完了しましたのでお知らせします。\n再度、受信料アカウントをご利用いただく場合は、はじめからお申し込みいただくこととなりますので、あらかじめご了承ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後5時（土・日・祝日も受付）\nなお、2025年12月30日までは午後8時まで受付、\n12月31日から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "ID削除完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_98",
@@ -3272,8 +4218,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウント情報変更完了のお知らせ【受信料アカウント】※実装なし",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、ＮＨＫより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n\n((#LOGIN_ID#)) 様\n\n受信料アカウント情報の変更が完了しましたのでお知らせします。\nご登録のＩＤとパスワードでログインしてご利用ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-099-033(ナビダイヤル)\n自動音声ガイダンスで「2」を押してください。\n----------------------------------------------------------------------\n午前9時～午後8時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
       "note": "利用者情報補正完了メール※管理者による変更",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_99",
@@ -3286,8 +4231,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウント削除予定のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、ＮＨＫより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\nこのたび、受信料アカウントを利用いただいているみなさまの受信契約情報を確認させていただいたところ、お客様の受信契約を確認できませんでした。\nそのため、((#SCHEDULED_DELETION_DATE#))をもって受信料アカウントを削除させていただきます。\n\nＩＤの削除後に、受信料アカウントをご利用いただく場合は、はじめからお申し込みいただくこととなりますので、あらかじめご了承ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n\nお心当たりがない場合は、お手数ですがＮＨＫまでお問い合わせください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "受信契約解約に伴うID削除予告メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_100",
@@ -3300,8 +4244,7 @@ window.APP_STATIC_DATA = {
       "subject": "受信料アカウント削除完了のお知らせ【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、ＮＨＫより自動送信しています。\nこのメールに返信していただきましてもお答えできません。\n心当たりのない場合は、下記お問い合わせ先へご連絡ください。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#)) 様\n\n受信料アカウントをご利用いただき、ありがとうございます。\n\n先般ご案内させていただいたとおり、お客様の受信契約を確認できなかったため、受信料アカウントを削除させていただきました。\n再度、受信料アカウントをご利用いただく場合は、はじめからお申し込みいただくこととなりますので、ご了承ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n\nお心当たりがない場合は、お手数ですがＮＨＫまでお問い合わせください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "受信契約解約に伴うID削除完了メール",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_102",
@@ -3314,8 +4257,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "受信料アカウント　確認コードは((#AUTH_CODE#)) です。\n10分以内にこちらのコードを入力し、認証を完了してください。",
       "note": "確認コード通知メール（二要素認証）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_103",
@@ -3328,8 +4270,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "受信料アカウント　確認コードは((#AUTH_CODE#)) です。\n10分以内にこちらのコードを入力し、認証を完了してください。",
       "note": "確認コード通知メール（初回ログイン）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_104",
@@ -3342,8 +4283,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "受信料アカウント　確認コードは((#AUTH_CODE#)) です。\n10分以内にこちらのコードを入力し、認証を完了してください。",
       "note": "確認コード通知メール（IDリマインド）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_105",
@@ -3356,8 +4296,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "受信料アカウント　確認コードは((#AUTH_CODE#)) です。\n10分以内にこちらのコードを入力し、認証を完了してください。",
       "note": "確認コード通知メール（パスワードリマインド）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_106",
@@ -3370,8 +4309,7 @@ window.APP_STATIC_DATA = {
       "subject": "-",
       "body": "受信料アカウント　確認コードは((#AUTH_CODE#)) です。\n10分以内にこちらのコードを入力し、認証を完了してください。",
       "note": "確認コード通知メール（認証用携帯電話番号変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_108",
@@ -3384,8 +4322,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから新規契約のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（新規契約）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_109",
@@ -3398,8 +4335,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから住所変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（住所変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_110",
@@ -3412,8 +4348,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから世帯同居のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（世帯同居）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_111",
@@ -3426,8 +4361,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから支払い方法変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（継続払込申込）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_112",
@@ -3440,8 +4374,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから支払い方法変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（コース変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_113",
@@ -3454,8 +4387,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから衛星契約変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（衛星契約変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_114",
@@ -3468,8 +4400,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから氏名変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（氏名変更）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_115",
@@ -3482,8 +4413,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから家族割引のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（家族割引）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_116",
@@ -3496,8 +4426,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから学生免除（新規契約）のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（学生免除(＋新規契約)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_117",
@@ -3510,8 +4439,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから支払い方法変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（ネット口振）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_118",
@@ -3524,8 +4452,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからお手続きに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから支払い方法変更のお手続きに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "個別お知らせ登録通知メール（クレジットカード継続払）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_119",
@@ -3538,8 +4465,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（口座振替(請求)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_120",
@@ -3552,8 +4478,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKから受信料のお支払いに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のお支払いに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（口座振替(収納)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_121",
@@ -3566,8 +4491,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（口座振替(未収)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_122",
@@ -3580,8 +4504,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（クレジット(請求)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_123",
@@ -3594,8 +4517,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKから受信料のお支払いに関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のお支払いに関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（クレジット(収納)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_124",
@@ -3608,8 +4530,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（クレジット(未収)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_125",
@@ -3622,8 +4543,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（継続振込(請求)）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_126",
@@ -3636,8 +4556,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（クレジット洗替NG）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_127",
@@ -3650,8 +4569,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKからご請求に関するお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから受信料のご請求に関するお知らせが届いております。\n\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（災害免除適用完了）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785822565025_128",
@@ -3664,8 +4582,7 @@ window.APP_STATIC_DATA = {
       "subject": "NHKから文書発送のお知らせが届いております【受信料アカウント】",
       "body": "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\nこのメールは、受信料アカウントをお持ちの方で、メール通知設定をされている方に送信しています。\nこのメールに返信していただきましてもお答えできません。\nーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー\n((#LOGIN_ID#))  様\n\n日頃より、ＮＨＫ受信料制度にご理解ご協力をいただき、誠にありがとうございます。\n\nＮＨＫから文書発送のお知らせが届いております。\n\n「受信料の窓口」　にアクセスし、ページ上部の「受信料アカウント」から、受信料アカウントＩＤとパスワードでログインのうえ、ご確認ください。\n\nご不明な点がございましたら、メール下部に記載の「◆よくある質問はこちら」もあわせてご確認ください。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n日本放送協会「受信料の窓口」\nhttps://www.nhk-cs.jp\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n◆よくある質問はこちら\nhttps://www.nhk-cs.jp/support/faq/\n\n◆このメールについてのお問い合わせはこちらへ\nTEL:0570-077-077(ナビダイヤル)\n----------------------------------------------------------------------\n午前9時～午後6時（土・日・祝日も受付）\nなお、12月30日午後5時から1月3日はご利用いただけません。\n固定電話からは、全国どこでも市内通話料金でご利用いただけます。\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
       "note": "パーソナルアラート通知メール（DM発行履歴）",
-      "enabled": true,
-      "linkify": false
+      "enabled": true
     },
     {
       "id": "mail_1785823774905",
@@ -3848,9 +4765,15 @@ window.APP_STATIC_DATA = {
         "key": "mcat_1786504620576",
         "name": "メアドの大文字小文字",
         "color": "#2ed573"
+      },
+      {
+        "key": "mcat_1786504626494",
+        "name": "エラーメッセージ",
+        "color": "#2ed573"
       }
     ],
     "subs": {
+      "mcat_1785822565025_0": [],
       "mcat_1785822565025_44": [
         {
           "key": "msub_1785822565025_45",
@@ -3876,7 +4799,10 @@ window.APP_STATIC_DATA = {
           "key": "msub_1785822565025_107",
           "name": "個別お知らせ関連"
         }
-      ]
+      ],
+      "mcat_1785822565025_129": [],
+      "mcat_1786504620576": [],
+      "mcat_1786504626494": []
     }
   }
 };
@@ -3884,23 +4810,13 @@ window.APP_STATIC_DATA = {
 // 画面遷移データ。画像は screen-images/ フォルダに実ファイルとして保存されています。
 // library は画像ライブラリの復元用です（別PCでも一覧が再現されます）。
 window.APP_SCREEN_DATA = {
-  "savedAt": "2026-09-22T08:36:09.246Z",
+  "savedAt": "2026-09-22T03:18:21.075Z",
   "images": {},
   "library": [],
   "patterns": [
     {
-      "id": "scv24rjx01",
-      "name": "【世帯】登録導線",
-      "screens": []
-    },
-    {
-      "id": "scdiu6vayz",
-      "name": "【事業】登録導線",
-      "screens": []
-    },
-    {
-      "id": "sc2gujz5ik",
-      "name": "【学校】登録導線",
+      "id": "sc4vjovx5f",
+      "name": "パターン1",
       "screens": []
     }
   ]
