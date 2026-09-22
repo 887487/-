@@ -387,6 +387,11 @@
 .page-admin .hr-spacer{height:10px;border-top:1px dashed var(--border);margin:5px 0;}   /* 左の「空白行」ラベルで用途は分かるため、説明文は出さない */
 .hr-row-child{border-left:3px solid var(--accent-lt,#dfe3ff);background:var(--surface2);}   /* margin-left は深さに応じて行ごとに指定 */
 .hr-child-tag{display:inline-block;margin-right:6px;padding:0 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--accent-lt);color:var(--accent-text);vertical-align:middle;}
+/* ログ作成補助：ボタンごとの中の項目の区切り（本物の質問ではなく、見出し＋その場で追加できるボタン） */
+.hr-log-opt-divider{display:flex;align-items:center;gap:8px;padding:6px 0 4px;margin-top:2px;border-top:1px dashed var(--border);}
+.hr-log-opt-divider-label{font-size:10px;font-weight:700;color:var(--text3);white-space:nowrap;}
+.hr-log-opt-add{height:18px;padding:0 7px;border-radius:3px;border:1px solid var(--border);background:var(--surface);color:var(--text3);font-size:10px;font-family:inherit;cursor:pointer;}
+.hr-log-opt-add:hover{border-color:var(--accent);color:var(--accent-text);}
 .hr-tpl-edit{
   width:18px;height:18px;padding:0;line-height:1;
   border:1px solid var(--border);border-radius:4px;
@@ -407,8 +412,7 @@
 /* 書式つき1行入力：空のときの案内文は1行に収める（長い案内で欄が2行になるのを防ぐ） */
 .hr-rt-line:empty::before{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 /* ヒアリングの書式バーでは、表・画像は使わない（本文は文字の装飾だけ） */
-.rt-bar-hearing [data-cmd="table"],
-.rt-bar-hearing .rt-merge{display:none !important;}   /* 表は対象外。画像はここでは隠さない（ヒアリングでも挿入できる） */
+/* ヒアリングの書式バーも、他タブと同じく表（結合を含む）と画像の挿入に対応する */
 .hr-row-actions{
   position:absolute; top:4px; right:6px;
   display:inline-flex; align-items:center; gap:4px;
@@ -2845,11 +2849,11 @@ function _hrPolicyPreviewText(item) {
 function _hrPolicySetRich(idx, el) {
   var html = window.hearingSanitizeHtml(el.innerHTML);
   var text = window.hearingHtmlToText(html);
-  var hasImg = /<img\b/i.test(html);
+  var hasImg = /<img\b|<table\b/i.test(html);
   var l = _hrPoliciesLoad() || [];
   if (!l[idx]) return;
   l[idx].policy = text;
-  if ((text !== '' || hasImg) && /<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align|&lt;|&gt;/i.test(html)) l[idx].policyHtml = html;
+  if ((text !== '' || hasImg) && /<(b|strong|i|em|u|s|strike|del|font|span|img|table)\b|text-align|&lt;|&gt;/i.test(html)) l[idx].policyHtml = html;
   else delete l[idx].policyHtml;
   _hrPoliciesSave(l);
 }
@@ -4704,7 +4708,7 @@ window.addEventListener('beforeunload',function(e){if(_dirty){e.preventDefault()
 let mailData = (window._appCache && window._appCache.mailTemplates) ? window._appCache.mailTemplates.slice() : [];
 setTimeout(function(){ if (!_mailSubjBaseline) _mailSnapshotSubjects(); }, 0);   // 読み込み直後の件名を控える（initAppData 後に再度控える）
 let mId=null,_pendingMailSubCatKey=null;
-let mailCatMeta=(function(){try{const s=localStorage.getItem('mailCatMeta');return s?JSON.parse(s):null;}catch(e){return null;}})();
+let mailCatMeta=(function(){try{const s=localStorage.getItem(window.profileScopedKey('mailCatMeta'));return s?JSON.parse(s):null;}catch(e){return null;}})();
 function saveMailCatMeta(){}
 function initMailCatMeta(){const needsMigrate=!mailCatMeta||(Array.isArray(mailCatMeta.cats)&&mailCatMeta.cats.length===0&&mailData.length>0);if(!needsMigrate)return;mailCatMeta={cats:[],subs:{}};const seen=new Set();mailData.forEach(t=>{if(t.catKey&&!seen.has(t.catKey)){seen.add(t.catKey);mailCatMeta.cats.push({key:t.catKey,name:t.category||'',color:t.catColor||MAIL_COLORS[0]});}if(t.catKey&&t.subCatKey){if(!mailCatMeta.subs[t.catKey])mailCatMeta.subs[t.catKey]=[];const subSeen=mailCatMeta.subs[t.catKey].some(s=>s.key===t.subCatKey);if(!subSeen)mailCatMeta.subs[t.catKey].push({key:t.subCatKey,name:t.subCategory||''});}});saveMailCatMeta();}
 function getMailCats(){initMailCatMeta();return mailCatMeta.cats||[];}
@@ -7164,7 +7168,7 @@ function _histSetStatus(msg, type) {
 // カテゴリごとの開閉状態（画面を開き直しても維持する）
 var _smOpen = {};
 try {
-  var _so = localStorage.getItem('smOpenState');
+  var _so = localStorage.getItem(window.profileScopedKey('smOpenState'));
   if (_so) _smOpen = JSON.parse(_so);
 } catch (e) { _smOpen = {}; }
 
@@ -7277,7 +7281,7 @@ function smToggleCat(si) {
   var key = sec.id || si;
   var open = (_smOpen[key] === false);      // 次の状態
   _smOpen[key] = open;
-  try { localStorage.setItem('smOpenState', JSON.stringify(_smOpen)); } catch (e) {}
+  try { localStorage.setItem(window.profileScopedKey('smOpenState'), JSON.stringify(_smOpen)); } catch (e) {}
   _smApplyFold(si, open);
 }
 
@@ -7302,7 +7306,7 @@ function smFoldAll(open) {
     _smOpen[sec.id || si] = !!open;
     _smApplyFold(si, !!open);
   });
-  try { localStorage.setItem('smOpenState', JSON.stringify(_smOpen)); } catch (e) {}
+  try { localStorage.setItem(window.profileScopedKey('smOpenState'), JSON.stringify(_smOpen)); } catch (e) {}
 }
 
 function smRender() {
@@ -9252,7 +9256,7 @@ function scrSaveIndex() {
         })
       };
     });
-    localStorage.setItem('screenFlowIndex', JSON.stringify(index));
+    localStorage.setItem(window.profileScopedKey('screenFlowIndex'), JSON.stringify(index));
   } catch(e) {
     console.warn('[scrSaveIndex] failed:', e.message);
   }
@@ -9262,14 +9266,19 @@ function scrSaveIndex() {
 // （画像は含まれないため、インポートで補完する必要がある）
 function scrLoadIndex() {
   try {
-    var s = localStorage.getItem('screenFlowIndex');
+    var s = localStorage.getItem(window.profileScopedKey('screenFlowIndex'));
     if (!s) {
-      // 旧形式（screenFlowData）からマイグレーション（画像なしで読む）
-      var old = localStorage.getItem('screenFlowData');
-      if (old) {
-        var parsed = JSON.parse(old);
-        localStorage.removeItem('screenFlowData');
-        return Array.isArray(parsed) ? parsed : null;
+      // 旧形式（screenFlowData）からのマイグレーションは、プロファイルという概念が無かった
+      // ころのデータなので、標準プロファイル（data.js）のときだけ対象にする。
+      // 名前つきプロファイル（【NGH】など）では、他のプロファイルの古い残骸を拾わないようにする。
+      var isDefaultProfile = !window.APP_PROFILE || window.APP_PROFILE.isDefault;
+      if (isDefaultProfile) {
+        var old = localStorage.getItem('screenFlowData');
+        if (old) {
+          var parsed = JSON.parse(old);
+          localStorage.removeItem('screenFlowData');
+          return Array.isArray(parsed) ? parsed : null;
+        }
       }
       return null;
     }
@@ -11033,7 +11042,7 @@ function scrExitHsEdit() {
     rz._bound = true;
 
     var saved = null;
-    try { saved = localStorage.getItem('scrLibPanelW'); } catch (e) {}
+    try { saved = localStorage.getItem(window.profileScopedKey('scrLibPanelW')); } catch (e) {}
     if (saved) pn.style.width = saved;
 
     var dragging = false;
@@ -11052,7 +11061,7 @@ function scrExitHsEdit() {
       dragging = false;
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
-      try { localStorage.setItem('scrLibPanelW', pn.style.width); } catch (e) {}
+      try { localStorage.setItem(window.profileScopedKey('scrLibPanelW'), pn.style.width); } catch (e) {}
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
@@ -14169,14 +14178,14 @@ window.addEventListener('resize',function(){
   // 書式バーで太字・色などを付けられる 1 行の入力欄。input と同じように .value / .placeholder / focus() を使える。
   // 保存は plain な文字列（従来どおり）に加え、書式を付けたときだけ HTML も別に持つ。
   function _hrRichHasFmt(html) {
-    return /<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align|&lt;|&gt;/i.test(html || '');
+    return /<(b|strong|i|em|u|s|strike|del|font|span|img|table)\b|text-align|&lt;|&gt;/i.test(html || '');
   }
   /** 編集欄の中身を { text（plain）, html（書式・画像があるときだけ）} で返す */
   function _hrReadRich(el) {
     var html = window.hearingSanitizeHtml(el.innerHTML);
     var text = window.hearingHtmlToText(html);
-    // 画像だけを入れた場合、文字は空になるが html は残す（画像そのものが内容なので）
-    var hasImg = /<img\b/i.test(html);
+    // 画像・表だけを入れた場合、文字は空になることがあるが html は残す（それ自体が内容なので）
+    var hasImg = /<img\b|<table\b/i.test(html);
     return { text: text, html: ((text !== '' || hasImg) && _hrRichHasFmt(html)) ? html : '' };
   }
   function _hrMkRichLine(placeholder, css) {
@@ -14579,7 +14588,9 @@ window.addEventListener('resize',function(){
   function _openInlineAddForm(container, editQ, opts) {
     var isEdit = !!editQ;
     // ログ作成補助の中に置く項目のときの、親の質問ID（編集のときは項目自身が持っている）
-    var parentId = (editQ && editQ.parentId) || (opts && opts.parentId) || '';
+    var parentId  = (editQ && editQ.parentId) || (opts && opts.parentId) || '';
+    // ログ作成補助の「どのボタンの中か」（そのボタンでだけ使う中の項目。他のボタンとは共用しない）
+    var parentOpt = (editQ && editQ.parentOpt) || (opts && opts.parentOpt) || '';
     container.innerHTML = '';
     container.style.cssText =
       'margin:8px 0 4px;background:var(--surface);border:1px solid var(--accent);' +
@@ -14606,7 +14617,11 @@ window.addEventListener('resize',function(){
     var title = document.createElement('div');
     title.style.cssText = 'font-size:12px;font-weight:700;color:var(--accent-text);';
     var parentQ = parentId ? _hrQuestionsGet().find(function(x) { return x.id === parentId; }) : null;
-    var parentTag = parentQ ? (parentQ.type === 'log' ? 'ログ作成補助' : ('「' + (parentQ.label || '') + '」')) : '';
+    var parentOptLabel = (parentQ && parentQ.type === 'log' && parentOpt)
+      ? ((window.getHearingOptions(parentQ) || []).find(function(o) { return (o.v || o.l) === parentOpt; }) || {}).l
+      : '';
+    var parentTag = parentOptLabel ? ('「' + parentOptLabel + '」ボタン')
+                   : parentQ ? (parentQ.type === 'log' ? 'ログ作成補助' : ('「' + (parentQ.label || '') + '」')) : '';
     title.textContent = parentId
       ? (isEdit ? '✏️ 「' + (editQ.label || '') + '」を編集（' + parentTag + 'の中の項目）' : '＋ ' + parentTag + 'の中に項目を追加')
       : isEdit
@@ -15194,7 +15209,8 @@ window.addEventListener('resize',function(){
       if (!isLog && !isSpacer && outVal && outRich.html) newQ.outHtml = outRich.html;
       // 回答の保存先キー。編集では入力済みの回答が消えないよう元のキーを保つ
       newQ.field = isEdit ? (editQ.field || editQ.id) : newQ.id;
-      if (parentId) newQ.parentId = parentId;              // ログ作成補助の中の項目
+      if (parentId) newQ.parentId = parentId;              // 中の項目（ログ作成補助のボタン、または他の項目の中）
+      if (parentOpt) newQ.parentOpt = parentOpt;            // ログ作成補助のどのボタンの中か
       if (isEdit && editQ.builtin) newQ.builtin = editQ.builtin;
       // 先頭記号：常に明示的な値を保存する（「既定に従う」は廃止）
       newQ.prefix = pfxSel.value;
@@ -15225,9 +15241,9 @@ window.addEventListener('resize',function(){
           if (lg) {
             var lgHtml = window.hearingSanitizeHtml(lg.innerHTML);
             var lgText = window.hearingHtmlToText(lgHtml);
-            var lgHasImg = /<img\b/i.test(lgHtml);
+            var lgHasImg = /<img\b|<table\b/i.test(lgHtml);
             if (lgText !== '') o.text = lgText;
-            if (/<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align/i.test(lgHtml) && (lgText !== '' || lgHasImg)) o.textHtml = lgHtml;
+            if (/<(b|strong|i|em|u|s|strike|del|font|span|img|table)\b|text-align/i.test(lgHtml) && (lgText !== '' || lgHasImg)) o.textHtml = lgHtml;
           }
           // 選ぶとテキストボックスが出る選択肢
           var mInp = inp.parentNode.querySelector('[data-role="optmanual"]');
@@ -15273,7 +15289,7 @@ window.addEventListener('resize',function(){
       if (isEdit && (t === 'heading' || t === 'spacer')) {
         var freedIds = _hrDescendants(qs, editQ.id).map(function(x) { return x.id; });
         var freed = 0;
-        qs.forEach(function(x) { if (freedIds.indexOf(x.id) >= 0 && x.parentId) { delete x.parentId; freed++; } });
+        qs.forEach(function(x) { if (freedIds.indexOf(x.id) >= 0 && x.parentId) { delete x.parentId; delete x.parentOpt; freed++; } });
         if (freed) toast('ℹ️ 中にあった ' + freed + ' 件の項目は、独立した項目になりました');
       }
       if (isEdit) {
@@ -15413,9 +15429,10 @@ window.addEventListener('resize',function(){
         _openInlineAddForm(area, cur);
         if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
-      // どの種類の項目にも、中に項目（記述・選択など）を追加するボタンを出す
-      // （見出し・空白行・メモは中を持てないので出さない。中の項目自身も、さらに中に置ける）
-      if (q.type !== 'heading' && q.type !== 'spacer' && !undeletable) {
+      // 「中の項目」自身には、さらに中へ項目を追加できる（何段でも）。
+      // ただし、独立した通常の項目（ログ作成補助の中でも何でもない）には出さない。
+      // ログ作成補助そのものへは、ボタンごとの専用の追加欄（下の区切りの「＋ 項目」）から追加する。
+      if (q.type !== 'heading' && q.type !== 'spacer' && q.type !== 'log' && !undeletable && !!q.parentId) {
         var addKid = document.createElement('button');
         addKid.type = 'button';
         addKid.textContent = '＋ 項目';
@@ -15574,7 +15591,7 @@ window.addEventListener('resize',function(){
   }
 
   // ── 項目の並べ替え（左端のつまみをドラッグ）──
-  var _hrDragId = null, _hrDragParent = '';
+  var _hrDragId = null, _hrDragParent = '', _hrDragOpt = '';
 
   /** srcId の質問を dstId の前（または後）へ移す。並び順はそのまま質問の並びとして保存される */
   function _hrMoveQuestion(srcId, dstId, after) {
@@ -15614,8 +15631,9 @@ window.addEventListener('resize',function(){
     // 中の項目は同じログ作成補助の中でだけ並べ替える（外へは出さない）
     var _myQ = _hrQuestionsGet().find(function(x) { return x.id === qId; });
     var myParent = (_myQ && _myQ.parentId) || '';
+    var myOpt = (_myQ && _myQ.parentOpt) || '';   // ログ作成補助のどのボタンの中か（違うボタンの中へは移せない）
     handle.addEventListener('dragstart', function(e) {
-      _hrDragId = qId; _hrDragParent = myParent;
+      _hrDragId = qId; _hrDragParent = myParent; _hrDragOpt = myOpt;
       e.dataTransfer.effectAllowed = 'move';
       try { e.dataTransfer.setData('text/plain', qId); } catch (err) {}
       try { e.dataTransfer.setDragImage(rowEl, 16, 12); } catch (err) {}
@@ -15628,7 +15646,7 @@ window.addEventListener('resize',function(){
       return e.clientY > r.top + r.height / 2;
     };
     rowEl.addEventListener('dragover', function(e) {
-      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent) return;
+      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent || _hrDragOpt !== myOpt) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
       var after = isAfter(e);
@@ -15640,7 +15658,7 @@ window.addEventListener('resize',function(){
       rowEl.classList.remove('hr-drop-before', 'hr-drop-after');
     });
     rowEl.addEventListener('drop', function(e) {
-      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent) return;
+      if (!_hrDragId || _hrDragId === qId || _hrDragParent !== myParent || _hrDragOpt !== myOpt) return;
       e.preventDefault();
       var src = _hrDragId, after = isAfter(e);
       _hrDragId = null; _hrClearDropMarks();
@@ -15732,12 +15750,33 @@ window.addEventListener('resize',function(){
       var ordered = [], depthOf = {};
       var addWithChildren = function(q, depth) {
         ordered.push(q); depthOf[q.id] = depth;
-        (childrenOf[q.id] || []).forEach(function(k) { addWithChildren(k, depth + 1); });
+        if (q.type === 'log') {
+          // ログ作成補助は、ボタンごとに専用の項目セット（サブテンプレート）を持つ。
+          // ボタンの並び順で、ボタンごとの区切り（本物の質問ではない目印）を挟んで、その中の項目だけを続ける。
+          var kids = childrenOf[q.id] || [];
+          (window.getHearingOptions(q) || []).forEach(function(o) {
+            var v = o.v || o.l;
+            var group = kids.filter(function(k) { return k.parentOpt === v; });
+            ordered.push({ __divider: true, id: '__div_' + q.id + '_' + v, parentLogId: q.id, optV: v, optLabel: (o.l || v) });
+            group.forEach(function(k) { addWithChildren(k, depth + 1); });
+          });
+        } else {
+          (childrenOf[q.id] || []).forEach(function(k) { addWithChildren(k, depth + 1); });
+        }
       };
       qs.forEach(function(q) { if (!q.parentId) addWithChildren(q, 0); });
       var hiddenParents = {};
 
       ordered.forEach(function(q) {
+        if (q.__divider) {
+          // 本物の質問ではなく、ボタンごとの中の項目をまとめる見出し（＋その場で追加できる小さなボタン）
+          var divDepth = (depthOf[q.parentLogId] || 0) + 1;
+          h += '<div class="hr-log-opt-divider" style="margin-left:' + (24 * divDepth) + 'px" data-log-id="' + escHtml(q.parentLogId) + '" data-opt="' + escHtml(q.optV) + '">'
+            + '<span class="hr-log-opt-divider-label">「' + escHtml(q.optLabel) + '」ボタンの中</span>'
+            + '<button type="button" class="hr-row-addkid hr-log-opt-add" data-log-id="' + escHtml(q.parentLogId) + '" data-opt="' + escHtml(q.optV) + '">＋ 項目</button>'
+            + '</div>';
+          return;
+        }
         if (!q.enabled) return;
         var hiddenBy = '';
         if (q.parentId && hiddenParents[q.parentId]) { hiddenBy = '親の項目が非表示のため非表示'; }
@@ -15826,6 +15865,34 @@ window.addEventListener('resize',function(){
       el.querySelectorAll('.hr-row[data-q-id]').forEach(function(rowEl) {
         _attachRowEditing(rowEl, rowEl.dataset.qId);
         _attachRowDnD(rowEl, rowEl.dataset.qId);     // 並べ替えのつまみ
+      });
+
+      // ボタンごとの区切りにある「＋ 項目」（そのボタンだけで使う中の項目を追加する）
+      el.querySelectorAll('.hr-log-opt-add').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var logId = btn.dataset.logId, optV = btn.dataset.opt;
+          var divEl = btn.closest('.hr-log-opt-divider');
+          var area = document.getElementById('hrRowEditArea');
+          if (area) area.parentNode.removeChild(area);
+          area = document.createElement('div');
+          area.id = 'hrRowEditArea';
+          // この区切りの直後（すでに中の項目があれば、その最後の下）に出す
+          var anchor = divEl;
+          var all = _hrQuestionsGet();
+          (function() {
+            var stack = all.filter(function(x) { return x.parentId === logId && x.parentOpt === optV; }).map(function(x) { return x.id; });
+            while (stack.length) {
+              var nid = stack.shift();
+              var r = divEl.parentNode.querySelector('.hr-row[data-q-id="' + nid + '"]');
+              if (r) anchor = r;
+              all.filter(function(x) { return x.parentId === nid; }).forEach(function(x) { stack.push(x.id); });
+            }
+          })();
+          anchor.parentNode.insertBefore(area, anchor.nextSibling);
+          _openInlineAddForm(area, null, { parentId: logId, parentOpt: optV });
+          if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
       });
 
       // 非表示の理由を行に添える。

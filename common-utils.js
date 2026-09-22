@@ -2436,7 +2436,7 @@ function _applyImportedDataToPage(imported, raw) {
         _bcast.postMessage({ type: 'screenDataUpdated', ts: Date.now() });
         _bcast.close();
       } catch(e) {}
-      try { localStorage.setItem('_screenSaveTs', Date.now().toString()); } catch(e) {}
+      try { localStorage.setItem(window.profileScopedKey('_screenSaveTs'), Date.now().toString()); } catch(e) {}
     } catch(e) {}
   }
 
@@ -3369,6 +3369,16 @@ function _buildSideMenuHTML(isDark, sectionsOverride) {
 // =============================================================================
 
 // 入力中のヒアリング内容はプロファイルごとに分ける（標準＝data.js は従来のキーのまま）
+/**
+ * localStorage のキーに、いまのプロファイルぶんの印を付ける。
+ * 画面遷移・サイドメニューの開閉・メールの旧データなど、data.js / IndexedDB を経由しない
+ * localStorage 直書きの保存先は、これを通さないとプロファイルをまたいで混ざってしまう
+ * （IndexedDB は window.APP_IDB_NAME で分かれているが、localStorage は素のままだと file:// 全体で共有される）。
+ */
+window.profileScopedKey = function (base) {
+  return base + ((window.APP_PROFILE && window.APP_PROFILE.storageSuffix) || '');
+};
+
 var HEARING_KEY = 'hearingState_v7' + ((window.APP_PROFILE && window.APP_PROFILE.storageSuffix) || '');
 var HEARING_TPL_KEY = 'hearingTemplate' + ((window.APP_PROFILE && window.APP_PROFILE.storageSuffix) || '');
 
@@ -3491,6 +3501,21 @@ window.filterQuestionsByTemplate = function(list) {
  * ログ作成補助の中に置かれた項目（記述・選択など）のうち、いま表示するもの。
  * 有効で、表示条件・パターンを満たすものだけ。
  */
+/**
+ * ログ作成補助の、特定のボタン（サブテンプレート）に属する中の項目を取り出す。
+ * ボタンごとに完全に別の項目セットを持つ（他のボタンとは共用しない）。
+ */
+window.hearingChildItemsForOpt = function(q, optV, s) {
+  if (!q || typeof _hrGetQuestions !== 'function') return [];
+  var over = (typeof _hrPatternOverrides === 'function') ? _hrPatternOverrides(s || hearingState) : {};
+  return window.filterQuestionsByTemplate(_hrGetQuestions()).filter(function(k) {
+    if (k.parentId !== q.id || k.parentOpt !== optV || !k.enabled) return false;
+    if (k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return false;
+    if (k.id in over) return !!over[k.id];
+    return _hrEvalShowIf(k.showIf, s || hearingState);
+  });
+};
+
 window.hearingChildItems = function(q, s) {
   if (!q || typeof _hrGetQuestions !== 'function') return [];
   var over = (typeof _hrPatternOverrides === 'function') ? _hrPatternOverrides(s || hearingState) : {};
@@ -4406,7 +4431,10 @@ window.getHearingPrefix = function (q) {
 // 本文は plain な text（従来どおり。出力・コピーの基本）に加えて、
 // 書式を付けたときだけ textHtml（許可したタグだけに絞った HTML）を持つ。
 
-var _HR_OK_TAGS  = { B:1, STRONG:1, I:1, EM:1, U:1, S:1, STRIKE:1, DEL:1, BR:1, DIV:1, P:1, SPAN:1, FONT:1, IMG:1 };
+var _HR_OK_TAGS  = { B:1, STRONG:1, I:1, EM:1, U:1, S:1, STRIKE:1, DEL:1, BR:1, DIV:1, P:1, SPAN:1, FONT:1, IMG:1,
+  TABLE:1, TBODY:1, THEAD:1, TR:1, TD:1, TH:1 };
+// 表のセルだけに許可する属性（結合セルの行列数。数字だけを許可する）
+var _HR_TABLE_CELL_ATTR = { colspan:1, rowspan:1 };
 var _HR_OK_STYLE = { 'color':1, 'font-weight':1, 'font-style':1, 'text-decoration':1, 'text-decoration-line':1, 'text-align':1 };
 // 画像は data: URL（base64）だけを許可する（外部 URL は読み込ませない）。サイズにも上限を設ける。
 var _HR_IMG_SRC_RE = /^data:image\/(png|jpe?g|gif|webp);base64,/i;
@@ -4434,6 +4462,24 @@ window.hearingSanitizeHtml = function (html) {
       if (!_HR_OK_TAGS[tag]) {                       // 許可外のタグは中身だけ残す
         while (ch.firstChild) node.insertBefore(ch.firstChild, ch);
         node.removeChild(ch);
+        return;
+      }
+      if (tag === 'TABLE') {                          // 表本体には class="rt-table" だけ許可する
+        Array.prototype.slice.call(ch.attributes).forEach(function (a) { ch.removeAttribute(a.name); });
+        ch.setAttribute('class', 'rt-table');
+        return;
+      }
+      if (tag === 'TD' || tag === 'TH') {              // セルの結合（colspan/rowspan、数字のみ）だけ許可する
+        var keepAttr = {};
+        Array.prototype.slice.call(ch.attributes).forEach(function (a) {
+          if (_HR_TABLE_CELL_ATTR[a.name] && /^[0-9]+$/.test(a.value)) keepAttr[a.name] = a.value;
+        });
+        Array.prototype.slice.call(ch.attributes).forEach(function (a) { ch.removeAttribute(a.name); });
+        Object.keys(keepAttr).forEach(function (k) { ch.setAttribute(k, keepAttr[k]); });
+        return;
+      }
+      if (tag === 'TBODY' || tag === 'THEAD' || tag === 'TR') {   // それ以外の表タグは属性を持たない
+        Array.prototype.slice.call(ch.attributes).forEach(function (a) { ch.removeAttribute(a.name); });
         return;
       }
       var keep = {};
@@ -4464,7 +4510,7 @@ window.hearingSanitizeHtml = function (html) {
 window.hearingHtmlToText = function (html) {
   var doc = new DOMParser().parseFromString('<body>' + String(html == null ? '' : html) + '</body>', 'text/html');
   var lines = [], cur = null;
-  var flush = function () { if (cur !== null) { lines.push(cur); cur = null; } };
+  var flush = function () { if (cur !== null) { lines.push(cur.replace(/\t$/, '')); cur = null; } };  // 行末の余分なタブは削る
   // br の後ろ（同じブロックの中）に、まだ内容が続くか
   var hasContentAfter = function (br, root) {
     for (var n = br; n && n !== root; n = n.parentNode) {
@@ -4483,8 +4529,14 @@ window.hearingHtmlToText = function (html) {
         if (hasContentAfter(ch, root)) flush();
         return;
       }
-      if (ch.tagName === 'DIV' || ch.tagName === 'P') {
-        flush(); proc(ch, ch); flush(); return;
+      if (ch.tagName === 'DIV' || ch.tagName === 'P' || ch.tagName === 'TR') {
+        flush(); proc(ch, ch); flush(); return;      // 表の行も、改行区切りの1行として扱う
+      }
+      if (ch.tagName === 'TD' || ch.tagName === 'TH') {
+        proc(ch, ch);
+        if (cur === null) cur = '';
+        cur += '\t';              // セルの区切り（表計算に貼り付けたときタブ区切りになる）
+        return;
       }
       proc(ch, root);            // B / I / SPAN など：改行には影響しない
     });
@@ -4890,7 +4942,7 @@ window.setHearingSelect = function (field, value) {
  */
 window.hearingItemHTML = function (q, s) {
   var raw = _hearingItemHTMLRaw(q, s);
-  if (!raw || q.type === 'spacer' || q.type === 'heading') return raw;
+  if (!raw || q.type === 'spacer' || q.type === 'heading' || q.type === 'log') return raw;
   if (document.body && document.body.classList.contains('page-admin')) return raw;
   var kids = window.hearingChildItems(q, s);
   if (!kids.length) return raw;
@@ -4947,20 +4999,28 @@ function _hearingItemHTMLRaw(q, s) {
     return _hrRow(window.hrLabelHtml(q), '<div class="hr-qtycheck-group">' + qtyRows + qtyTa + '</div>', '', pf);
   }
   if (q.type === 'log') {
-    // ログ作成補助。選んだボタンの内容が、この項目の出力になる。
-    // もう一度押すと外れる。
+    // ログ作成補助。選んだボタンの内容が、この項目の出力になる（もう一度押すと外れる）。
+    // 中に置いた項目は、ボタンごとの専用のセット（サブテンプレート）で、
+    // そのボタンを選んでいるときだけ、続けて表示する（他のボタンとは共用しない）。
     var picked = Array.isArray(s[fld]) ? s[fld] : (s[fld] ? [s[fld]] : []);
-    var btns = (window.getHearingOptions(q) || []).map(function (o) {
+    var opts = window.getHearingOptions(q) || [];
+    var btns = opts.map(function (o) {
       var v = o.v || o.l;
       var on = picked.indexOf(v) >= 0 ? ' active' : '';
       return '<button class="hr-log-btn' + on + '" title="押すと出力に加えます（もう一度押すと外れます）"'
         + ' onclick="toggleHearingMulti(\'' + fld + '\',\'' + escHtml(v).replace(/'/g, "\\'") + '\')">'
         + window.hrOptHtmlEsc(o, v) + '</button>';
     }).join('');
-    // ログ作成補助は項目名を出さず、ボタンだけを縦に並べる。
-    // 中に置いた項目（記述・選択など）は、下の共通処理でボタンの下に続けて出す。
+    var kidsHtml = '';
+    if (!(document.body && document.body.classList.contains('page-admin'))) {
+      kidsHtml = picked.map(function (v) {
+        var kids = window.hearingChildItemsForOpt(q, v, s);
+        if (!kids.length) return '';
+        return '<div class="hr-log-children">' + kids.map(function (k) { return window.hearingItemHTML(k, s); }).join('') + '</div>';
+      }).join('');
+    }
     return '<div class="hr-row hr-log-row"><div class="hr-btns">'
-      + '<div class="hr-log-group">' + btns + '</div>'
+      + '<div class="hr-log-group">' + btns + '</div>' + kidsHtml
       + '</div></div>';
   }
   if (q.type === 'checkbox') {
@@ -5011,13 +5071,13 @@ var _hrGroupOpen  = false;   // 描画中にグループを開いているか
 var _hrGroupState = {};      // グループごとの開閉状態
 
 try {
-  var _gs = localStorage.getItem('hearingGroups');
+  var _gs = localStorage.getItem(window.profileScopedKey('hearingGroups'));
   if (_gs) _hrGroupState = JSON.parse(_gs);
 } catch (e) { _hrGroupState = {}; }
 
 window.toggleHearingGroup = function(gid) {
   _hrGroupState[gid] = (_hrGroupState[gid] === false);
-  try { localStorage.setItem('hearingGroups', JSON.stringify(_hrGroupState)); } catch (e) {}
+  try { localStorage.setItem(window.profileScopedKey('hearingGroups'), JSON.stringify(_hrGroupState)); } catch (e) {}
   renderHearing();
 };
 
@@ -5663,46 +5723,48 @@ function buildHearingLines(s) {
       var logFld = q.field || q.id;
       var picked = s[logFld];
       picked = Array.isArray(picked) ? picked : (picked ? [picked] : []);
-      // ログの中に置いた項目（記述・選択など）の出力。ボタンの文章のあとに続ける。
-      // 中の項目がさらに中の項目を持つ場合も、emitWithChildren が続けて出力する。
-      var kidItems = [];
-      qs.forEach(function (k) {
-        if (k.parentId !== q.id || k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return;
-        emitWithChildren(k, kidItems);
-      });
-      if (!picked.length && !kidItems.length) return;
+      if (!picked.length) return;
 
       var opts = window.getHearingOptions(q);
       var order = opts.map(function (o) { return o.v || o.l; });
-      var htmlBlocks = [], hasRich = false;
-      var blocks = picked.slice().sort(function (a, b) {
+      var blocks = [], htmlBlocks = [], hasRich = false;
+      // ボタンごとに、その文章＋そのボタン専用の中の項目（サブテンプレート）をまとめて1つの区画にする。
+      // ボタン名そのものは出力に含めない。中の項目は、そのボタンでだけ使うもの（他のボタンとは共用しない）。
+      picked.slice().sort(function (a, b) {
         return order.indexOf(a) - order.indexOf(b);      // 押した順ではなく並び順
-      }).map(function (v) {
+      }).forEach(function (v) {
         var o = opts.find(function (x) { return (x.v || x.l) === v; }) || { l: v };
         // 「他の項目の回答を入れる」差し込み（{{項目名}}）を、出力の直前に解決する
         var body = (o.text == null) ? '' : window.hearingResolveRefs(String(o.text), s);
-        // 書式つきの本文があれば、表示・コピー用の HTML も作る
         if (o.textHtml) hasRich = true;
-        htmlBlocks.push(escHtml(o.l || v) + '<br>' +
-          (o.textHtml ? window.hearingResolveRefsHtml(window.hearingSanitizeHtml(o.textHtml), s)
-                      : escHtml(body).replace(/\n/g, '<br>')));
-        return (o.l || v) + '\n' + body;
+        var bodyHtml = o.textHtml ? window.hearingResolveRefsHtml(window.hearingSanitizeHtml(o.textHtml), s)
+                                   : escHtml(body).replace(/\n/g, '<br>');
+
+        // このボタンだけの中の項目（他のボタンの中の項目とは混ざらない）
+        var kidItems = [];
+        qs.forEach(function (k) {
+          if (k.parentId !== q.id || k.parentOpt !== v || k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return;
+          emitWithChildren(k, kidItems);
+        });
+
+        var segParts = [], segHtmlParts = [];
+        if (body) segParts.push(body);
+        if (body || o.textHtml) segHtmlParts.push(bodyHtml);
+        if (kidItems.length) {
+          segParts.push(kidItems.map(_hrLineText).join('\n'));
+          segHtmlParts.push(kidItems.map(_hrLineHtml).join('<br>'));
+          if (kidItems.some(_hrLineIsRich)) hasRich = true;
+        }
+        if (!segParts.length) return;       // このボタンは出す内容が無い
+        blocks.push(segParts.join('\n'));
+        htmlBlocks.push(segHtmlParts.join('<br>'));
       });
-      var logParts = [], logHtmlParts = [];
-      if (blocks.length) {
-        logParts.push(blocks.join('\n' + LOG_SEPARATOR + '\n'));
-        logHtmlParts.push(htmlBlocks.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>'));
-      }
-      if (kidItems.length) {
-        // ボタンの文章と、中の項目は区切り線ではさむ（片方だけのときは区切らない）
-        logParts.push(kidItems.map(_hrLineText).join('\n'));
-        logHtmlParts.push(kidItems.map(_hrLineHtml).join('<br>'));
-        if (kidItems.some(_hrLineIsRich)) hasRich = true;
-      }
+      if (!blocks.length) return;
+
       out.push({
         kind: 'row', label: q.label, outLabel: (q.outLabel || q.label),
-        value: logParts.join('\n' + LOG_SEPARATOR + '\n'),
-        htmlValue: hasRich ? logHtmlParts.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>') : '',
+        value: blocks.join('\n' + LOG_SEPARATOR + '\n'),
+        htmlValue: hasRich ? htmlBlocks.join('<br>' + escHtml(LOG_SEPARATOR) + '<br>') : '',
         type: '', outTpl: '', multiline: true, logOnly: true
       });
       return;
