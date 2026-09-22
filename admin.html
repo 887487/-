@@ -14585,6 +14585,140 @@ window.addEventListener('resize',function(){
    * 記号・出力・選択肢などを行ごとの小さなボタンに分けていたが、
    * 見つけにくく使いこなせないという指摘のため、編集はこの1画面にまとめた。
    */
+
+  /**
+   * 「＋ 新しい項目を作って差し込む…」：ログの本文を編集しながら、その場で新しい項目
+   * （プルダウン・ラジオボタン・チェックボックス・トグルボタン・記述）を作り、
+   * 作った項目をすぐに「{{項目名}}」として差し込む。
+   * 作った項目は、独立した通常の項目として保存する（あとから編集画面で詳しく設定し直せる）。
+   */
+  function _hrOpenQuickRefForm(refWrap, logTa) {
+    var old = refWrap.parentNode.querySelector(':scope > .hr-quickref-panel');
+    if (old) { old.parentNode.removeChild(old); return; }   // もう一度選んだら閉じる
+
+    var INP2 = 'flex:1;min-width:0;height:26px;padding:0 8px;border:1px solid var(--border);'
+      + 'border-radius:4px;font-size:11px;font-family:inherit;background:var(--bg);color:var(--text);outline:none;';
+
+    var panel = document.createElement('div');
+    panel.className = 'hr-quickref-panel';
+    panel.style.cssText = 'display:flex;flex-direction:column;gap:6px;padding:8px;margin-top:2px;'
+      + 'border:1px dashed var(--accent-lt,#dfe3ff);border-radius:6px;background:var(--surface2);';
+
+    var hd = document.createElement('div');
+    hd.style.cssText = 'font-size:10px;color:var(--text3);';
+    hd.textContent = '新しい項目を作って、この文章に差し込みます。作った項目は通常の項目として保存され、あとから編集もできます。';
+    panel.appendChild(hd);
+
+    var row1 = document.createElement('div');
+    row1.style.cssText = 'display:flex;gap:6px;align-items:center;';
+    var tSel = document.createElement('select');
+    tSel.style.cssText = INP2 + 'flex:0 0 130px;';
+    tSel.innerHTML = '<option value="select">プルダウン</option>'
+      + '<option value="radio">ラジオボタン</option>'
+      + '<option value="checkbox">チェックボックス</option>'
+      + '<option value="toggle">トグルボタン</option>'
+      + '<option value="text">記述</option>';
+    var nameInp = document.createElement('input');
+    nameInp.type = 'text'; nameInp.placeholder = '項目名（例：対応区分）';
+    nameInp.style.cssText = INP2 + 'flex:1;';
+    row1.appendChild(tSel); row1.appendChild(nameInp);
+    panel.appendChild(row1);
+
+    var optsArea = document.createElement('div');
+    optsArea.style.cssText = 'display:flex;flex-direction:column;gap:4px;';
+    panel.appendChild(optsArea);
+    var optInputs = [];
+    function addQuickOptRow(val) {
+      var orow = document.createElement('div');
+      orow.style.cssText = 'display:flex;gap:6px;align-items:center;';
+      var oi = document.createElement('input');
+      oi.type = 'text'; oi.placeholder = '選択肢';
+      oi.style.cssText = INP2;
+      oi.value = val || '';
+      var odel = document.createElement('button');
+      odel.type = 'button'; odel.className = 'hr-row-addkid'; odel.textContent = '×';
+      odel.addEventListener('click', function() {
+        optsArea.removeChild(orow);
+        var i = optInputs.indexOf(oi); if (i >= 0) optInputs.splice(i, 1);
+      });
+      orow.appendChild(oi); orow.appendChild(odel);
+      optsArea.appendChild(orow);
+      optInputs.push(oi);
+    }
+    addQuickOptRow(''); addQuickOptRow('');
+
+    var addOptBtn = document.createElement('button');
+    addOptBtn.type = 'button'; addOptBtn.className = 'hr-row-addkid';
+    addOptBtn.textContent = '＋ 選択肢を追加';
+    addOptBtn.addEventListener('click', function() { addQuickOptRow(''); });
+    panel.appendChild(addOptBtn);
+
+    function syncOptsVisibility() {
+      var needsOpts = tSel.value !== 'text';
+      optsArea.style.display = needsOpts ? 'flex' : 'none';
+      addOptBtn.style.display = needsOpts ? '' : 'none';
+    }
+    tSel.addEventListener('change', syncOptsVisibility);
+    syncOptsVisibility();
+
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;gap:8px;justify-content:flex-end;margin-top:2px;';
+    var cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button'; cancelBtn.className = 'hr-row-addkid';
+    cancelBtn.textContent = 'キャンセル';
+    cancelBtn.addEventListener('click', function() { panel.parentNode.removeChild(panel); });
+    var okBtn = document.createElement('button');
+    okBtn.type = 'button';
+    okBtn.style.cssText = 'height:24px;padding:0 10px;border-radius:4px;border:none;'
+      + 'background:var(--accent,#3742fa);color:#fff;font-size:11px;cursor:pointer;font-family:inherit;';
+    okBtn.textContent = '作成して差し込む';
+    okBtn.addEventListener('click', function() {
+      var label = nameInp.value.trim();
+      if (!label) { toast('⚠️ 項目名を入力してください'); nameInp.focus(); return; }
+      var t = tSel.value;
+      var opts = [];
+      if (t !== 'text') {
+        optInputs.forEach(function(oi) {
+          var v = oi.value.trim();
+          if (v) opts.push({ l: v, v: v });
+        });
+        if (!opts.length) { toast('⚠️ 選択肢を1つ以上入力してください'); return; }
+      }
+      var newId = 'q_' + Math.random().toString(36).slice(2, 11);
+      var newQ = {
+        id: newId, field: newId, enabled: true, common: true, tplIds: [], tplId: '',
+        label: label, outLabel: '', outTpl: '', type: t, prefix: '', showIf: []
+      };
+      if (t !== 'text') newQ.options = opts;
+      if (t === 'toggle') newQ.multi = false;
+      var qs = _hrQuestionsGet();
+      if (qs.some(function(x) { return x.label === label; })) {
+        toast('⚠️ 同じ名前の項目がすでにあります。別の名前にしてください');
+        return;
+      }
+      _hrQuestionsSave(qs.concat([newQ])).then(function() {
+        logTa.focus();
+        var rg = document.createRange(); rg.selectNodeContents(logTa); rg.collapse(false);
+        var winSel = window.getSelection(); winSel.removeAllRanges(); winSel.addRange(rg);
+        document.execCommand('insertText', false, '{{' + label + '}}');
+        logTa.dispatchEvent(new Event('input'));
+        // 同じフォーム内の他の「差し込み」欄にも、いま作った項目を候補として反映する
+        document.querySelectorAll('.hr-ref-select').forEach(function(sel) {
+          var opt = document.createElement('option');
+          opt.value = label; opt.textContent = label;
+          sel.appendChild(opt);
+        });
+        panel.parentNode.removeChild(panel);
+        toast('✅ 「' + label + '」を追加し、差し込みました');
+      });
+    });
+    btnRow.appendChild(cancelBtn); btnRow.appendChild(okBtn);
+    panel.appendChild(btnRow);
+
+    refWrap.parentNode.insertBefore(panel, refWrap.nextSibling);
+    nameInp.focus();
+  }
+
   function _openInlineAddForm(container, editQ, opts) {
     var isEdit = !!editQ;
     // ログ作成補助の中に置く項目のときの、親の質問ID（編集のときは項目自身が持っている）
@@ -14914,14 +15048,21 @@ window.addEventListener('resize',function(){
           return x && x.label && x.type !== 'heading' && x.type !== 'spacer' && x.type !== 'log';
         });
         refSel.innerHTML = '<option value="">＋ 他の項目の回答を挿入…</option>' +
+          '<option value="__new__">＋ 新しい項目を作って差し込む…</option>' +
           refCandidates.map(function(x) {
             return '<option value="' + escHtml(x.label) + '">' + escHtml(x.label) + '</option>';
           }).join('');
         refSel.title = '選ぶと、この文章のカーソル位置（末尾）に「{{項目名}}」を入れます。'
-          + '出力するとき、その項目のいまの回答に置き換わります。';
+          + '出力するとき、その項目のいまの回答に置き換わります。'
+          + '「＋ 新しい項目を作って差し込む…」を選ぶと、プルダウン・ラジオ・チェックボックス・トグルなどをその場で作れます。';
         refSel.addEventListener('mousedown', function(e) { e.stopPropagation(); });
         refSel.addEventListener('change', function() {
           if (!refSel.value) return;
+          if (refSel.value === '__new__') {
+            refSel.value = '';
+            _hrOpenQuickRefForm(refWrap, logTa);
+            return;
+          }
           logTa.focus();
           var rg = document.createRange(); rg.selectNodeContents(logTa); rg.collapse(false);
           var winSel = window.getSelection(); winSel.removeAllRanges(); winSel.addRange(rg);
@@ -14930,8 +15071,7 @@ window.addEventListener('resize',function(){
           refSel.value = '';
         });
         refWrap.appendChild(refSel);
-        if (!refCandidates.length) refWrap.style.display = 'none';   // 差し込める項目がまだ無ければ隠す
-        r.appendChild(refWrap);
+        r.appendChild(refWrap);   // 「新しい項目を作って差し込む」があるので、既存の候補が無くても隠さない
       } else {
         r.appendChild(inp);
         if (det) r.appendChild(det);
