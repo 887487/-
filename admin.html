@@ -386,7 +386,7 @@
 .prev-hint{font-size:11px;color:var(--muted);}
 .page-admin .hr-spacer{height:22px;border:1px dashed var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;}
 .page-admin .hr-spacer::before{content:'ここに空白行が入ります';}
-.hr-row-child{margin-left:24px;border-left:3px solid var(--accent-lt,#dfe3ff);background:var(--surface2);}
+.hr-row-child{border-left:3px solid var(--accent-lt,#dfe3ff);background:var(--surface2);}   /* margin-left は深さに応じて行ごとに指定 */
 .hr-child-tag{display:inline-block;margin-right:6px;padding:0 6px;border-radius:8px;font-size:9px;font-weight:700;background:var(--accent-lt);color:var(--accent-text);vertical-align:middle;}
 .hr-tpl-edit{
   width:18px;height:18px;padding:0;line-height:1;
@@ -408,8 +408,8 @@
 /* 書式つき1行入力：空のときの案内文は1行に収める（長い案内で欄が2行になるのを防ぐ） */
 .hr-rt-line:empty::before{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 /* ヒアリングの書式バーでは、表・画像は使わない（本文は文字の装飾だけ） */
-.rt-bar-hearing [data-cmd="table"], .rt-bar-hearing [data-cmd="image"],
-.rt-bar-hearing .rt-merge{display:none !important;}
+.rt-bar-hearing [data-cmd="table"],
+.rt-bar-hearing .rt-merge{display:none !important;}   /* 表は対象外。画像はここでは隠さない（ヒアリングでも挿入できる） */
 .hr-row-actions{
   position:absolute; top:4px; right:6px;
   display:inline-flex; align-items:center; gap:4px;
@@ -2845,10 +2845,11 @@ function _hrPolicyPreviewText(item) {
 function _hrPolicySetRich(idx, el) {
   var html = window.hearingSanitizeHtml(el.innerHTML);
   var text = window.hearingHtmlToText(html);
+  var hasImg = /<img\b/i.test(html);
   var l = _hrPoliciesLoad() || [];
   if (!l[idx]) return;
   l[idx].policy = text;
-  if (text !== '' && /<(b|strong|i|em|u|s|strike|del|font|span)\b|text-align|&lt;|&gt;/i.test(html)) l[idx].policyHtml = html;
+  if ((text !== '' || hasImg) && /<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align|&lt;|&gt;/i.test(html)) l[idx].policyHtml = html;
   else delete l[idx].policyHtml;
   _hrPoliciesSave(l);
 }
@@ -4879,7 +4880,7 @@ function renderMailEditor(){
       </div>
       <div class="mail-field"><span class="mail-field-label"></span>
         <label class="rt-link" style="margin:0;">
-          <input type="checkbox" ${t.linkify !== false ? 'checked' : ''}
+          <input type="checkbox" ${t.linkify === true ? 'checked' : ''}
                  onchange="updMail('linkify',this.checked)">🔗 URLをリンクにする
         </label>
       </div>
@@ -4926,7 +4927,7 @@ function toggleMailEnabled(checked){
 }
 function renameMailCat(catKey,val){renameMailCatMeta(catKey,val);markDirty();}
 function renameMailSubCat(catKey,subKey,val){renameMailSubCatMeta(catKey,subKey,val);markDirty();}
-function addMailTemplate(catKey,subCatKey){const cat=getMailCats().find(c=>c.key===catKey);const sub=subCatKey?getMailSubCats(catKey).find(s=>s.key===subCatKey):null;const id='mail_'+Date.now();mailData.push({id,catKey,category:cat?cat.name:'',catColor:cat?cat.color:'#4361ee',subCatKey:subCatKey||null,subCategory:sub?sub.name:'',title:'新しいテンプレート',subject:'',body:'',note:'',enabled:true});saveAll();selectMailTemplate(id);setTimeout(()=>{const inp=document.querySelector('#mailEditorWrap .title-row input');if(inp){inp.focus();inp.select();}},60);}
+function addMailTemplate(catKey,subCatKey){const cat=getMailCats().find(c=>c.key===catKey);const sub=subCatKey?getMailSubCats(catKey).find(s=>s.key===subCatKey):null;const id='mail_'+Date.now();mailData.push({id,catKey,category:cat?cat.name:'',catColor:cat?cat.color:'#4361ee',subCatKey:subCatKey||null,subCategory:sub?sub.name:'',title:'新しいテンプレート',subject:'',body:'',note:'',enabled:true,linkify:false});saveAll();selectMailTemplate(id);setTimeout(()=>{const inp=document.querySelector('#mailEditorWrap .title-row input');if(inp){inp.focus();inp.select();}},60);}
 function deleteMailTemplate(id){const t=mailData.find(x=>x.id===id);if(!confirm(`「${t?t.title:'このテンプレート'}」を削除しますか？`))return;mailData=mailData.filter(x=>x.id!==id);if(mId===id){mId=null;showMailEmpty();}renderMailSidebar();}
 function deleteMailCat(catKey){initMailCatMeta();const cat=mailCatMeta.cats.find(c=>c.key===catKey);const count=mailData.filter(t=>t.catKey===catKey).length;const msg=count>0?`「${cat?cat.name:catKey}」には${count}件のテンプレートがあります。\nカテゴリごと削除しますか？`:`「${cat?cat.name:catKey}」を削除しますか？`;if(!confirm(msg))return;mailCatMeta.cats=mailCatMeta.cats.filter(c=>c.key!==catKey);delete mailCatMeta.subs[catKey];saveMailCatMeta();mailData=mailData.filter(t=>t.catKey!==catKey);if(!mailData.find(t=>t.id===mId)){mId=null;showMailEmpty();}saveAll();renderMailSidebar();toast('🗑 削除しました');}
 function deleteMailSubCat(catKey,subKey){initMailCatMeta();const sub=getMailSubCats(catKey).find(s=>s.key===subKey);const count=mailData.filter(t=>t.catKey===catKey&&t.subCatKey===subKey).length;if(!confirm(`「${sub?sub.name:subKey}」を削除しますか？\n（${count}件のテンプレートも削除されます）`))return;if(mailCatMeta.subs[catKey])mailCatMeta.subs[catKey]=mailCatMeta.subs[catKey].filter(s=>s.key!==subKey);saveMailCatMeta();mailData=mailData.filter(t=>!(t.catKey===catKey&&t.subCatKey===subKey));if(!mailData.find(t=>t.id===mId)){mId=null;showMailEmpty();}saveAll();renderMailSidebar();toast('🗑 削除しました');}
@@ -14168,13 +14169,15 @@ window.addEventListener('resize',function(){
   // 書式バーで太字・色などを付けられる 1 行の入力欄。input と同じように .value / .placeholder / focus() を使える。
   // 保存は plain な文字列（従来どおり）に加え、書式を付けたときだけ HTML も別に持つ。
   function _hrRichHasFmt(html) {
-    return /<(b|strong|i|em|u|s|strike|del|font|span)\b|text-align|&lt;|&gt;/i.test(html || '');
+    return /<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align|&lt;|&gt;/i.test(html || '');
   }
-  /** 編集欄の中身を { text（plain）, html（書式があるときだけ）} で返す */
+  /** 編集欄の中身を { text（plain）, html（書式・画像があるときだけ）} で返す */
   function _hrReadRich(el) {
     var html = window.hearingSanitizeHtml(el.innerHTML);
     var text = window.hearingHtmlToText(html);
-    return { text: text, html: (text !== '' && _hrRichHasFmt(html)) ? html : '' };
+    // 画像だけを入れた場合、文字は空になるが html は残す（画像そのものが内容なので）
+    var hasImg = /<img\b/i.test(html);
+    return { text: text, html: ((text !== '' || hasImg) && _hrRichHasFmt(html)) ? html : '' };
   }
   function _hrMkRichLine(placeholder, css) {
     var d = document.createElement('div');
@@ -14459,6 +14462,14 @@ window.addEventListener('resize',function(){
    * 対応方針やパターンがその質問を条件に使っている場合は、
    * 消すと判定が壊れるため件数を示して確認する。
    */
+  /** qId の中に置かれた項目を、何段の入れ子でもすべて集める */
+  function _hrDescendants(all, qId) {
+    var direct = all.filter(function(x) { return x && x.parentId === qId; });
+    var res = direct.slice();
+    direct.forEach(function(x) { res = res.concat(_hrDescendants(all, x.id)); });
+    return res;
+  }
+
   function _hrDeleteQuestion(qId, label) {
     var all = _hrQuestionsGet();
     var me  = all.find(function(x) { return x.id === qId; });
@@ -14483,9 +14494,9 @@ window.addEventListener('resize',function(){
       });
     });
 
-    var kids = all.filter(function(x) { return x && x.parentId === qId; });
+    var kids = _hrDescendants(all, qId);
     var msg = '質問「' + label + '」を削除しますか？\n\n入力済みの回答も表示されなくなります。';
-    if (kids.length) msg += '\n\nログ作成補助の中にある項目 ' + kids.length + ' 件（'
+    if (kids.length) msg += '\n\n中に置かれた項目 ' + kids.length + ' 件（'
       + kids.slice(0, 3).map(function(x) { return x.label; }).join('、') + (kids.length > 3 ? ' ほか' : '') + '）も一緒に削除されます。';
     if (dependents.length) {
       msg += '\n\n⚠️ この質問を「表示条件」にしている項目が ' + dependents.length + ' 件あります。'
@@ -14502,9 +14513,10 @@ window.addEventListener('resize',function(){
     }
     if (!confirm(msg)) return;
 
-    var qs = all.filter(function(x) { return x.id !== qId && x.parentId !== qId; });
+    var goneIds = {}; goneIds[qId] = 1; kids.forEach(function(x) { goneIds[x.id] = 1; });
+    var qs = all.filter(function(x) { return !goneIds[x.id]; });
     _hrQuestionsSave(qs);
-    // 入力済みの回答も片付ける（中の項目の分も）
+    // 入力済みの回答も片付ける（中の項目の分も、何段の入れ子でも）
     try {
       var gone = [qId].concat(kids.map(function(x) { return x.field || x.id; }));
       var dirty = false;
@@ -14594,8 +14606,10 @@ window.addEventListener('resize',function(){
 
     var title = document.createElement('div');
     title.style.cssText = 'font-size:12px;font-weight:700;color:var(--accent-text);';
+    var parentQ = parentId ? _hrQuestionsGet().find(function(x) { return x.id === parentId; }) : null;
+    var parentTag = parentQ ? (parentQ.type === 'log' ? 'ログ作成補助' : ('「' + (parentQ.label || '') + '」')) : '';
     title.textContent = parentId
-      ? (isEdit ? '✏️ 「' + (editQ.label || '') + '」を編集（ログ作成補助の中の項目）' : '＋ ログ作成補助の中に項目を追加')
+      ? (isEdit ? '✏️ 「' + (editQ.label || '') + '」を編集（' + parentTag + 'の中の項目）' : '＋ ' + parentTag + 'の中に項目を追加')
       : isEdit
       ? (editQ.type === 'log' ? '✏️ ログ作成補助を編集' : (editQ.type === 'spacer' ? '✏️ 空白行を編集' : '✏️ 「' + (editQ.label || '') + '」を編集'))
       : '＋ 新しい質問を追加';
@@ -15158,8 +15172,9 @@ window.addEventListener('resize',function(){
           if (lg) {
             var lgHtml = window.hearingSanitizeHtml(lg.innerHTML);
             var lgText = window.hearingHtmlToText(lgHtml);
+            var lgHasImg = /<img\b/i.test(lgHtml);
             if (lgText !== '') o.text = lgText;
-            if (/<(b|strong|i|em|u|s|strike|del|font|span)\b|text-align/i.test(lgHtml) && lgText !== '') o.textHtml = lgHtml;
+            if (/<(b|strong|i|em|u|s|strike|del|font|span|img)\b|text-align/i.test(lgHtml) && (lgText !== '' || lgHasImg)) o.textHtml = lgHtml;
           }
           // 選ぶとテキストボックスが出る選択肢
           var mInp = inp.parentNode.querySelector('[data-role="optmanual"]');
@@ -15200,11 +15215,13 @@ window.addEventListener('resize',function(){
       }
 
       var qs = _hrQuestionsGet();
-      // ログ作成補助でなくなる場合、中に置いていた項目は独立した項目に戻す（消さない）
-      if (isEdit && editQ.type === 'log' && t !== 'log') {
+      // 見出し・空白行は中に項目を持てないので、変更前に中へ置いていた項目は
+      // （何段の入れ子でも）独立した項目に戻す（消さない）
+      if (isEdit && (t === 'heading' || t === 'spacer')) {
+        var freedIds = _hrDescendants(qs, editQ.id).map(function(x) { return x.id; });
         var freed = 0;
-        qs.forEach(function(x) { if (x.parentId === editQ.id) { delete x.parentId; freed++; } });
-        if (freed) toast('ℹ️ ログ作成補助の中にあった ' + freed + ' 件の項目は、独立した項目になりました');
+        qs.forEach(function(x) { if (freedIds.indexOf(x.id) >= 0 && x.parentId) { delete x.parentId; freed++; } });
+        if (freed) toast('ℹ️ 中にあった ' + freed + ' 件の項目は、独立した項目になりました');
       }
       if (isEdit) {
         var ei = qs.findIndex(function(x) { return x.id === newQ.id; });
@@ -15343,13 +15360,14 @@ window.addEventListener('resize',function(){
         _openInlineAddForm(area, cur);
         if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
-      // ログ作成補助には、中に項目（記述・選択など）を追加するボタンを出す
-      if (q.type === 'log') {
+      // どの種類の項目にも、中に項目（記述・選択など）を追加するボタンを出す
+      // （見出し・空白行・メモは中を持てないので出さない。中の項目自身も、さらに中に置ける）
+      if (q.type !== 'heading' && q.type !== 'spacer' && !undeletable) {
         var addKid = document.createElement('button');
         addKid.type = 'button';
         addKid.textContent = '＋ 項目';
         addKid.className = 'hr-row-addkid';   // 見た目は編集ボタンと同じ（.hr-row-edit とは別のクラス）
-        addKid.title = 'ログ作成補助の中に、記述・選択などの項目を追加';
+        addKid.title = 'この項目の中に、記述・選択などの項目を追加';
         addKid.addEventListener('click', function(e) {
           e.stopPropagation();
           var area = document.getElementById('hrRowEditArea');
@@ -15359,11 +15377,17 @@ window.addEventListener('resize',function(){
           // 親の行の直下（すでに中の項目があれば、その最後の下）に出す
           var anchor = rowEl;
           var all = _hrQuestionsGet();
-          all.forEach(function(x) {
-            if (x.parentId !== qId) return;
-            var r = rowEl.parentNode.querySelector('.hr-row[data-q-id="' + x.id + '"]');
-            if (r) anchor = r;
-          });
+          // 直下の子だけでなく、その子の中の項目（孫・ひ孫…）まで探し、
+          // いちばん最後（末尾）の子孫の直後に置く
+          (function() {
+            var stack = all.filter(function(x) { return x.parentId === qId; }).map(function(x) { return x.id; });
+            while (stack.length) {
+              var nid = stack.shift();
+              var r = rowEl.parentNode.querySelector('.hr-row[data-q-id="' + nid + '"]');
+              if (r) anchor = r;
+              all.filter(function(x) { return x.parentId === nid; }).forEach(function(x) { stack.push(x.id); });
+            }
+          })();
           anchor.parentNode.insertBefore(area, anchor.nextSibling);
           _openInlineAddForm(area, null, { parentId: qId });
           if (area.scrollIntoView) area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -15647,19 +15671,23 @@ window.addEventListener('resize',function(){
       // 条件の参照先は、表示していない（別テンプレートの）項目も含めて探す
       qsAll.forEach(function(x) { if (x) allFields[x.field || x.id] = 1; });
 
-      // ログ作成補助の中の項目は、親の行のすぐ下に並べる（ツール画面では親の中に出る）
-      var ordered = [];
-      qs.forEach(function(q) {
-        if (q.parentId) return;
-        ordered.push(q);
-        if (q.type === 'log') qs.forEach(function(k) { if (k.parentId === q.id) ordered.push(k); });
-      });
+      // 中に置いた項目（記述・選択など）は、親の行のすぐ下に並べる（ツール画面では親の中に出る）。
+      // 中の項目がさらに中の項目を持つ「入れ子の入れ子」にも対応するため、
+      // 親→子→孫…の順に、深さ優先でたどって並びを作る（depth はインデントに使う）。
+      var childrenOf = {};
+      qs.forEach(function(q) { if (q.parentId) (childrenOf[q.parentId] = childrenOf[q.parentId] || []).push(q); });
+      var ordered = [], depthOf = {};
+      var addWithChildren = function(q, depth) {
+        ordered.push(q); depthOf[q.id] = depth;
+        (childrenOf[q.id] || []).forEach(function(k) { addWithChildren(k, depth + 1); });
+      };
+      qs.forEach(function(q) { if (!q.parentId) addWithChildren(q, 0); });
       var hiddenParents = {};
 
       ordered.forEach(function(q) {
         if (!q.enabled) return;
         var hiddenBy = '';
-        if (q.parentId && hiddenParents[q.parentId]) { hiddenBy = 'ログ作成補助が非表示のため非表示'; }
+        if (q.parentId && hiddenParents[q.parentId]) { hiddenBy = '親の項目が非表示のため非表示'; }
         else if (q.id in patternOverrides) {
           if (!patternOverrides[q.id]) hiddenBy = 'パターンにより非表示';
         } else if (typeof window._hrEvalShowIf === 'function' && !window._hrEvalShowIf(q.showIf, s)) {
@@ -15674,7 +15702,8 @@ window.addEventListener('resize',function(){
             ? '条件の参照先がありません（' + missing.join(', ') + '）'
             : '条件により非表示';
         }
-        if (hiddenBy && !q.parentId) hiddenParents[q.id] = true;
+        // 何段の入れ子でも、自分が非表示になったら、そのまた中の項目にも伝える
+        if (hiddenBy) hiddenParents[q.id] = true;
         if (hiddenBy && !showHidden) return;
 
         // 選択肢そのものを編集できる型だけ専用の描画。それ以外は共通の描画を使う
@@ -15690,7 +15719,10 @@ window.addEventListener('resize',function(){
           content = m ? m[1] : '';
         }
         // data-q-id を行に付与
+        // 深さに応じて字下げを重ねる（親→子→孫…）
+        var depth = depthOf[q.id] || 0;
         var rowHtml = '<div class="hr-row' + (q.parentId ? ' hr-row-child' : '') + (hiddenBy ? ' hr-row-cond-hidden' : '') + '"' +
+             (q.parentId ? ' style="margin-left:' + (24 * depth) + 'px"' : '') +
              ' data-q-id="' + escHtml(q.id) + '"' +
              (hiddenBy ? ' data-hidden-by="' + escHtml(hiddenBy) + '"' : '') + '>' +
              '<div class="hr-label">' +

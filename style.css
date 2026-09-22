@@ -499,7 +499,13 @@ th { background:var(--bg); }
   display:flex;flex-direction:column;gap:6px;
   padding:8px 10px;margin-bottom:10px;
   background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  /* テンプレートは縦5項目ぶんまで表示し、それより多いときはこの枠内だけでスクロールする
+     （28px のボタン5個＋その間の gap 6px×4＋上下パディング16px） */
+  max-height:calc(28px * 5 + 6px * 4 + 16px);
+  overflow-y:auto;overflow-x:hidden;
+  overscroll-behavior:contain;   /* 枠内のスクロールが端に達しても、ページ全体はスクロールさせない */
 }
+.hr-tpl-bar .hr-tpl-wrap, .hr-tpl-bar > .hr-tpl-btn{ flex:0 0 auto; }   /* スクロール時にボタンが縮まないようにする */
 .hr-tpl-btn{
   height:28px;padding:0 14px;font-size:12px;font-weight:600;font-family:inherit;
   color:var(--text);background:var(--surface);

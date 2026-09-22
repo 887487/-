@@ -3466,15 +3466,25 @@ window.toggleHearingTemplate = function(id) {
 window.filterQuestionsByTemplate = function(list) {
   var cur = window.getCurrentTemplate();
   var lst = list || [];
+  var byId = {};
+  lst.forEach(function(q) { if (q) byId[q.id] = q; });
   var ok = function(q) {
     var ids = window.getQuestionTplIds(q);
-    if (!ids.length) return true;       // 共通・未設定は従来どおり常に表示
+    if (!ids.length) return true;       // 共通・未設定は常に表示
     return ids.indexOf(cur) >= 0;
   };
-  // ログ作成補助の中の項目（parentId を持つ）は、親が表示されるときだけ表示する
-  var shown = {};
-  lst.forEach(function(q) { if (q && !q.parentId && ok(q)) shown[q.id] = true; });
-  return lst.filter(function(q) { return q.parentId ? !!shown[q.parentId] : ok(q); });
+  // 入れ子（親→子→孫…）は、自分の条件に加えて、親もすべて表示されるときだけ表示する。
+  // 何段ネストしても対応できるよう、親をたどって再帰的に判定する。
+  var memo = {};
+  var visible = function(q) {
+    if (!q) return false;
+    if (Object.prototype.hasOwnProperty.call(memo, q.id)) return memo[q.id];
+    memo[q.id] = false;   // 循環参照が万一あっても無限ループにしない
+    var v = ok(q) && (q.parentId ? visible(byId[q.parentId]) : true);
+    memo[q.id] = v;
+    return v;
+  };
+  return lst.filter(visible);
 };
 
 /**
@@ -4294,10 +4304,13 @@ window.getHearingPrefix = function (q) {
 // 本文は plain な text（従来どおり。出力・コピーの基本）に加えて、
 // 書式を付けたときだけ textHtml（許可したタグだけに絞った HTML）を持つ。
 
-var _HR_OK_TAGS  = { B:1, STRONG:1, I:1, EM:1, U:1, S:1, STRIKE:1, DEL:1, BR:1, DIV:1, P:1, SPAN:1, FONT:1 };
+var _HR_OK_TAGS  = { B:1, STRONG:1, I:1, EM:1, U:1, S:1, STRIKE:1, DEL:1, BR:1, DIV:1, P:1, SPAN:1, FONT:1, IMG:1 };
 var _HR_OK_STYLE = { 'color':1, 'font-weight':1, 'font-style':1, 'text-decoration':1, 'text-decoration-line':1, 'text-align':1 };
+// 画像は data: URL（base64）だけを許可する（外部 URL は読み込ませない）。サイズにも上限を設ける。
+var _HR_IMG_SRC_RE = /^data:image\/(png|jpe?g|gif|webp);base64,/i;
+var _HR_IMG_MAX_LEN = 3000000;   // だいたい 2MB 程度の画像まで（base64 化で文字数は約 4/3 倍になる）
 
-/** 貼り付けなどで紛れ込んだ不要なタグ・属性を取り除く（許可するのは文字の装飾だけ） */
+/** 貼り付けなどで紛れ込んだ不要なタグ・属性を取り除く（許可するのは文字の装飾と、data: 画像だけ） */
 window.hearingSanitizeHtml = function (html) {
   var doc = new DOMParser().parseFromString('<body>' + String(html == null ? '' : html) + '</body>', 'text/html');
   var walk = function (node) {
@@ -4306,6 +4319,15 @@ window.hearingSanitizeHtml = function (html) {
       if (ch.nodeType !== 1) { node.removeChild(ch); return; }
       var tag = ch.tagName;
       if (tag === 'SCRIPT' || tag === 'STYLE') { node.removeChild(ch); return; }
+      if (tag === 'IMG') {
+        var src = ch.getAttribute('src') || '';
+        if (!_HR_IMG_SRC_RE.test(src) || src.length > _HR_IMG_MAX_LEN) { node.removeChild(ch); return; }
+        Array.prototype.slice.call(ch.attributes).forEach(function (a) { ch.removeAttribute(a.name); });
+        ch.setAttribute('src', src);
+        ch.setAttribute('alt', '');
+        ch.setAttribute('style', 'max-width:100%;height:auto;');
+        return;
+      }
       walk(ch);
       if (!_HR_OK_TAGS[tag]) {                       // 許可外のタグは中身だけ残す
         while (ch.firstChild) node.insertBefore(ch.firstChild, ch);
@@ -4757,7 +4779,28 @@ window.setHearingSelect = function (field, value) {
 };
 
 /** 1つのヒアリング項目の HTML（画面用）。組み込み項目もここを通る */
+/**
+ * 項目1つぶんの HTML（種類ごとの内容は _hearingItemHTMLRaw が作る）。
+ * ここでは、その項目の中に置かれた項目（子）があれば、続けて描き足す。
+ * ログ作成補助に限らず、記述・選択などどの種類の項目も子を持てる
+ * （子がさらに子を持つ「入れ子の入れ子」にも、再帰なので何段でも対応する）。
+ * 管理画面のプレビューは、行ごとに別々に描くため、ここでは何もしない。
+ */
 window.hearingItemHTML = function (q, s) {
+  var raw = _hearingItemHTMLRaw(q, s);
+  if (!raw || q.type === 'spacer' || q.type === 'heading') return raw;
+  if (document.body && document.body.classList.contains('page-admin')) return raw;
+  var kids = window.hearingChildItems(q, s);
+  if (!kids.length) return raw;
+  var kidsHtml = kids.map(function (k) { return window.hearingItemHTML(k, s); }).join('');
+  var wrapClass = (q.type === 'log') ? 'hr-log-children' : 'hr-nested-children';
+  var injected = '<div class="' + wrapClass + '">' + kidsHtml + '</div>';
+  // .hr-btns の閉じタグの直前に差し込む（末尾は必ず </div></div> = hr-btns → hr-row の順で閉じる）
+  var idx = raw.lastIndexOf('</div></div>');
+  return (idx < 0) ? (raw + injected) : (raw.slice(0, idx) + injected + raw.slice(idx));
+};
+
+function _hearingItemHTMLRaw(q, s) {
   var fld = q.field || q.id;
   var pf  = window.getHearingPrefix(q);
 
@@ -4793,14 +4836,9 @@ window.hearingItemHTML = function (q, s) {
         + window.hrOptHtmlEsc(o, v) + '</button>';
     }).join('');
     // ログ作成補助は項目名を出さず、ボタンだけを縦に並べる。
-    // 中に置いた項目（記述・選択など）は、ボタンの下に続けて出す。
-    var kidsHtml = '';
-    if (!(document.body && document.body.classList.contains('page-admin'))) {
-      kidsHtml = window.hearingChildItems(q, s).map(function (k) { return window.hearingItemHTML(k, s); }).join('');
-    }
+    // 中に置いた項目（記述・選択など）は、下の共通処理でボタンの下に続けて出す。
     return '<div class="hr-row hr-log-row"><div class="hr-btns">'
       + '<div class="hr-log-group">' + btns + '</div>'
-      + (kidsHtml ? '<div class="hr-log-children">' + kidsHtml + '</div>' : '')
       + '</div></div>';
   }
   if (q.type === 'checkbox') {
@@ -4838,7 +4876,7 @@ window.hearingItemHTML = function (q, s) {
       : '<input type="text" class="hr-text-input" data-hr-field="' + escHtml(fld) + '" placeholder="' + ph + '" value="' + escHtml(s[fld] || '') + '" oninput="setHearingInput(\'' + fld + '\',this.value)">') + clearBtn, '', pf);
   }
   return '';
-};
+}
 
 // opts: {title, mistakeField, spamField, permField, permLabel}
 // メール受信なしの確認項目は管理画面の質問で作れるため、専用の描画は廃止した。
@@ -5482,13 +5520,15 @@ function buildHearingLines(s) {
       var logFld = q.field || q.id;
       var picked = s[logFld];
       picked = Array.isArray(picked) ? picked : (picked ? [picked] : []);
-      // ログの中に置いた項目（記述・選択など）の出力。ボタンの文章のあとに続ける
+      // ログの中に置いた項目（記述・選択など）の出力。ボタンの文章のあとに続ける。
+      // 中の項目がさらに中の項目を持つ場合も、emitWithChildren が続けて出力する。
       var kidItems = [];
       qs.forEach(function (k) {
         if (k.parentId !== q.id || k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return;
-        emit(k, kidItems);
+        emitWithChildren(k, kidItems);
       });
       if (!picked.length && !kidItems.length) return;
+
       var opts = window.getHearingOptions(q);
       var order = opts.map(function (o) { return o.v || o.l; });
       var htmlBlocks = [], hasRich = false;
@@ -5601,9 +5641,24 @@ function buildHearingLines(s) {
     }, _hrRichParts(q)));
   };
 
-  qs.forEach(function (q) {
-    if (q.parentId) return;    // ログ作成補助の中の項目は、親の出力にまとめる
+  /**
+   * 項目1つぶんを出力し、続けてその中の項目（子）も出力する。
+   * ログ作成補助は、子の出力を自分の1行にまとめる（emit の中で処理済み）。
+   * それ以外の種類は、子を「項目名：値」の別の行として、自分の行のすぐあとに続ける。
+   * 子がさらに子を持っていても、再帰で続けて出力される（何段の入れ子でも対応）。
+   */
+  var emitWithChildren = function (q, out) {
     emit(q, out);
+    if (q.type === 'log') return;   // ログは自分の emit の中で子をまとめ済み
+    qs.forEach(function (k) {
+      if (k.parentId !== q.id || k.type === 'heading' || k.type === 'log' || k.type === 'spacer') return;
+      emitWithChildren(k, out);
+    });
+  };
+
+  qs.forEach(function (q) {
+    if (q.parentId) return;    // 中の項目は、親の出力（emitWithChildren の再帰）でまとめて出す
+    emitWithChildren(q, out);
   });
 
   // ── 対応方針 ──
@@ -5826,8 +5881,8 @@ document.addEventListener('keydown', function (e) {
     '.hr-row .hr-btns > div > .hr-text-input { width:100%; box-sizing:border-box; }' +
     '.hr-log-group { display:flex; flex-direction:column; align-items:flex-start; gap:6px; }' +
     // ログ作成補助の中の項目：ボタンの下に、左に線を引いて続ける
-    '.hr-log-children { display:flex; flex-direction:column; gap:4px; margin-top:6px; padding:4px 0 2px 10px; border-left:3px solid var(--accent-lt,#dfe3ff); }' +
-    '.hr-log-children > .hr-row { padding:4px 0 !important; border:none !important; background:none !important; }' +
+    '.hr-log-children, .hr-nested-children { display:flex; flex-direction:column; gap:4px; margin-top:6px; padding:4px 0 2px 10px; border-left:3px solid var(--accent-lt,#dfe3ff); }' +
+    '.hr-log-children > .hr-row, .hr-nested-children > .hr-row { padding:4px 0 !important; border:none !important; background:none !important; }' +
     // 空白行：枠も余白も持たない、ただの空き
     '.hr-spacer-row { padding:0 !important; border:none !important; background:none !important; min-height:0 !important; box-shadow:none !important; }' +
     '.hr-spacer { height:14px; }' +

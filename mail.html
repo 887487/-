@@ -461,7 +461,7 @@ function showDetail(id) {
         <div>
           <div class="field-label">本文</div>
           <div class="body-wrap">
-            <div class="body-text" data-linkify="${t.linkify === false ? '0' : '1'}">${
+            <div class="body-text" data-linkify="${t.linkify === true ? '1' : '0'}">${
               t.bodyHtml ? sanitizeMail(t.bodyHtml) : escHtml(t.body||'')
             }</div>
           </div>
